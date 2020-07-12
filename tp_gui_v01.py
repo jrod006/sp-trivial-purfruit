@@ -2,6 +2,8 @@ from PIL import ImageTk, Image
 from tkinter import Label, Entry, StringVar, font
 import tkinter as tk
 import os
+import tp_settings as tpset
+import tp_game as tpgame
 
 class TrivialPurfruit:
 
@@ -37,13 +39,16 @@ class TrivialPurfruit:
 		self.settings.grid(sticky = 'EW')
 
 	def newGameSettings(self):
-
 		print('Open window for new game settings')
+		tpgame.testGame()
 
 
 	def programSettings(self):
 
 		print('Open window for program settings')
+                #For Skeletal demo just run the settings demo to show the connectivity/Auth
+		tpset.testSettings()
+                
 
 	def gameBoard(self):
 
