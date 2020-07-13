@@ -1,6 +1,8 @@
 import tp_settings
 import tp_player
-
+import tp_gameUI
+import tp_startScreen
+import time
 
 class Game:
 
@@ -8,25 +10,25 @@ class Game:
         print("GAME INIT")
         #Init global UI/objects here
         self.players = []
+        self.UI = tp_gameUI.GameUI()
+        self.startScreen = tp_startScreen.StartScreen(self)
 
 
     def processTurn(self):
         print('DOING A TURN')
         self.players[0].addChip(1)
+        self.showUI()
+        time.sleep(2)
         
         
 
     def showUI(self):
-        print("DISPLAY GAME UI")
         # Text based State UI for now
-        for player in self.players:
-            print("Player" + str(player.id))
-            print(player.chips)
+        self.UI.updateUI("BLAH", self.players)
+        
         
     def displayStartupScreen(self):
-        print("SHOWING STARTUP SCREEN EDIT/CONFIRM SETTINGS HERE")
-        print(self.currentSettings)
-        input("PRESS ENTER TO CONFIRM SETTINGS")
+        self.startScreen.show()
         self.startGame()
 
     def startGame(self):
@@ -37,16 +39,11 @@ class Game:
             self.players.append(tp_player.Player(i))
         for j in range(4):
             self.processTurn()
-            self.showUI()
+            
             
     def run(self):
         #Load Settings
-        settings = tp_settings.Settings()
-        self.currentSettings = settings.getSettings()
-        self.displayStartupScreen()
-        
-
-        
+        self.displayStartupScreen()  
         
         
 
