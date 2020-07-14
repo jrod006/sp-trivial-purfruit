@@ -37,8 +37,6 @@ class Settings:
 
         # DB module get all questions
         print('ALL QUESTIONS')
-        # self.df = pd.read_csv('./res/trivial_purfruit_questions.csv')
-        # print(self.df.to_string())
         Database.getQuestions(self)
 
 
