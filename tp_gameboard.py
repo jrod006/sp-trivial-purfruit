@@ -41,4 +41,6 @@ class TrivialPurfruitGameBoard:
 
 	def game_simulation(self):
 
-		tp_game.Game()
+		game = tp_game.Game()
+		game.run()
+                
