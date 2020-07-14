@@ -20,7 +20,7 @@ class Game:
         print('DOING A TURN')
         print('ROLL DICE: ')
         DiceRoll.rollDice(self)
-        tp_question.QuestionGenerator().askQuestion()
+        tp_question.QuestionGenerator().retrieveQA()
         self.players[0].addChip(1)
         self.showUI()
         time.sleep(2)
