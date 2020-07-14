@@ -17,7 +17,7 @@ class Game:
 
     def processTurn(self):
         print('DOING A TURN')
-        tp_question.QuestionGenerator()
+        tp_question.QuestionGenerator().askQuestion()
         self.players[0].addChip(1)
         self.showUI()
         time.sleep(2)

@@ -3,6 +3,8 @@ from tkinter import Label, Entry, StringVar, font
 import tkinter as tk
 import tp_gameboard
 import tp_gamesettings
+import tp_game
+import tp_settings
 import os
 
 class TrivialPurfruitMain:
@@ -25,7 +27,7 @@ class TrivialPurfruitMain:
 		self.infolabel.grid()
 
 		# add image for main screen
-		self.img = Image.open('/Users/jacobrodriguez/Documents/johns_hopkins/coursework/eng.605.601.83/project/continental_congress.jpeg')
+		self.img = Image.open('res/continental_congress.jpeg')
 		self.photo = ImageTk.PhotoImage(self.img)
 		self.congress_img = Label(image = self.photo)
 		self.congress_img.grid()
@@ -45,11 +47,14 @@ class TrivialPurfruitMain:
 	def createNewGameSettings(self):
 
 		print('Open window for new game settings')
-		game_window = tp_gamesettings.createNewGameSettings()
+		#game_window = tp_gamesettings.createNewGameSettings() Skipping this for now
+		game_window = tp_gameboard.TrivialPurfruitGameBoard()
+		
 
 	def programSettings(self):
 
 		print('Open window for program settings')
+		tp_settings.testSettings()
 
 	def gameBoard(self):
 
