@@ -1,4 +1,3 @@
-import tp_database
 import pandas as pd
 import os
 
