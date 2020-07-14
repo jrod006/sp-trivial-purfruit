@@ -2,6 +2,7 @@ import tp_settings
 import tp_player
 import tp_gameUI
 import tp_startScreen
+import tp_question
 import time
 
 class Game:
@@ -16,6 +17,7 @@ class Game:
 
     def processTurn(self):
         print('DOING A TURN')
+        tp_question.QuestionGenerator()
         self.players[0].addChip(1)
         self.showUI()
         time.sleep(2)
