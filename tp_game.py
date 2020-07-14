@@ -3,6 +3,7 @@ import tp_player
 import tp_gameUI
 import tp_startScreen
 import tp_question
+from tp_diceroll import DiceRoll
 import time
 
 class Game:
@@ -17,6 +18,8 @@ class Game:
 
     def processTurn(self):
         print('DOING A TURN')
+        print('ROLL DICE: ')
+        DiceRoll.rollDice(self)
         tp_question.QuestionGenerator().askQuestion()
         self.players[0].addChip(1)
         self.showUI()
