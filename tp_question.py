@@ -1,3 +1,4 @@
+from tp_database import Database
 import pandas as pd
 import os
 
@@ -9,26 +10,15 @@ class QuestionGenerator:
                 self.colors = list(set(self.df['color'].tolist()))
                 self.categories = {'White': 'Events','Blue': 'Places','Green': 'Independence Day','Red': 'People'}
 
-        def askQuestion(self):
+        def retrieveQA(self):
+
                 self.color = input('Enter color to determine question category: ')
-                if self.color in self.colors:
-                        print('================================')
-                        print('Category:', self.categories[self.color])
-                        self.question_df = self.df[self.df['color'] == self.color].copy()
-                        self.loadQA(self.question_df)
-                else:
-                        print('Invalid entry, try again')
-
-        def loadQA(self, df):
-
-                self.random_row = df.sample(n = 1)
-                self.question = self.random_row.iloc[0]['question']
-                self.answer = self.random_row.iloc[0]['answer']
-                print('Question:', self.question)
-                print('Answer:', self.answer)
+                self.ques, self.ans = Database.retrieveQuesAns(self, self.color)
+                print('Question: ', self.ques)
+                print('Answer: ', self.ans)
 
 if __name__ == "__main__":
        
         QG = QuestionGenerator()
-        QG.askQuestion()
+        QG.retrieveQA()
                 
