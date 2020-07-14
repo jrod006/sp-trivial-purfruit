@@ -1,3 +1,5 @@
+from tp_database import Database
+import tp_database
 import pandas as pd
 import json
 import os
@@ -32,10 +34,12 @@ class Settings:
             return False
 
     def getQuestions(self):
+
         # DB module get all questions
         print('ALL QUESTIONS')
-        self.df = pd.read_csv('./res/trivial_purfruit_questions.csv')
-        print(self.df.to_string())
+        # self.df = pd.read_csv('./res/trivial_purfruit_questions.csv')
+        # print(self.df.to_string())
+        Database.getQuestions(self)
 
 
 
