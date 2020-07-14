@@ -14,12 +14,7 @@ class Database:
                         'Red': 'People'
                     }
         
-        self.getQuestions()
-        self.addQuestion()
-        self.getQuestions()
-        self.deleteQuestion()
-        self.modifyQuestion()
-
+        
     def addQuestion(self):
 
         print('Add new question to database')
@@ -69,7 +64,14 @@ class Database:
         print('VIEW ALL QUESTIONS:')
         self.df = pd.read_csv('./res/trivial_purfruit_questions.csv')
         print(self.df.to_string())
+        return self.df.to_string()
 
 if __name__ == "__main__":
 
-    Database()
+    db = Database()
+    db.getQuestions()
+    db.addQuestion()
+    db.getQuestions()
+    db.deleteQuestion()
+    db.modifyQuestion()
+
