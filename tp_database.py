@@ -7,13 +7,14 @@ class Database:
     def __init__(self):
 
         print('INIT DATABASE ACCESS')
+        self.df = pd.read_csv('./res/trivial_purfruit_questions.csv')
         self.categories = {
                         'White': 'Events',
                         'Blue': 'Places',
                         'Green': 'Independence Day',
                         'Red': 'People'
                     }
-        
+        self.colors = list(set(self.df['color'].tolist()))
         
     def addQuestion(self):
 
@@ -55,7 +56,7 @@ class Database:
         print(self.new_content)
         self.confirm = input('Confirm YES or NO: ')
         if self.confirm == 'YES':
-            print('Updated existing ' + self.change + 'with:')
+            print('Updated existing ' + self.change + ' with:')
             print(self.new_content)
 
     def getQuestions(self):
@@ -66,6 +67,22 @@ class Database:
         print(self.df.to_string())
         return self.df.to_string()
 
+    def retrieveQuesAns(self, color):
+
+        self.color = color
+        print('Retrieve question and answer for gameplay')      
+        if self.color in self.colors:
+                print('================================')
+                print('Category:', self.categories[self.color])
+                self.question_df = self.df[self.df['color'] == self.color].copy()
+        else:
+                print('Invalid entry, try again')
+        self.random_row = self.question_df.sample(n = 1)
+        self.question = self.random_row.iloc[0]['question']
+        self.answer = self.random_row.iloc[0]['answer']
+
+        return self.question, self.answer
+
 if __name__ == "__main__":
 
     db = Database()
@@ -74,4 +91,7 @@ if __name__ == "__main__":
     db.getQuestions()
     db.deleteQuestion()
     db.modifyQuestion()
+    ques, ans = db.retrieveQuesAns('Red')
+    print('Question:', ques)
+    print('Answer:', ans)
 
