@@ -1,3 +1,4 @@
+import pandas as pd
 import json
 import os
 
@@ -33,6 +34,8 @@ class Settings:
     def getQuestions(self):
         # DB module get all questions
         print('ALL QUESTIONS')
+        self.df = pd.read_csv('./res/trivial_purfruit_questions.csv')
+        print(self.df.to_string())
 
 
 
