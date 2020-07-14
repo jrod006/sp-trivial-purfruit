@@ -21,7 +21,7 @@ class TrivialPurfruitGameBoard:
 		self.game_title.grid(column = 0)
 
 		# add image for main screen
-		self.tp_img = Image.open('/Users/jacobrodriguez/Documents/johns_hopkins/coursework/eng.605.601.83/project/code/res/trivial_pursuit_holder.jpg')
+		self.tp_img = Image.open('./res/trivial_pursuit_holder.jpg')
 		self.tp_photo = ImageTk.PhotoImage(self.tp_img)
 		self.tp_holder_img = Label(self.gameBoardWindow, image = self.tp_photo)
 		self.tp_holder_img.grid()
