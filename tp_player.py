@@ -1,17 +1,22 @@
-import tp_playerUI
 
 
 class Player:
 #Basic Player Class
     def __init__(self, ID):
-        self.chips = 0
+        self.chips = []
         self.id = ID
-        self.UI = tp_playerUI.playerUI(self)
-    
+        self.location = 0
 
-    def addChip(self, number):
-        self.chips += number
+    def addChip(self, category):
+        if (category not in self.chips):
+            self.chips.append(category)
 
-    def updateUI(self):
-        self.UI.updateUI()
+    def updateLocation(location):
+        self.location=location
     
+    def __str__(self):
+        outstr = ''
+        outstr += 'Player ' + str(self.id) + ':\n'
+        outstr += 'Location = ' + str(self.location) + '\n'
+        outstr += 'Chips: ' + str(self.chips)
+        return outstr

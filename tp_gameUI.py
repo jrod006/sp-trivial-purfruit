@@ -6,5 +6,5 @@ class GameUI:
     def updateUI(self, gameState, players):
         print("DISPLAY GAME UI")
         for player in players:
-            player.updateUI()
+            print(player)
     

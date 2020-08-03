@@ -6,19 +6,25 @@ class QuestionGenerator:
 
         def __init__(self):
                 print('INIT QUESTION GENERATOR')
-                self.df = pd.read_csv('./res/trivial_purfruit_questions.csv')
-                self.colors = list(set(self.df['color'].tolist()))
-                self.categories = {'White': 'Events','Blue': 'Places','Green': 'Independence Day','Red': 'People'}
+                #self.categories = {'White': 'Events','Blue': 'Places','Green': 'Independence Day','Red': 'People'}
+                self.categories = {'Events':'White','Places': 'Blue','Independence Day': 'Green','People': 'Red'}
+                self.colors = ['White', 'Blue', 'Green', 'Red']
+                currentQuestion = {}
 
-        def retrieveQA(self):
+        def getRandomQuestion(self, category):
 
-                self.color = input('Enter color to determine question category: ')
-                self.ques, self.ans = Database.retrieveQuesAns(self, self.color)
-                print('Question: ', self.ques)
-                print('Answer: ', self.ans)
+                self.currentQuestion = Database.retrieveQuesAns(self.colors[category])
+                return self.currentQuestion['question']
+
+        def checkAnswer(answer):
+                if answer == self.currentQuestion['answer']:
+                        return True
+                else:
+                        return False
 
 if __name__ == "__main__":
-       
+
+        #This is demo is broken for now
         QG = QuestionGenerator()
-        QG.retrieveQA()
+        #QG.retrieveQA()
                 

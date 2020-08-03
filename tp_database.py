@@ -4,17 +4,25 @@ import os
 
 class Database:
 
+    df = pd.read_csv('./res/trivial_purfruit_questions.csv')
+    #categories = {
+     #                   'White': 'Events',
+      #                  'Blue': 'Places',
+      #                  'Green': 'Independence Day',
+      #                  'Red': 'People'
+      #              }
+    categories = {
+                        'Events': 'White',
+                        'Places': 'Blue',
+                        'Independence Day': 'Green',
+                        'People': 'Red'
+                    }
+    colors = list(set(df['color'].tolist()))
+
     def __init__(self):
 
+        #Placeholder, most things a classifier scoped
         print('INIT DATABASE ACCESS')
-        self.df = pd.read_csv('./res/trivial_purfruit_questions.csv')
-        self.categories = {
-                        'White': 'Events',
-                        'Blue': 'Places',
-                        'Green': 'Independence Day',
-                        'Red': 'People'
-                    }
-        self.colors = list(set(self.df['color'].tolist()))
         
     def addQuestion(self):
 
@@ -67,31 +75,32 @@ class Database:
         print(self.df.to_string())
         return self.df.to_string()
 
-    def retrieveQuesAns(self, color):
+    @staticmethod
+    def retrieveQuesAns(self, category):
 
-        self.color = color
         print('Retrieve question and answer for gameplay')      
-        if self.color in self.colors:
+        if category in self.categories:
                 print('================================')
-                print('Category:', self.categories[self.color])
-                self.question_df = self.df[self.df['color'] == self.color].copy()
+                print('Category:', self.categories[cate])
+                question_df = df[df['color'] == self.color].copy()
         else:
                 print('Invalid entry, try again')
-        self.random_row = self.question_df.sample(n = 1)
-        self.question = self.random_row.iloc[0]['question']
-        self.answer = self.random_row.iloc[0]['answer']
+        random_row = self.question_df.sample(n = 1)
+        question = self.random_row.iloc[0]['question']
+        answer = self.random_row.iloc[0]['answer']
 
-        return self.question, self.answer
+        return {'question':question, 'answer':answer}
 
 if __name__ == "__main__":
 
+    # Broken now
     db = Database()
-    db.getQuestions()
-    db.addQuestion()
-    db.getQuestions()
-    db.deleteQuestion()
-    db.modifyQuestion()
-    ques, ans = db.retrieveQuesAns('Red')
-    print('Question:', ques)
-    print('Answer:', ans)
+    #db.getQuestions()
+    #db.addQuestion()
+    #db.getQuestions()
+    #db.deleteQuestion()
+    #db.modifyQuestion()
+    #ques, ans = db.retrieveQuesAns('Red')
+    #print('Question:', ques)
+    #print('Answer:', ans)
 

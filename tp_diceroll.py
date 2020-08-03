@@ -6,6 +6,7 @@ class DiceRoll:
 
         print('DICE ROLL INIT')
 
-    def rollDice(self):
+    @staticmethod
+    def rollDice():
 
-        print(randint(1, 6))
+        return randint(1, 6)
