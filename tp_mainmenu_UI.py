@@ -44,14 +44,13 @@ class MainMenu:
         self.exit.grid(stick = 'EW')
 
     def startNewGame(self):
-
-        pregameplay_window = tp_pregameplay_UI.GameSettings()
+        print('Access new game play settings...')
+        # pregameplay_window = tp_pregameplay_UI.GameSettings()
 
     def accessAdminSettings(self):
-        print('Access admin settings')
-        admin_window = tp_admin_UI.AdminSettingsUI()
+        print('Access admin settings...')
+        # admin_window = tp_admin_UI.AdminSettingsUI()
 
     def exit(self):
-
         print('Shutdown Trivial Purfruit game')
         self.root.quit()
