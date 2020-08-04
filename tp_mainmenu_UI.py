@@ -1,7 +1,7 @@
 from PIL import ImageTk, Image
 from tkinter import Label, Entry, StringVar, font
 import tkinter as tk
-import tp_gamesettings_UI 
+import tp_gamesettings_UI
 import tp_admin_UI
 
 class MainMenu:
@@ -44,13 +44,14 @@ class MainMenu:
         self.exit.grid(stick = 'EW')
 
     def startgame(self):
-        print('Access new game play settings...')
+        print('Open game settings window...')
         pregameplay_window = tp_gamesettings_UI.GameSettings()
 
     def accessAdminSettings(self):
-        print('Access admin settings...')
+        print('Access admin settings')
         admin_window = tp_admin_UI.AdminAuthUI()
 
     def exit(self):
-        print('Shutdown Trivial Purfruit game')
+
+        print('Shutdown Trivial Purfruit game...')
         self.root.quit()
