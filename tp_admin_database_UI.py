@@ -231,22 +231,22 @@ class AdminSettings:
         return {'question':question, 'answer':answer}
 
     def swapColors(self):
-        print('Swapping colors...')
-
-    def updateCategoryColors(self, color):
-
-        print('[INFO] Change category colors')
-        self.color = color
-        self.replacement_color = input('Replace {} with new color: '.format(self.color))
-        self.confirm = input('CONFIRM COLOR REPLACEMENT (YES/NO): ')
-        if self.confirm == 'YES':
-            self.df = self.df.replace(to_replace = self.color, value = self.replacement_color) 
-            self.viewQuestions()
-            print('[INFO] Updated category color {} with new color: {} in database'.format(self.color, self.replacement_color))
-        elif self.confirm == 'NO':
-            print('[INFO] No updates made to database')
-        else:
-            print('[INFO] Failed to confirm, try again')
+        
+        print('Change category colors...')
+        self.replacement_color = self.oldColorEntry.get()
+        self.color = self.newColorEntry.get()
+        self.df = self.df.replace(to_replace = self.replacement_color, value = self.color)
+        self.df.to_csv('./res/trivial_purfruit_questions.csv', index = False)
+        self.oldColorEntry.delete(0, 'end')
+        self.newColorEntry.delete(0, 'end')
+        self.question_list.delete(0, tk.END)
+        with open('./res/trivial_purfruit_questions.csv', 'r') as file:
+            csv_reader = reader(file)
+            header = next(csv_reader)
+            if header != None:
+                for row in enumerate(csv_reader):
+                    self.question_list.insert(tk.END, str(row[0]) + '\t' + str(row[1]))
+        self.scrollbar = tk.Scrollbar(self.question_list, orient = 'vertical')
 
     def saveDatabase(self):
 
