@@ -32,7 +32,7 @@ class MainMenu:
         self.congress_img.grid()
 
         # add button to initiate new game
-        self.newgame = tk.Button(self.root, text = 'Start New Game', command = self.startNewGame, font = self.arial)
+        self.newgame = tk.Button(self.root, text = 'Start New Game', command = self.startgame, font = self.arial)
         self.newgame.grid(sticky = 'EW')
 
         # add button to access game settings
@@ -43,7 +43,7 @@ class MainMenu:
         self.exit = tk.Button(self.root, text = 'Exit Trivial Purfruit', command = self.exit, font = self.arial)
         self.exit.grid(stick = 'EW')
 
-    def startNewGame(self):
+    def startgame(self):
         print('Access new game play settings...')
         # pregameplay_window = tp_pregameplay_UI.GameSettings()
 
