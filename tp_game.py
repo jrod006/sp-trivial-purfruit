@@ -37,8 +37,8 @@ class Game:
         self.movePlayer(distance, currentPlayer)
         # Question Answering and Chip Logic
         questionGenerator = tp_question.QuestionGenerator()
-        #question = questionGenerator.getRandomQuestion(self.board[currentPlayer.location].category)
-        question = {'question':'Blah', 'answer':'Blah'}
+        question = questionGenerator.getRandomQuestion(self.board[currentPlayer.location].category)
+        # question = {'question':'Blah', 'answer':'Blah'}
         # Display Question and Prompt for Answer
         # needs to be replaced by with UI loop integration
         print(question['question'])
