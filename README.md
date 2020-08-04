@@ -41,9 +41,11 @@ The libraries needed to run user interfaces include:
   4. Swap Color Category
     - To swap color categories in the database, in the first entry with the label, "Category of Color to be Replaced," the user should enter the color they wish to replace
     - In the entry with the label "New Color for Category" the user should enter the new desired color
-    - Once the entries are filled with the desired selections, clicking "Swap Color Category" will swap the colors in the database (currently not working)
+    - Once the entries are filled with the desired selections, clicking "Swap Color Category" will swap the colors in the database
   5. Save and Close Database
     - This selection will save the current database and close the Database window
 - Trivial Purfruit Game Window
   - When Begin New button is selected from the TP Game Settings window, with the selected settings a Trivial Purfruit Game window should open
   - This window is purely for demonstration purposes and does not currently have any functionality
+  - Clicking the "Game Simulation" button at the bottom of the window will proceed to a text based game simulation in the terminal
+  - After game simulation is complete, return to Trivial Purfruit Gameboard to re-run simulation of exit game board
