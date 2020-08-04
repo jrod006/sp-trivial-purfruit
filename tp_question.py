@@ -12,9 +12,12 @@ class QuestionGenerator:
                 currentQuestion = {}
 
         def getRandomQuestion(self, category):
+                
+                self.currentQuestion = Database().retrieveQuesAns(category)
+                return self.currentQuestion
 
-                self.currentQuestion = Database.retrieveQuesAns(self.colors[category])
-                return self.currentQuestion['question']
+                # self.currentQuestion = Database.retrieveQuesAns(self.colors[category])
+                # return self.currentQuestion['question']
 
         def checkAnswer(answer):
                 if answer == self.currentQuestion['answer']:
