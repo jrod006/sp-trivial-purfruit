@@ -28,14 +28,13 @@ class GameUI:
         self.gameBoardWindow.title('Trivial Purfruit')
         self.frame = tk.Frame(self.gameBoardWindow)
 
-        # add image for main screen
-        self.tp_img = Image.open('./res/trivial_purfruit_temp_gameboard.png')
-        self.tp_photo = ImageTk.PhotoImage(self.tp_img)
-        self.tp_holder_img = Label(self.gameBoardWindow, image = self.tp_photo)
-        self.tp_holder_img.grid(row = 0, columnspan = 4)
-
         # get player names
         if len(self.players) == 1:
+            # add image for main screen
+            self.tp_img = Image.open('./res/tp_temp_gameboard_1.png')
+            self.tp_photo = ImageTk.PhotoImage(self.tp_img)
+            self.tp_holder_img = Label(self.gameBoardWindow, image = self.tp_photo)
+            self.tp_holder_img.grid(row = 0, columnspan = 4)
 
             self.column = 0
             # add label for player one name
@@ -55,6 +54,12 @@ class GameUI:
 
         elif len(self.players) == 2:
 
+            # add image for main screen
+            self.tp_img = Image.open('./res/tp_temp_gameboard_2.png')
+            self.tp_photo = ImageTk.PhotoImage(self.tp_img)
+            self.tp_holder_img = Label(self.gameBoardWindow, image = self.tp_photo)
+            self.tp_holder_img.grid(row = 0, columnspan = 4)
+            
             self.column_num = 0
             # add label for player one name
             self.player1_name = Label(self.gameBoardWindow, text = 'Player: ' + self.players[0].id, font = arial)
@@ -89,7 +94,13 @@ class GameUI:
             self.player2_dice_result.grid(row = 5, column = 1)
 
         elif len(self.players) == 3:
-
+            
+            # add image for main screen
+            self.tp_img = Image.open('./res/tp_temp_gameboard_3.png')
+            self.tp_photo = ImageTk.PhotoImage(self.tp_img)
+            self.tp_holder_img = Label(self.gameBoardWindow, image = self.tp_photo)
+            self.tp_holder_img.grid(row = 0, columnspan = 4)
+            
             self.column_num = 1
             # add label for player one name
             self.player1_name = Label(self.gameBoardWindow, text = 'Player: ' + self.players[0].id, font = arial)
@@ -137,7 +148,13 @@ class GameUI:
             self.player3_dice_result.grid(row = 5, column = 2)
 
         elif len(self.players) == 4:
-
+            
+            # add image for main screen
+            self.tp_img = Image.open('./res/tp_temp_gameboard_4.png')
+            self.tp_photo = ImageTk.PhotoImage(self.tp_img)
+            self.tp_holder_img = Label(self.gameBoardWindow, image = self.tp_photo)
+            self.tp_holder_img.grid(row = 0, columnspan = 4)
+            
             self.column_num = 1
             # add label for player one name
             self.player1_name = Label(self.gameBoardWindow, text = 'Player: ' + self.players[0].id, font = arial)
@@ -236,9 +253,9 @@ class GameUI:
 
     def beginGameSimulation(self):
         print('Begin Game Simulation...')
-        # game = tp_game.Game()
-
-
+        game = tp_game.Game()
+        game.run()
+        
     def checkAnswer(self):
         print('Check answer')
 
