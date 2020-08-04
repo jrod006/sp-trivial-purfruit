@@ -3,7 +3,7 @@ from tkinter import Label, Entry, StringVar, font
 import json
 import os
 import tkinter as tk
-import tp_game_UI
+import tp_gameUI
 import tp_rules_UI
 import tp_settings
 
@@ -150,4 +150,4 @@ class GameSettings:
 
         print('Close new game settings and proceed to new game')
         self.gameSettingsWindow.destroy()
-        game_window = tp_game_UI.GameGUI(self.settings)
+        game_window = tp_game_UI.GameUI(self.settings)
