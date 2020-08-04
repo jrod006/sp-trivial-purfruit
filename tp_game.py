@@ -158,6 +158,7 @@ class Game:
             
         for j in range(10):
             self.processTurn()
+        print('SIMULATION COMPLETE')
             
             
     def run(self):
