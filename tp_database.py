@@ -79,13 +79,7 @@ class Database:
     # @staticmethod
     def retrieveQuesAns(self, category):
 
-        print('Retrieve question and answer for gameplay')      
-        if category in self.category_list:
-                print('================================')
-                print('Color:', self.categories[category])
-                self.question_df = self.df[self.df['category'] == category].copy()
-        else:
-                print('Invalid entry, try again')
+        self.question_df = self.df[self.df['category'] == category].copy()
         random_row = self.question_df.sample(n = 1)
         question = random_row.iloc[0]['question']
         answer = random_row.iloc[0]['answer']
