@@ -14,7 +14,7 @@ class Game:
         #Init global UI/objects here
         self.players = []
         self.placement = []
-        self.UI = tp_gameUI.GameUI()
+        # self.UI = tp_gameUI.GameUI()
         self.startScreen = tp_startScreen.StartScreen(self)
         self.board = []
         self.initBoard()
