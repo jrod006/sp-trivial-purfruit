@@ -1,7 +1,7 @@
 from PIL import ImageTk, Image
 from tkinter import Label, Entry, StringVar, font
 import tkinter as tk
-import tp_pregameplay_UI 
+import tp_gamesettings_UI 
 import tp_admin_UI
 
 class MainMenu:
