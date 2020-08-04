@@ -15,7 +15,6 @@ class GameSettings:
     names = []
     settings = tp_settings.Settings()
     num_of_players = int(settings.settings['players'])
-    print('Num of players:', num_of_players)
 
     def __init__(self):
 
