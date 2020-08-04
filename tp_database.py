@@ -87,8 +87,8 @@ class Database:
         else:
                 print('Invalid entry, try again')
         random_row = self.question_df.sample(n = 1)
-        question = self.random_row.iloc[0]['question']
-        answer = self.random_row.iloc[0]['answer']
+        question = random_row.iloc[0]['question']
+        answer = random_row.iloc[0]['answer']
 
         return {'question':question, 'answer':answer}
 
