@@ -157,20 +157,21 @@ class AdminSettings:
     def deleteQuestion(self):
 
         print('Remove question from database...')
-        self.value = self.question_list.get(self.question_list.curselection())
-        self.value = self.value.split()
-        self.index_no = int(self.value[0])
-        print(self.index_no)
-        self.df = self.df.drop(self.index_no)
-        self.df.to_csv('./res/trivial_purfruit_questions.csv', index = False)
-        self.question_list.delete(0, tk.END)
-        with open('./res/trivial_purfruit_questions.csv', 'r') as file:
-            csv_reader = reader(file)
-            header = next(csv_reader)
-            if header != None:
-                for row in enumerate(csv_reader):
-                    self.question_list.insert(tk.END, str(row[0]) + '\t' + str(row[1]))
-        self.scrollbar = tk.Scrollbar(self.question_list, orient = 'vertical')
+        # fixing issues with finding the correct index to delete ? in dataframe
+#         self.value = self.question_list.get(self.question_list.curselection())
+#         self.value = self.value.split()
+#         self.index_no = int(self.value[0])
+#         print(self.index_no)
+#         self.df = self.df.drop(self.index_no)
+#         self.df.to_csv('./res/trivial_purfruit_questions.csv', index = False)
+#         self.question_list.delete(0, tk.END)
+#         with open('./res/trivial_purfruit_questions.csv', 'r') as file:
+#             csv_reader = reader(file)
+#             header = next(csv_reader)
+#             if header != None:
+#                 for row in enumerate(csv_reader):
+#                     self.question_list.insert(tk.END, str(row[0]) + '\t' + str(row[1]))
+#         self.scrollbar = tk.Scrollbar(self.question_list, orient = 'vertical')
 
     def getQuestion(self):
 
