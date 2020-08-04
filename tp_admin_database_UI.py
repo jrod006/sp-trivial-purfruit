@@ -74,12 +74,6 @@ class AdminSettings:
         # entry to retrieve category to modify
         self.retrieveCategoryEntry = Entry(self.databaseWindow, bd = 5)
         self.retrieveCategoryEntry.grid(row = 7, column = 1)
-        # label for category to modify
-        self.retrieveColorLabel = Label(self.databaseWindow, text = 'Color to be Updated:', font = self.arial_bold)
-        self.retrieveColorLabel.grid(row = 8, column = 0)
-        # entry to retrieve category to modify
-        self.retrieveColorEntry = Entry(self.databaseWindow, bd = 5)
-        self.retrieveColorEntry.grid(row = 8, column = 1)
         # button to update modified question in database
         self.confirmModification = tk.Button(self.databaseWindow, command = self.updateQuestion, text = 'Update Changes')
         self.confirmModification.grid(row = 9, column = 1)
@@ -189,13 +183,9 @@ class AdminSettings:
 
         print('Update question in database')
         print('Index:', self.index_no)
-        print(self.retrieveQuestionEntry.get())
-        print(self.retrieveAnswerEntry.get())
-        print(self.retrieveCategoryEntry.get())
-        print(self.retrieveColorEntry.get())
         self.df = self.df.drop(self.index_no)
         self.new_data = [
-                                    self.retrieveColorEntry.get(),
+                                    self.categories[self.retrieveCategoryEntry.get()],
                                     self.retrieveCategoryEntry.get(),
                                     self.retrieveQuestionEntry.get(),
                                     self.retrieveAnswerEntry.get()
@@ -206,7 +196,6 @@ class AdminSettings:
         self.retrieveCategoryEntry.delete(0, 'end')
         self.retrieveQuestionEntry.delete(0, 'end')
         self.retrieveAnswerEntry.delete(0, 'end')
-        self.retrieveColorEntry.delete(0, 'end')
         self.question_list.delete(0, tk.END)
         with open('./res/trivial_purfruit_questions.csv', 'r') as file:
             csv_reader = reader(file)
