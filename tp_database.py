@@ -18,6 +18,7 @@ class Database:
                         'People': 'Red'
                     }
     colors = list(set(df['color'].tolist()))
+    category_list = list(set(df['category'].tolist()))
 
     def __init__(self):
 
@@ -75,14 +76,14 @@ class Database:
         print(self.df.to_string())
         return self.df.to_string()
 
-    @staticmethod
+    # @staticmethod
     def retrieveQuesAns(self, category):
 
         print('Retrieve question and answer for gameplay')      
-        if category in self.categories:
+        if category in self.category_list:
                 print('================================')
-                print('Category:', self.categories[cate])
-                question_df = df[df['color'] == self.color].copy()
+                print('Color:', self.categories[category])
+                self.question_df = self.df[self.df['category'] == category].copy()
         else:
                 print('Invalid entry, try again')
         random_row = self.question_df.sample(n = 1)
