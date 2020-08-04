@@ -49,7 +49,7 @@ class MainMenu:
 
     def accessAdminSettings(self):
         print('Access admin settings...')
-        # admin_window = tp_admin_UI.AdminSettingsUI()
+        # admin_window = tp_admin_UI.AdminAuthUI()
 
     def exit(self):
         print('Shutdown Trivial Purfruit game')
