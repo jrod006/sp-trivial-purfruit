@@ -48,4 +48,4 @@ The libraries needed to run user interfaces include:
   - When Begin New button is selected from the TP Game Settings window, with the selected settings a Trivial Purfruit Game window should open
   - This window is purely for demonstration purposes and does not currently have any functionality
   - Clicking the "Game Simulation" button at the bottom of the window will proceed to a text based game simulation in the terminal
-  - After game simulation is complete, return to Trivial Purfruit Gameboard to re-run simulation of exit game board
+  - After game simulation is complete (terminal will print SIMULATION COMPLETE), return to Trivial Purfruit Gameboard to re-run simulation or exit game board
