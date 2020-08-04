@@ -17,7 +17,6 @@ class GameUI:
         self.players = []
 
         for name in list(self.settings['players'].values()):
-            print(name)
             newPlayer = pl.Player(name)
             self.players.append(newPlayer)
 
