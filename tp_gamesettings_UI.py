@@ -142,10 +142,8 @@ class GameSettings:
                         'players': players
                         }
 
-        print('Question Time Limit: {}'.format(self.settings['time_limit']))
-        print('Game Difficulty: {}'.format(self.settings['difficulty']))
-        for key, value in self.settings['players'].items():
-            print('{}: {}'.format(key, value))
+#         for key, value in self.settings['players'].items():
+#             print('{}: {}'.format(key, value))
 
         print('Close new game settings and proceed to new game')
         self.gameSettingsWindow.destroy()
