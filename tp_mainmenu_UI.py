@@ -45,11 +45,11 @@ class MainMenu:
 
     def startgame(self):
         print('Access new game play settings...')
-        # pregameplay_window = tp_pregameplay_UI.GameSettings()
+        pregameplay_window = tp_gamesettings_UI.GameSettings()
 
     def accessAdminSettings(self):
         print('Access admin settings...')
-        # admin_window = tp_admin_UI.AdminAuthUI()
+        admin_window = tp_admin_UI.AdminAuthUI()
 
     def exit(self):
         print('Shutdown Trivial Purfruit game')
