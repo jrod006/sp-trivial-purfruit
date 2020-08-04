@@ -13,6 +13,7 @@ class Game:
         print("GAME INIT")
         #Init global UI/objects here
         self.players = []
+        self.placement = []
         self.UI = tp_gameUI.GameUI()
         self.startScreen = tp_startScreen.StartScreen(self)
         self.board = []
@@ -41,28 +42,33 @@ class Game:
         # Display Question and Prompt for Answer
         # needs to be replaced by with UI loop integration
         print(question['question'])
-        ans = input('Input Answer:')        
-        if (ans == question['answer']) or ans == '':
+        ans = input('Input Answer:')
+        correct = (ans == question['answer'])
+        if (correct): # This is so I can mash enter to test, remove later
             currentPlayer.addChip(self.board[currentPlayer.location].category)
         
 
         #Updat the UI State
         self.showUI()
         time.sleep(2)
-        # Move to the next player before starting the next turn
-        if (self.currentPlayerIdx == 3):
-                self.currentPlayerIdx = 0
-        else:
-            self.currentPlayerIdx += 1
+        # Move to the next player before starting the next turn if we got the wrong answer
+        if (not correct):
+            if (self.currentPlayerIdx >= len(self.players) - 1):
+                    self.currentPlayerIdx = 0
+            else:
+                self.currentPlayerIdx += 1
+
+        
 
     def movePlayer(self, distance, player):
         # Bad Code Reqplication but it's almost 10 PM and I can't figure out how to rework it off the top of my head
         direction =''
+        lastSquare = 0 # None
         if player.location < 17:
             if player.location in [3,7,11,15]:
-                direction = input('Choose Direction (cw, ccw)')
-            else:
                 direction = input('Choose Direction (cw, ccw, inner)')
+            else:
+                direction = input('Choose Direction (cw, ccw)')
         elif player.location < 21:
             direction = input('Choose Direction (inner, outer)')
         else:
@@ -73,39 +79,59 @@ class Game:
                 player.location = 19
             elif direction == 'left':
                 player.location = 20
-            else:
+            elif direction == 'right':
                 player.location = 18
+            distance -= 1 # This logic auto moves you by one square
+            direction = 'outer'
         for i in range (0, distance):
             # Increment Player Location
             print(player.location)
             currsquare = self.board[player.location]
             if (currsquare.isFinal):
-                dire = input('Choose Exit direction')
-                if dire == 'up':
-                    player.location = 17
-                elif dire == 'down':
-                    player.location = 19
-                elif dire == 'left':
-                    player.location = 20
-                else:
-                    player.location = 18
+                while (player.location == 21):
+                    dire = ''
+                    dire = input('Choose Exit direction: ')
+                    if dire == 'up':
+                        if lastSquare != 17:
+                            player.location = 17
+                        else:
+                            print('Cannot go backwards')
+                    elif dire == 'down':
+                        player.location = 19
+                        if (lastSquare != 19):
+                            player.location = 19
+                        else:
+                            print('Cannot go backwards')
+                    elif dire == 'left':
+                        if (lastSquare != 20):
+                            player.location = 20
+                        else:
+                            print('Cannot go backwards')
+                    elif dire == 'right':
+                        if (lastSquare != 18):
+                            player.location = 18
+                        else:
+                            print('Cannot go backwards')
+                    else:
+                        print('Invalid Input')
                 direction = 'outer'
             elif (currsquare.nextSquare['inner'] != -1): 
-                if (direction not in ['inner','outer']): # A square that leads inwards moving aroudn board
+                if (direction in ['cw','ccw']): # A square that leads inwards moving aroudn board
                     center = input('Head towards the center (y/n)?')
                     if center == 'y':
                         player.location = currsquare.nextSquare['inner']
                         direction = 'inner'
                     else:
                         player.location = currsquare.nextSquare[direction]
-                elif (player.location < 17): # Just came out
+                elif (player.location < 17 and i != 0): # Just came out
                     direction = input('Choose Direction (cw, ccw)')
                     player.location = currsquare.nextSquare[direction]
                 else: # Moving along inner path
                     player.location = currsquare.nextSquare[direction]
             else:
                 player.location = currsquare.nextSquare[direction]
-                lastSqaure = self.board.index(currsquare) # Record the last sqaure 
+            lastSquare = self.board.index(currsquare) # Record the last sqaure
+            
             print(player.location)
             print('-----------------------------')
             
@@ -127,7 +153,7 @@ class Game:
         #Init Players
         for i in range(0, int(self.currentSettings["players"])):
             newPlayer = tp_player.Player(i)
-            newPlayer.location = 1
+            newPlayer.location = 21
             self.players.append(newPlayer)
             
         for j in range(10):
