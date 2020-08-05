@@ -26,6 +26,7 @@ class Game:
     def processTurn(self):
         print('DOING A TURN')
         currentPlayer = self.players[self.currentPlayerIdx]
+        print('Player ' + str(currentPlayer.id) + "'s turn")
         # Roll the Dice
         print('ROLL DICE: ')
         distance = DiceRoll.rollDice()
