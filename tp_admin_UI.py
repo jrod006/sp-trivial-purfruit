@@ -50,7 +50,7 @@ class AdminAuthUI:
 
     def authenticate(self):
         
-        if self.usernameEntry.get() == credentials['username'] and self.passwordEntry.get() == credentials['password']:
+        if self.usernameEntry.get() == self.credentials['username'] and self.passwordEntry.get() == self.credentials['adminPassword']:
             database_window = tp_admin_database_UI.AdminSettings()
             print('Database Access Granted...')
         else:
