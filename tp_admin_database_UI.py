@@ -34,19 +34,19 @@ class AdminSettings:
         self.newCategoryLabel = Label(self.databaseWindow, text = 'Category of New Question:', font =self.arial_bold)
         self.newCategoryLabel.grid(row = 0, column = 0)
         # new category entry
-        self.newCategoryEntry = Entry(self.databaseWindow, bd = 5)
+        self.newCategoryEntry = Entry(self.databaseWindow, bd = 2)
         self.newCategoryEntry.grid(row = 0, column = 1)
         # new question label
         self.newQuestionLabel = Label(self.databaseWindow, text = 'New Question:', font = self.arial_bold)
         self.newQuestionLabel.grid(row = 1, column = 0)
         # new question entry
-        self.newQuestionEntry = Entry(self.databaseWindow, bd = 5)
+        self.newQuestionEntry = Entry(self.databaseWindow, bd = 2)
         self.newQuestionEntry.grid(row = 1, column = 1)
         # new answer label
         self.newAnswerLabel = Label(self.databaseWindow, text = 'New Question Answer:', font = self.arial_bold)
         self.newAnswerLabel.grid(row = 2, column = 0)
         # new answer entry
-        self.newAnswerEntry = Entry(self.databaseWindow, bd = 5)
+        self.newAnswerEntry = Entry(self.databaseWindow, bd = 2)
         self.newAnswerEntry.grid(row = 2, column = 1)
         # add question button
         self.add_question = tk.Button(self.databaseWindow, text = 'Add Question', command = self.addQuestion, font = self.arial)
@@ -60,22 +60,22 @@ class AdminSettings:
         self.retrieveQuestionLabel = Label(self.databaseWindow, text = 'Question to be Updated:', font = self.arial_bold)
         self.retrieveQuestionLabel.grid(row = 5, column = 0)
         # entry to retrieve question to modify
-        self.retrieveQuestionEntry = Entry(self.databaseWindow, bd = 5)
+        self.retrieveQuestionEntry = Entry(self.databaseWindow, bd = 2)
         self.retrieveQuestionEntry.grid(row = 5, column = 1)
         # label for answer to modify
         self.retrieveAnswerLabel = Label(self.databaseWindow, text = 'Answer to be Updated:', font = self.arial_bold)
         self.retrieveAnswerLabel.grid(row = 6, column = 0)
         # entry to retrieve answer to modify
-        self.retrieveAnswerEntry = Entry(self.databaseWindow, bd = 5)
+        self.retrieveAnswerEntry = Entry(self.databaseWindow, bd = 2)
         self.retrieveAnswerEntry.grid(row = 6, column = 1)
         # label for category to modify
         self.retrieveCategoryLabel = Label(self.databaseWindow, text = 'Category to be Updated:', font = self.arial_bold)
         self.retrieveCategoryLabel.grid(row = 7, column = 0)
         # entry to retrieve category to modify
-        self.retrieveCategoryEntry = Entry(self.databaseWindow, bd = 5)
+        self.retrieveCategoryEntry = Entry(self.databaseWindow, bd = 2)
         self.retrieveCategoryEntry.grid(row = 7, column = 1)
         # button to update modified question in database
-        self.confirmModification = tk.Button(self.databaseWindow, command = self.updateQuestion, text = 'Update Changes')
+        self.confirmModification = tk.Button(self.databaseWindow, command = self.updateQuestion, text = 'Update Changes', font = self.arial)
         self.confirmModification.grid(row = 9, column = 1)
 
         ######################################### REMOVE QUESTION IN DATABASE #############################################
@@ -90,13 +90,13 @@ class AdminSettings:
         self.oldColorLabel = Label(self.databaseWindow, text = 'Category of Color to be Replaced:', font = self.arial_bold)
         self.oldColorLabel.grid(row = 11, column = 0)
         # color to be replaced entry
-        self.oldColorEntry = Entry(self.databaseWindow, bd = 5)
+        self.oldColorEntry = Entry(self.databaseWindow, bd = 2)
         self.oldColorEntry.grid(row = 11, column = 1)
         # new color of category label
         self.newColorLabel = Label(self.databaseWindow, text = 'New Color for Category:', font = self.arial_bold)
         self.newColorLabel.grid(row = 12, column = 0)
         # new color of category entry
-        self.newColorEntry = Entry(self.databaseWindow, bd = 5)
+        self.newColorEntry = Entry(self.databaseWindow, bd = 2)
         self.newColorEntry.grid(row = 12, column = 1)
         # swap colors of category button
         self.swap_colors = tk.Button(self.databaseWindow, text = 'Swap Color Category', command = self.swapColors, font = self.arial)
@@ -112,7 +112,7 @@ class AdminSettings:
         self.scrollbar = tk.Scrollbar(self.databaseWindow, orient = 'vertical')
         self.scrollbar.grid(row = 0, column = 3, sticky = 'NS', rowspan = 16)
         # insert listbox of questions
-        self.question_list = tk.Listbox(self.databaseWindow, yscrollcommand = self.scrollbar.set, font = self.arial, height = 40, width = 90)
+        self.question_list = tk.Listbox(self.databaseWindow, yscrollcommand = self.scrollbar.set, font = self.arial, height = 20, width = 90)
         self.question_list.grid(row = 0, column = 2, rowspan = 16, sticky = 'EW', padx = 10)
         self.question_list.insert(tk.END, 'Index\tColor\tCategory\tQuestion\tAnswer')
         with open('./res/trivial_purfruit_questions.csv', 'r') as file:
