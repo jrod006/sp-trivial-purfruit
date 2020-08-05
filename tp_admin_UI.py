@@ -49,9 +49,14 @@ class AdminAuthUI:
         print('Show admin UI window...')
 
     def authenticate(self):
-
-        database_window = tp_admin_database_UI.AdminSettings()
-        print('Database Access Granted...')
+        
+        if self.usernameEntry.get() == credentials['username'] and self.passwordEntry.get() == credentials['password']:
+            database_window = tp_admin_database_UI.AdminSettings()
+            print('Database Access Granted...')
+        else:
+            self.usernameEntry.delete(0, 'end')
+            self.passwordEntry.delete(0, 'end')
+            print('Incorrect Credentials, Try Again...')
 
     def addQuestion(self, category, question, answer):
         print('Add question to database...')
