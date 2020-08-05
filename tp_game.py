@@ -30,33 +30,55 @@ class Game:
         print('ROLL DICE: ')
         distance = DiceRoll.rollDice()
         print('ROLLED ' + str(distance))
-        #dire = input('Choose Direction (cw, ccw)')
-        #if dire not in ['cw','ccw']: # Test code so I can mash enter
-         #   dire = 'cw'
         # Move the player that far
         self.movePlayer(distance, currentPlayer)
         # Question Answering and Chip Logic
         questionGenerator = tp_question.QuestionGenerator()
-        question = questionGenerator.getRandomQuestion(self.board[currentPlayer.location].category)
+        question = {}
+        category = ''
+        if currentPlayer.location == 21:
+            # If chips < 4, choose the category, 4 or more, opponent chooses
+            if (len(currentPlayer.chips) < 4):
+                category = input('Choose a Category: Events, Places, Independence Day, People: ')
+            else:
+                category = input('(Opponent) Choose final question Category:  Events, Places, Independence Day, People: ')
+        else:
+            category = self.board[currentPlayer.location].category
+        question = questionGenerator.getRandomQuestion(category)
         # question = {'question':'Blah', 'answer':'Blah'}
         # Display Question and Prompt for Answer
         # needs to be replaced by with UI loop integration
         print(question['question'])
         ans = input('Input Answer:')
         correct = (ans == question['answer'])
-        if (correct): # This is so I can mash enter to test, remove later
-            currentPlayer.addChip(self.board[currentPlayer.location].category)
-        
-
-        #Updat the UI State
-        self.showUI()
-        time.sleep(2)
-        # Move to the next player before starting the next turn if we got the wrong answer
-        if (not correct):
+        #  Below is so one can mash enter to test, uncomment for testing:
+        # correct = True
+        if (correct): 
+            print('Correct')
+            # Check if this was the player's final question
+            if (currentPlayer.location == 21 and len(currentPlayer.chips) == 4):
+            # Below for testing, removes the last square condition to speed to victory logic
+            #if (len(currentPlayer.chips) == 4):
+                # Add player to the placement array, remove them from the players array, immediately end the turn
+                self.placement.append(self.players.pop(self.currentPlayerIdx))
+            #Otherwise add  chip
+            else:
+                currentPlayer.addChip(category)
+        else:
+            print('Incorrect')
+            # Move the player off the center square if this was a final attempt
+            if (currentPlayer.location == 21 and len(currentplayer.chips) == 4):
+                self.movePlayer(1, currentPlayer)
+            # Move to the next player before starting the next turn if we got the wrong answer
             if (self.currentPlayerIdx >= len(self.players) - 1):
                     self.currentPlayerIdx = 0
             else:
                 self.currentPlayerIdx += 1
+        #Updat the UI State
+        self.showUI()
+        time.sleep(2)
+        
+            
 
         
 
@@ -66,13 +88,19 @@ class Game:
         lastSquare = 0 # None
         if player.location < 17:
             if player.location in [3,7,11,15]:
-                direction = input('Choose Direction (cw, ccw, inner)')
+                direction = input('Choose Direction (cw, ccw, inner): ')
+                if (direction not in ['cw','ccw','inner']):
+                    direction = 'cw'
             else:
-                direction = input('Choose Direction (cw, ccw)')
+                direction = input('Choose Direction (cw, ccw): ')
+                if (direction not in ['cw','ccw']):
+                    direction = 'cw'
         elif player.location < 21:
-            direction = input('Choose Direction (inner, outer)')
+            direction = input('Choose Direction (inner, outer): ')
+            if (direction not in ['inner','outer']):
+                direction = 'outer'
         else:
-            direction = input('Choose Exit direction')
+            direction = input('Choose Exit direction (up, down, left, right): ')
             if direction == 'up':
                 player.location = 17
             elif direction == 'down':
@@ -81,6 +109,8 @@ class Game:
                 player.location = 20
             elif direction == 'right':
                 player.location = 18
+            else:
+                player.location = 17
             distance -= 1 # This logic auto moves you by one square
             direction = 'outer'
         for i in range (0, distance):
@@ -90,7 +120,7 @@ class Game:
             if (currsquare.isFinal):
                 while (player.location == 21):
                     dire = ''
-                    dire = input('Choose Exit direction: ')
+                    dire = input('Choose Exit direction (up, down, left, right): ')
                     if dire == 'up':
                         if lastSquare != 17:
                             player.location = 17
@@ -116,7 +146,7 @@ class Game:
                         print('Invalid Input')
                 direction = 'outer'
             elif (currsquare.nextSquare['inner'] != -1): 
-                if (direction in ['cw','ccw']): # A square that leads inwards moving aroudn board
+                if (direction in ['cw','ccw'] and i != 0): # A square that leads inwards moving aroudn board
                     center = input('Head towards the center (y/n)?')
                     if center == 'y':
                         player.location = currsquare.nextSquare['inner']
@@ -125,6 +155,8 @@ class Game:
                         player.location = currsquare.nextSquare[direction]
                 elif (player.location < 17 and i != 0): # Just came out
                     direction = input('Choose Direction (cw, ccw)')
+                    if (direction not in ['cw','ccw']):
+                        direction = 'cw'
                     player.location = currsquare.nextSquare[direction]
                 else: # Moving along inner path
                     player.location = currsquare.nextSquare[direction]
@@ -141,7 +173,15 @@ class Game:
         # Text based State UI for now
         for player in self.players:
             print(player)
-        
+            
+    def showVictoryScreen(self):
+        # Text based State UI for now, add real screen later
+        print('Game Over')
+        print('Rankings')
+        i = 1
+        for player in self.placement:
+            print('No ' + str(i) +': Player ' + str(player.id))
+            i += 1
         
     def displayStartupScreen(self):
         self.startScreen.show()
@@ -152,12 +192,18 @@ class Game:
         print(self.currentSettings)
         #Init Players
         for i in range(0, int(self.currentSettings["players"])):
+        # for i in range(0, 2):
             newPlayer = tp_player.Player(i)
             newPlayer.location = 21
             self.players.append(newPlayer)
             
-        for j in range(10):
+        while True:
             self.processTurn()
+            # Check to see if the game is over
+            if (len(self.players) == 1): #Only the loser left
+                break
+        self.placement.append(self.players.pop())
+        self.showVictoryScreen()
         print('SIMULATION COMPLETE')
             
             
