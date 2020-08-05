@@ -24,8 +24,7 @@ The libraries needed to run user interfaces include:
   - With the buttons at the bottom of the window, the user can either view rules of the game or begin new game
 - Access Database Button
   - A new window titled Database Authentication will pop up, an authorized user must enter their username and password
-    - For demo purposes, clicking Authenticate without any credentials will proceed to Question Database
-  - When the user has entered their credentials, the user can click Authenticate to verify the credentials
+  - For demo purposes, username = username, password = test123. Click Authenticate to confirm credentials
   - If the credentials are verified, a new window will pop up allowing Database acccess and modification
   - A button in the Database Authentication window also allows for exit and return to the Main Menu
 - Trivial Purfruit Question Database
