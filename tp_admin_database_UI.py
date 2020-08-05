@@ -108,8 +108,11 @@ class AdminSettings:
         self.save_question = tk.Button(self.databaseWindow, text = 'Save and Close Database', command = self.saveDatabase, font = self.arial)
         self.save_question.grid(row = 14, column = 1, pady = 5)
 
+        # create listbox scrollbar
+        self.scrollbar = tk.Scrollbar(self.databaseWindow, orient = 'vertical')
+        self.scrollbar.grid(row = 0, column = 3, sticky = 'NS', rowspan = 16)
         # insert listbox of questions
-        self.question_list = tk.Listbox(self.databaseWindow, font = self.arial, height = 40, width = 90)
+        self.question_list = tk.Listbox(self.databaseWindow, yscrollcommand = self.scrollbar.set, font = self.arial, height = 40, width = 90)
         self.question_list.grid(row = 0, column = 2, rowspan = 16, sticky = 'EW', padx = 10)
         self.question_list.insert(tk.END, 'Index\tColor\tCategory\tQuestion\tAnswer')
         with open('./res/trivial_purfruit_questions.csv', 'r') as file:
@@ -118,7 +121,7 @@ class AdminSettings:
             if header != None:
                 for row in enumerate(csv_reader):
                     self.question_list.insert(tk.END, str(row[0]) + '\t' + str(row[1]))
-        self.scrollbar = tk.Scrollbar(self.question_list, orient = 'vertical')
+        self.scrollbar['command'] = self.question_list.yview
 
     def addQuestion(self):
 
