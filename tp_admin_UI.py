@@ -29,21 +29,21 @@ class AdminAuthUI:
         # admin username entry
         self.usernameLabel = Label(self.adminAuthWindow, text = 'Username:', font = self.arial_bold)
         self.usernameLabel.grid(row = 1, column = 0)
-        self.usernameEntry = Entry(self.adminAuthWindow, bd = 5)
+        self.usernameEntry = Entry(self.adminAuthWindow)
         self.usernameEntry.grid(row = 1, column = 1)
         # admin password entry
         self.passwordLabel = Label(self.adminAuthWindow, text = 'Password:', font = self.arial_bold)
         self.passwordLabel.grid(row = 2, column = 0)
-        self.passwordEntry = Entry(self.adminAuthWindow, bd = 5)
+        self.passwordEntry = Entry(self.adminAuthWindow)
         self.passwordEntry.grid(row = 2, column = 1)
 
         # button to enter username/password
         self.submitCredentials = tk.Button(self.adminAuthWindow, text = 'Authenticate', command = self.authenticate, font = self.arial)
-        self.submitCredentials.grid(column = 0)
+        self.submitCredentials.grid(row = 3, column = 0)
 
        # add button to exit program
         self.exitGameSettings = tk.Button(self.adminAuthWindow, text = 'Exit Admin Settings', command = self.close, font = self.arial)
-        self.exitGameSettings.grid(column = 0)
+        self.exitGameSettings.grid(row = 4, column = 0)
 
     def showUI(self):
         print('Show admin UI window...')
@@ -52,11 +52,30 @@ class AdminAuthUI:
         
         if self.usernameEntry.get() == self.credentials['username'] and self.passwordEntry.get() == self.credentials['adminPassword']:
             database_window = tp_admin_database_UI.AdminSettings()
-            print('Database Access Granted...')
-        else:
+            self.confirmAuthLabel = Label(self.adminAuthWindow, text = 'CREDENTIALS ACCEPTED', font = self.arial_bold)
+            self.confirmAuthLabel.grid(row = 5)
             self.usernameEntry.delete(0, 'end')
             self.passwordEntry.delete(0, 'end')
-            print('Incorrect Credentials, Try Again...')
+            print('Database Access Granted...')
+            self.close()
+        elif self.usernameEntry.get() == self.credentials['username'] and self.passwordEntry.get() != self.credentials['adminPassword']:
+            print('Password Incorrect, Try Again...')
+            # self.confirmAuthLabel = Label(self.adminAuthWindow, text = 'PASSWORD INCORRECT, \nTRY AGAIN', font = self.arial_bold)
+            # self.confirmAuthLabel.grid(row = 5)
+            self.usernameEntry.delete(0, 'end')
+            self.passwordEntry.delete(0, 'end')
+        elif self.usernameEntry.get() != self.credentials['username'] and self.passwordEntry.get() == self.credentials['adminPassword']:
+            print('Username Incorrect, Try Again...')
+            # self.confirmAuthLabel = Label(self.adminAuthWindow, text = 'USERNAME INCORRECT, \nTRY AGAIN', font = self.arial_bold)
+            # self.confirmAuthLabel.grid(row = 5)
+            self.usernameEntry.delete(0, 'end')
+            self.passwordEntry.delete(0, 'end')
+        elif self.usernameEntry.get() != self.credentials['username'] and self.passwordEntry.get() != self.credentials['adminPassword']:
+            print('Username and Password Incorrect, Try Again...')
+            # self.confirmAuthLabel = Label(self.adminAuthWindow, text = 'USERNAME & PASSWORD \nINCORRECT', font = self.arial_bold)
+            # self.confirmAuthLabel.grid(row = 5)
+            self.usernameEntry.delete(0, 'end')
+            self.passwordEntry.delete(0, 'end')
 
     def addQuestion(self, category, question, answer):
         print('Add question to database...')
