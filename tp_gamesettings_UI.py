@@ -80,14 +80,18 @@ class GameSettings:
         # 15 second time limit
         self.hardDifficulty = tk.Button(self.gameSettingsWindow, text = 'Hard', command = lambda: self.difficulty_level('hard'), font = arial, height = 2, width = 6)
         self.hardDifficulty.grid(row = 14, column = 3)
+        
+        # add button to start game
+        self.exitGameSettings = tk.Button(self.gameSettingsWindow, text = 'Begin New Game', command = self.beginNewGame, font = arial_bold, height = 2, width = 6)
+        self.exitGameSettings.grid(stick = 'EW')
 
         # add button to view game rules
         self.exitGameSettings = tk.Button(self.gameSettingsWindow, text = 'View Game Rules', command = self.viewRulesUI, font = arial_bold, height = 2, width = 6)
         self.exitGameSettings.grid(stick = 'EW')
 
-        # add button to exit program
-        self.exitGameSettings = tk.Button(self.gameSettingsWindow, text = 'Begin New Game', command = self.beginNewGame, font = arial_bold, height = 2, width = 6)
-        self.exitGameSettings.grid(stick = 'EW')
+        # add button to exit program and return to main menu
+        self.exitGameSettings = tk.Button(self.gameSettingsWindow, text = 'Return to Main Menu', command = self.close, font = arial_bold)
+        self.exitGameSettings.grid(sticky = 'EW')
 
     def difficulty_level(self, diff):
         print('Setting difficulty level to: {}'.format(diff))
@@ -98,7 +102,12 @@ class GameSettings:
         self.time_limit = ques_time
 
     def viewRulesUI(self):
+        print('Open View Rules window')
         rules_window = tp_rules_UI.RulesUI()
+    
+    def close(self):
+        print('Close Game Settings UI and return to Main Menu')
+        self.gameSettingsWindow.destroy()
 
     def beginNewGame(self):
 
@@ -141,9 +150,6 @@ class GameSettings:
                         'difficulty': self.difficulty,
                         'players': players
                         }
-
-#         for key, value in self.settings['players'].items():
-#             print('{}: {}'.format(key, value))
 
         print('Close new game settings and proceed to new game')
         self.gameSettingsWindow.destroy()
