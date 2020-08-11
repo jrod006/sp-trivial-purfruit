@@ -153,4 +153,4 @@ class GameSettings:
 
         print('Close new game settings and proceed to new game')
         self.gameSettingsWindow.destroy()
-        game_window = tp_gameUI.GameUI(self.settings)
+        game_window = tp_gameUI_new.GameUI(self.settings)
