@@ -147,135 +147,85 @@ class GameUI:
 
             self.column = 0
             # add label for player one name
-            self.player1_name = Label(self.gameBoardWindow, text = 'Player: ' + self.players[0].id, font = self.arial)
+            self.player1_name = Label(self.gameBoardWindow, text = 'Player 1: ' + self.players[0].id, font = self.arial)
             self.player1_name.grid(row = 10, column = 1)
-            # add label for player number
-            self.player1Num = Label(self.gameBoardWindow, text = 'Player No: 1', font = self.arial)
-            self.player1Num.grid(row = 11, column = 1)
             # add label for player one chips
             self.player1_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
             self.player1_chips_label.grid(row = 12, column = 1)
-            # self.player1_chips = Label(self.gameBoardWindow, text = self.players[0].chips, font = self.arial)
-            # self.player1_chips.grid(row = 13, column = 1)
 
         elif len(self.players) == 2:
             
             self.column_num = 0
             # add label for player one name
-            self.player1_name = Label(self.gameBoardWindow, text = 'Player: ' + self.players[0].id, font = self.arial)
+            self.player1_name = Label(self.gameBoardWindow, text = 'Player 1: ' + self.players[0].id, font = self.arial)
             self.player1_name.grid(row = 10, column = 1)
-            # add label for player number
-            self.player1Num = Label(self.gameBoardWindow, text = 'Player No: 1', font = self.arial)
-            self.player1Num.grid(row = 11, column = 1)
             # add label for player one chips
             self.player1_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
             self.player1_chips_label.grid(row = 12, column = 1)
-            # self.player1_chips = Label(self.gameBoardWindow, text = self.players[0].chips, font = self.arial)
-            # self.player1_chips.grid(row = 13, column = 1)
 
             # create player two object
             self.p2 = pl.Player(self.settings['players']['player2'])
             # add label for player two name
-            self.player2_name = Label(self.gameBoardWindow, text = 'Player: ' + self.players[1].id, font = self.arial)
+            self.player2_name = Label(self.gameBoardWindow, text = 'Player 2: ' + self.players[1].id, font = self.arial)
             self.player2_name.grid(row = 10, column = 2)
-            # add label for player two number
-            self.player2Num = Label(self.gameBoardWindow, text = 'Player No: 2', font = self.arial)
-            self.player2Num.grid(row = 11, column = 2)
-            # add label for player one chips
+            # add label for player two chips
             self.player2_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
             self.player2_chips_label.grid(row = 12, column = 2)
-            # self.player2_chips = Label(self.gameBoardWindow, text = self.players[0].chips, font = self.arial)
-            # self.player2_chips.grid(row = 13, column = 2)
 
         elif len(self.players) == 3:
             
             self.column_num = 1
             # add label for player one name
-            self.player1_name = Label(self.gameBoardWindow, text = 'Player: ' + self.players[0].id, font = self.arial)
+            self.player1_name = Label(self.gameBoardWindow, text = 'Player 1: ' + self.players[0].id, font = self.arial)
             self.player1_name.grid(row = 10, column = 1)
-            # add label for player number
-            self.player1Num = Label(self.gameBoardWindow, text = 'Player No: 1', font = self.arial)
-            self.player1Num.grid(row = 11, column = 1)
             # add label for player one chips
             self.player1_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
             self.player1_chips_label.grid(row = 12, column = 1)
-            # self.player1_chips = Label(self.gameBoardWindow, text = self.players[0].chips, font = self.arial)
-            # self.player1_chips.grid(row = 13, column = 1)
 
             # add label for player two name
-            self.player2_name = Label(self.gameBoardWindow, text = 'Player: ' + self.players[1].id, font = self.arial)
+            self.player2_name = Label(self.gameBoardWindow, text = 'Player 2: ' + self.players[1].id, font = self.arial)
             self.player2_name.grid(row = 10, column = 2)
-            # add label for player two number
-            self.player2Num = Label(self.gameBoardWindow, text = 'Player No: 2', font = self.arial)
-            self.player2Num.grid(row = 11, column = 2)
-            # add label for player one chips
+            # add label for player two chips
             self.player2_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
             self.player2_chips_label.grid(row = 12, column = 2)
-            # self.player2_chips = Label(self.gameBoardWindow, text = self.players[1].chips, font = self.arial)
-            # self.player2_chips.grid(row = 13, column = 2)
 
-            # add label for player one name
-            self.player3_name = Label(self.gameBoardWindow, text = 'Player: ' + self.players[2].id, font = self.arial)
+            # add label for player three name
+            self.player3_name = Label(self.gameBoardWindow, text = 'Player 3: ' + self.players[2].id, font = self.arial)
             self.player3_name.grid(row = 10, column = 3)
-            # add label for player three location
-            self.player3Num = Label(self.gameBoardWindow, text = 'Player No: 3', font = self.arial)
-            self.player3Num.grid(row = 11, column = 3)
-            # add label for player one chips
+            # add label for player three chips
             self.player3_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
             self.player3_chips_label.grid(row = 12, column = 3)
-            # self.player3_chips = Label(self.gameBoardWindow, text = self.players[2].chips, font = self.arial)
-            # self.player3_chips.grid(row = 13, column = 3)
 
         elif len(self.players) == 4:
             
             self.column_num = 1
             # add label for player one name
-            self.player1_name = Label(self.gameBoardWindow, text = 'Player: ' + self.players[0].id, font = self.arial)
+            self.player1_name = Label(self.gameBoardWindow, text = 'Player 1: ' + self.players[0].id, font = self.arial)
             self.player1_name.grid(row = 10, column = 1)
-            # add label for player number
-            self.player1Num = Label(self.gameBoardWindow, text = 'Player No: 1', font = self.arial)
-            self.player1Num.grid(row = 11, column = 1)
             # add label for player one chips
             self.player1_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
             self.player1_chips_label.grid(row = 12, column = 1)
-            # self.player1_chips = Label(self.gameBoardWindow, text = self.players[0].chips, font = self.arial)
-            # self.player1_chips.grid(row = 13, column = 1)
 
             # add label for player two name
-            self.player2_name = Label(self.gameBoardWindow, text = 'Player: ' + self.players[1].id, font = self.arial)
+            self.player2_name = Label(self.gameBoardWindow, text = 'Player 2: ' + self.players[1].id, font = self.arial)
             self.player2_name.grid(row = 10, column = 2)
-            # add label for player two number
-            self.player2Num = Label(self.gameBoardWindow, text = 'Player No: 2', font = self.arial)
-            self.player2Num.grid(row = 11, column = 2)
-            # add label for player one chips
+            # add label for player two chips
             self.player2_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
             self.player2_chips_label.grid(row = 12, column = 2)
-            # self.player2_chips = Label(self.gameBoardWindow, text = self.players[1].chips, font = self.arial)
-            # self.player2_chips.grid(row = 13, column = 2)
 
             # add label for player three name
-            self.player3_name = Label(self.gameBoardWindow, text = 'Player: ' + self.players[2].id, font = self.arial)
+            self.player3_name = Label(self.gameBoardWindow, text = 'Player 3: ' + self.players[2].id, font = self.arial)
             self.player3_name.grid(row = 10, column = 3)
-            # add label for player three location
-            self.player3Num = Label(self.gameBoardWindow, text = 'Player No: 3', font = self.arial)
-            self.player3Num.grid(row = 11, column = 3)
             # add label for player three chips
             self.player3_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
             self.player3_chips_label.grid(row = 12, column = 3)
-            # self.player3_chips = Label(self.gameBoardWindow, text = self.players[2].chips, font = self.arial)
-            # self.player3_chips.grid(row = 13, column = 3)
 
             # add label for player one name
-            self.player4_name = Label(self.gameBoardWindow, text = 'Player: ' + self.players[3].id, font = self.arial)
+            self.player4_name = Label(self.gameBoardWindow, text = 'Player 4: ' + self.players[3].id, font = self.arial)
             self.player4_name.grid(row = 10, column = 4)
-            # add label for player three location
-            self.player4Num = Label(self.gameBoardWindow, text = 'Player No: 4', font = self.arial)
-            self.player4Num.grid(row = 11, column = 4)
-            # add label for player one chips
+            # add label for player four chips
             self.player4_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
             self.player4_chips_label.grid(row = 12, column = 4)
-            # self.player4_chips = Label(self.gameBoardWindow, text = self.players[3].chips, font = self.arial)
-            # self.player4_chips.grid(row = 13, column = 4)
 
         # options for player to choose direction
         self.directionLabel = Label(self.gameBoardWindow, text = 'Choose Direction:', font = self.arial_bold)
@@ -377,7 +327,6 @@ class GameUI:
                 y1 = (row * self.size)
                 x2 = x1 + self.size
                 y2 = y1 + self.size
-                print(self.grid_conv_table[i])
                 self.canvas.create_text(x1+30, y1+30, text = self.grid_conv_table[i])
                 self.canvas.create_rectangle(x1, y1, x2, y2, outline = 'black', fill = self.colors[i], tags = 'square')
                 i += 1
@@ -400,13 +349,9 @@ class GameUI:
 
         return grid_loc
 
-    # self, name, row, column
     def placePiece(self, name, location):
 
         print('Moving player: ', name)
-        # print('Player marker number: ', self.player_num[name])
-        # print('Moving to square: ', location)
-        # print('Coordinates of square: ', self.grid_loc[location])
 
         # place piece at row/column
         self.pieces[name] = (self.grid_loc[location][0], self.grid_loc[location][1])
@@ -424,13 +369,6 @@ class GameUI:
             # print('Place in quadrant 4 of square')
             self.canvas.coords(name, self.grid_loc[location][0] + 50, self.grid_loc[location][1] + 50)
 
-        # place piece at row/column
-        # x0 = (column*self.size) + int(self.size/2)
-        # y0 = (row*self.size) + int(self.size/2)
-        # print('x0: {}'.format(x0))
-        # print('y0: {}'.format(y0))
-
-    # name, image, row, column
     def addPiece(self, name, image):
         # add player piece to board
         print('Adding Player {} to Board'.format(name))
@@ -546,12 +484,10 @@ class GameUI:
                     self.currentPlayerIdx = 0
             else:
                 self.currentPlayerIdx += 1
-        # print('currentPlayer.id: ', currentPlayer.id)
-        # print('self.player_num[currentPlayer.id]: ', self.player_num[currentPlayer.id])
         #Update the UI State
         if self.player_num[currentPlayer.id] == 1:
             # update player 1 in UI
-            print('Update player 1: {} chip image'.format(self.player_num[currentPlayer.id]))
+            # print('Update player 1: {} chip image'.format(self.player_num[currentPlayer.id]))
             for file in os.listdir('./res'):
                 if file.endswith(".jpg") or file.endswith(".png"):
                     filename, file_extension = os.path.splitext(file)
@@ -563,7 +499,7 @@ class GameUI:
                         self.chip1_img = Label(self.gameBoardWindow, image = self.photo1)
                         self.chip1_img.grid(row = 13, column = 1)
         elif self.player_num[currentPlayer.id] == 2:
-            print('Update player 2: {} chip image'.format(self.player_num[currentPlayer.id]))
+            # print('Update player 2: {} chip image'.format(self.player_num[currentPlayer.id]))
             # update player 2 in UI
             for file in os.listdir('./res'):
                 if file.endswith(".jpg") or file.endswith(".png"):
@@ -576,7 +512,7 @@ class GameUI:
                         self.chip2_img = Label(self.gameBoardWindow, image = self.photo2)
                         self.chip2_img.grid(row = 13, column = 2)
         elif self.player_num[currentPlayer.id] == 3:
-            print('Update player 3: {} chip image'.format(self.player_num[currentPlayer.id]))
+            # print('Update player 3: {} chip image'.format(self.player_num[currentPlayer.id]))
             # update player 3 in UI
             for file in os.listdir('./res'):
                 if file.endswith(".jpg") or file.endswith(".png"):
@@ -589,7 +525,7 @@ class GameUI:
                         self.chip3_img = Label(self.gameBoardWindow, image = self.photo3)
                         self.chip3_img.grid(row = 13, column = 3)
         elif self.player_num[currentPlayer.id] == 4:
-            print('Update player 4: {} chip image'.format(self.player_num[currentPlayer.id]))
+            # print('Update player 4: {} chip image'.format(self.player_num[currentPlayer.id]))
             # update player 4 in UI
             for file in os.listdir('./res'):
                 if file.endswith(".jpg") or file.endswith(".png"):
