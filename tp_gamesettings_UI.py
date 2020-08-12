@@ -3,7 +3,7 @@ from tkinter import Label, Entry, StringVar, font
 import json
 import os
 import tkinter as tk
-import tp_gameUI
+import tp_gameUI_new
 import tp_rules_UI
 import tp_settings
 
