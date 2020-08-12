@@ -3,7 +3,6 @@ import tp_player
 import tp_gameUI
 import tp_startScreen
 import tp_question
-import threading
 from tp_diceroll import DiceRoll
 from tp_boardsquare import BoardSquare
 import time
