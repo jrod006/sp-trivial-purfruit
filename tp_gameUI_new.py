@@ -1,25 +1,19 @@
-from PIL import ImageTk, Image
 from tkinter import Label, Entry, StringVar, font
-import tkinter as tk
+from tp_boardsquare import BoardSquare
+from tp_diceroll import DiceRoll
 import tp_gamesettings_UI as pg
+from PIL import ImageTk, Image
 import tp_player as pl
+import tkinter as tk
 import tp_rules_UI
-import tp_game
 import threading
 import tp_settings
 import tp_player
-import tp_gameUI
-import tp_startScreen
-import tp_questionUI
 import tp_question
 import random
-import threading
-from tp_diceroll import DiceRoll
-from tp_boardsquare import BoardSquare
 import json
 import os
 import time
-from keyboard import press
 
 class GameUI:
 
