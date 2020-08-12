@@ -3,6 +3,7 @@ from tkinter import Label, Entry, StringVar, font
 import tkinter as tk
 import tp_gamesettings_UI
 import tp_admin_UI
+import sys
 
 class MainMenu:
 
@@ -55,3 +56,4 @@ class MainMenu:
 
         print('Shutdown Trivial Purfruit game...')
         self.root.quit()
+        sys.exit()
