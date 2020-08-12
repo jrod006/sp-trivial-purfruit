@@ -5,7 +5,7 @@ class Player:
     def __init__(self, ID):
         self.chips = []
         self.id = ID
-        self.location = 0
+        self.location = 21
 
     def addChip(self, category):
         if (category not in self.chips):
