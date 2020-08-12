@@ -37,22 +37,22 @@ class GameSettings:
         # entry for player one
         self.playeroneLabel = Label(self.gameSettingsWindow, text = 'Player 1:', font = arial_bold)
         self.playeroneLabel.grid(row = 3, column = 0)
-        self.p1_entry = Entry(self.gameSettingsWindow, bd = 5)
+        self.p1_entry = Entry(self.gameSettingsWindow)
         self.p1_entry.grid(row = 3, column = 1, columnspan = 5)
         # entry for player two
         self.playertwoLabel = Label(self.gameSettingsWindow, text = 'Player 2:', font = arial_bold)
         self.playertwoLabel.grid(row = 5, column = 0)
-        self.p2_entry = Entry(self.gameSettingsWindow, bd = 5)
+        self.p2_entry = Entry(self.gameSettingsWindow)
         self.p2_entry.grid(row = 5, column = 1, columnspan = 5)
         # entry for player three
         self.playerthreeLabel = Label(self.gameSettingsWindow, text = 'Player 3:', font = arial_bold)
         self.playerthreeLabel.grid(row = 7, column = 0)
-        self.p3_entry = Entry(self.gameSettingsWindow, bd = 5)
+        self.p3_entry = Entry(self.gameSettingsWindow)
         self.p3_entry.grid(row = 7, column = 1, columnspan = 5)
         # entry for player four
         self.playerfourLabel = Label(self.gameSettingsWindow, text = 'Player 4:', font = arial_bold)
         self.playerfourLabel.grid(row = 9, column = 0)
-        self.p4_entry = Entry(self.gameSettingsWindow, bd = 5)
+        self.p4_entry = Entry(self.gameSettingsWindow)
         self.p4_entry.grid(row = 9, column = 1, columnspan = 5)
 
         # select answer time limit
@@ -68,30 +68,13 @@ class GameSettings:
         self.fifteenSec = tk.Button(self.gameSettingsWindow, text = '15', command = lambda: self.time_limit(15), font = arial, height = 2, width = 6)
         self.fifteenSec.grid(row = 13, column = 3)
 
-        # select game difficulty
-        self.gameDifficulty = Label(self.gameSettingsWindow, text = 'Select Game Difficulty:', font = arial_bold)
-        self.gameDifficulty.grid(row = 14, column = 0)
-        # 5 second time limit
-        self.easyDifficulty = tk.Button(self.gameSettingsWindow, text = 'Easy', command = lambda: self.difficulty_level('easy'), font = arial, height = 2, width = 6)
-        self.easyDifficulty.grid(row = 14, column = 1)
-        # 10 second time limit
-        self.normDifficulty = tk.Button(self.gameSettingsWindow, text = 'Normal', command = lambda: self.difficulty_level('normal'), font = arial, height = 2, width = 6)
-        self.normDifficulty.grid(row = 14, column = 2)
-        # 15 second time limit
-        self.hardDifficulty = tk.Button(self.gameSettingsWindow, text = 'Hard', command = lambda: self.difficulty_level('hard'), font = arial, height = 2, width = 6)
-        self.hardDifficulty.grid(row = 14, column = 3)
-
         # add button to view game rules
-        self.exitGameSettings = tk.Button(self.gameSettingsWindow, text = 'View Game Rules', command = self.viewRulesUI, font = arial_bold, height = 2, width = 6)
+        self.exitGameSettings = tk.Button(self.gameSettingsWindow, text = 'View Game Rules', command = self.viewRulesUI, font = arial_bold)
         self.exitGameSettings.grid(stick = 'EW')
 
         # add button to exit program
-        self.exitGameSettings = tk.Button(self.gameSettingsWindow, text = 'Begin New Game', command = self.beginNewGame, font = arial_bold, height = 2, width = 6)
+        self.exitGameSettings = tk.Button(self.gameSettingsWindow, text = 'Begin New Game', command = self.beginNewGame, font = arial_bold)
         self.exitGameSettings.grid(stick = 'EW')
-
-    def difficulty_level(self, diff):
-        print('Setting difficulty level to: {}'.format(diff))
-        self.difficulty = diff
 
     def time_limit(self, ques_time):
         print('Setting question time limit to: {}'.format(ques_time))
@@ -138,12 +121,8 @@ class GameSettings:
 
         self.settings = {
                         'time_limit': self.time_limit,
-                        'difficulty': self.difficulty,
                         'players': players
                         }
-
-#         for key, value in self.settings['players'].items():
-#             print('{}: {}'.format(key, value))
 
         print('Close new game settings and proceed to new game')
         self.gameSettingsWindow.destroy()
