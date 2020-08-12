@@ -3,25 +3,31 @@ import tp_player
 import tp_gameUI
 import tp_startScreen
 import tp_question
+import threading
 from tp_diceroll import DiceRoll
 from tp_boardsquare import BoardSquare
+import tp_gameboardUI
 import time
 
 class Game:
 
-    def __init__(self):
+    def __init__(self, settings):
         print("GAME INIT")
         #Init global UI/objects here
         self.players = []
         self.placement = []
-        # self.UI = tp_gameUI.GameUI()
         self.startScreen = tp_startScreen.StartScreen(self)
         self.board = []
         self.initBoard()
         for square in self.board:
             print(square)
         self.currentPlayerIdx = 0
-
+        print('Finish instantiating Game')
+        for name in list(settings['players'].values()):
+            print('Creating player object for {}'.format(name))
+            newPlayer = tp_player.Player(name)
+            self.players.append(newPlayer)
+        self.UI = tp_gameboardUI.GameUI(settings)
 
     def processTurn(self):
         print('DOING A TURN')
@@ -75,14 +81,12 @@ class Game:
                     self.currentPlayerIdx = 0
             else:
                 self.currentPlayerIdx += 1
-        #Updat the UI State
+
+        #Update the UI State
+        self.UI.updateUI() 
         self.showUI()
-        time.sleep(2)
+        # time.sleep(2)
         
-            
-
-        
-
     def movePlayer(self, distance, player):
         # Bad Code Reqplication but it's almost 10 PM and I can't figure out how to rework it off the top of my head
         direction =''
@@ -189,14 +193,14 @@ class Game:
         self.startGame()
 
     def startGame(self):
-        print("Starting Game with Settings")
-        print(self.currentSettings)
+        # print("Starting Game with Settings")
+        # print(self.currentSettings)
         #Init Players
-        for i in range(0, int(self.currentSettings["players"])):
+        # for i in range(0, int(self.currentSettings["players"])):
         # for i in range(0, 2):
-            newPlayer = tp_player.Player(i)
-            newPlayer.location = 21
-            self.players.append(newPlayer)
+            # newPlayer = tp_player.Player(i)
+            # newPlayer.location = 21
+            # self.players.append(newPlayer)
             
         while True:
             self.processTurn()
@@ -208,9 +212,9 @@ class Game:
         print('SIMULATION COMPLETE')
             
             
-    def run(self):
+    # def run(self):
         #Load Settings
-        self.displayStartupScreen()
+        # self.displayStartupScreen()
 
     def initBoard(self):
         # Bad hard coded board init
@@ -236,10 +240,10 @@ class Game:
         self.board.append(finalsquare)
 
 
-def testGame():
-    print('Testing Game Module')
-    game = Game()
-    game.run()
+# def testGame():
+#     print('Testing Game Module')
+#     game = Game()
+#     game.run()
 
-if (__name__=="__main__"):
-        testGame()
+# if (__name__=="__main__"):
+#         testGame()
