@@ -565,8 +565,8 @@ class GameUI:
                     filename = ['Independence Day' if word == 'IndependenceDay' else word for word in filename]
                     if sorted(filename) == sorted(self.players[0].chips):
                         self.img1 = Image.open('./res/' + file)
-                        self.photo1 = ImageTk.PhotoImage(self.img)
-                        self.chip1_img = Label(self.gameBoardWindow, image = self.photo)
+                        self.photo1 = ImageTk.PhotoImage(self.img1)
+                        self.chip1_img = Label(self.gameBoardWindow, image = self.photo1)
                         self.chip1_img.grid(row = 13, column = 1)
         elif self.player_num[currentPlayer.id] == 2:
             print('Update player 2: {} chip image'.format(self.player_num[currentPlayer.id]))
@@ -578,8 +578,8 @@ class GameUI:
                     filename = ['Independence Day' if word == 'IndependenceDay' else word for word in filename]
                     if sorted(filename) == sorted(self.players[1].chips):
                         self.img2 = Image.open('./res/' + file)
-                        self.photo2 = ImageTk.PhotoImage(self.img)
-                        self.chip2_img = Label(self.gameBoardWindow, image = self.photo)
+                        self.photo2 = ImageTk.PhotoImage(self.img2)
+                        self.chip2_img = Label(self.gameBoardWindow, image = self.photo2)
                         self.chip2_img.grid(row = 13, column = 2)
         elif self.player_num[currentPlayer.id] == 3:
             print('Update player 3: {} chip image'.format(self.player_num[currentPlayer.id]))
@@ -591,8 +591,8 @@ class GameUI:
                     filename = ['Independence Day' if word == 'IndependenceDay' else word for word in filename]
                     if sorted(filename) == sorted(self.players[2].chips):
                         self.img3 = Image.open('./res/' + file)
-                        self.photo3 = ImageTk.PhotoImage(self.img)
-                        self.chip3_img = Label(self.gameBoardWindow, image = self.photo)
+                        self.photo3 = ImageTk.PhotoImage(self.img3)
+                        self.chip3_img = Label(self.gameBoardWindow, image = self.photo3)
                         self.chip3_img.grid(row = 13, column = 3)
         elif self.player_num[currentPlayer.id] == 4:
             print('Update player 4: {} chip image'.format(self.player_num[currentPlayer.id]))
@@ -604,8 +604,8 @@ class GameUI:
                     filename = ['Independence Day' if word == 'IndependenceDay' else word for word in filename]
                     if sorted(filename) == sorted(self.players[3].chips):
                         self.img4 = Image.open('./res/' + file)
-                        self.photo4 = ImageTk.PhotoImage(self.img)
-                        self.chip4_img = Label(self.gameBoardWindow, image = self.photo)
+                        self.photo4 = ImageTk.PhotoImage(self.img4)
+                        self.chip4_img = Label(self.gameBoardWindow, image = self.photo4)
                         self.chip4_img.grid(row = 13, column = 4)
 
         self.rolldieResult.configure(text = '')
