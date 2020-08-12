@@ -6,7 +6,6 @@ import tp_question
 import threading
 from tp_diceroll import DiceRoll
 from tp_boardsquare import BoardSquare
-import tp_gameboardUI
 import time
 
 class Game:
