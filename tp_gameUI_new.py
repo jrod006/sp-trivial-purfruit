@@ -39,6 +39,8 @@ class GameUI:
         self.pieces = {}
         # create answer variable
         self.answer = ''
+        # Distance remaning in current turn
+        self.turnDistanceRemaining = 0
 
         # create player objects and store to list
         i = 1
@@ -66,8 +68,11 @@ class GameUI:
         # MICHAEL'S CODE        
         self.board = []
         self.initBoard()
+        i = 0
         for square in self.board:
+            print(i)
             print(square)
+            i+=1
         self.currentPlayerIdx = 0
         #########################################
 
@@ -287,7 +292,7 @@ class GameUI:
         self.roll = StringVar()
         self.rolldieResult = tk.Label(self.gameBoardWindow, text = self.roll, font = self.arial)
         self.rolldieResult.grid(column = 2, row = 3, columnspan = 3)
-        self.rollButton = tk.Button(self.gameBoardWindow, text = 'Roll Die', command = self.processTurn, font = self.arial_bold)
+        self.rollButton = tk.Button(self.gameBoardWindow, text = 'Roll Die', command = self.startTurn, font = self.arial_bold)
         self.rollButton.grid(column = 2, row = 4, sticky = 'EW')
 
         # player question
@@ -399,7 +404,7 @@ class GameUI:
         self.exit_direction = exit_direction
         print(self.exit_direction)
 
-    def processTurn(self):
+    def startTurn(self):
 
         print('DOING A TURN')
         currentPlayer = self.players[self.currentPlayerIdx]
@@ -415,7 +420,7 @@ class GameUI:
         questionGenerator = tp_question.QuestionGenerator()
         question = {}
         category = ''
-        if currentPlayer.location == 21:
+        if currentPlayer.location == 33:
             # If chips < 4, choose the category, 4 or more, opponent chooses
             if (len(currentPlayer.chips) < 4):
                 category = input('Choose a Category: Events, Places, Independence Day, People: ')
@@ -423,12 +428,18 @@ class GameUI:
                 category = input('(Opponent) Choose final question Category:  Events, Places, Independence Day, People: ')
         else:
             category = self.board[currentPlayer.location].category
-        question = questionGenerator.getRandomQuestion(category)
+        if category == 'Roll':
+            # Need to Update the UI and display roll again message here
+            print('ROLL AGAIN')
+            return
+        else:
+            question = questionGenerator.getRandomQuestion(category)
 
         # Display Question and Prompt for Answer
         # needs to be replaced by with UI loop integration
         self.questionText.configure(text = question['question'])
         print(question['question'])
+    #def onSubmitAnswer():
         ans = input('Input Answer:')
         correct = (ans == question['answer'])
 
@@ -437,7 +448,7 @@ class GameUI:
         if (correct): 
             print('Correct')
             # Check if this was the player's final question
-            if (currentPlayer.location == 21 and len(currentPlayer.chips) == 4):
+            if (currentPlayer.location == 33 and len(currentPlayer.chips) == 4):
             # Below for testing, removes the last square condition to speed to victory logic
             #if (len(currentPlayer.chips) == 4):
                 # Add player to the placement array, remove them from the players array, immediately end the turn
@@ -477,7 +488,7 @@ class GameUI:
         else:
             print('Incorrect')
             # Move the player off the center square if this was a final attempt
-            if (currentPlayer.location == 21 and len(currentPlayer.chips) == 4):
+            if (currentPlayer.location == 33 and len(currentPlayer.chips) == 4):
                 self.movePlayer(1, currentPlayer)
             # Move to the next player before starting the next turn if we got the wrong answer
             if (self.currentPlayerIdx >= len(self.players) - 1):
@@ -541,13 +552,35 @@ class GameUI:
         self.rolldieResult.configure(text = '')
         self.actionLabel.configure(text = 'Next Player Rolls')
         # time.sleep(1)
+
+    def getValidDirections(self, currlocation):
+        # Return the valid directions given a location
+        # Disable invalid buttons in the UI
+        if currlocation < 25:
+            if player.location in [4,10,16,22]:
+                self.actionLabel.configure(text = 'Choose Direction (cw, ccw, inner)')
+                return ['cw','ccw','inner']
+            else:
+                self.actionLabel.configure(text = 'Choose Direction (cw, ccw)')
+                return ['cw','ccw']
+        elif player.location < 33:
+            self.actionLabel.configure(text = 'Choose Direction (inner, outer)')
+            return ['inner','outer']
+        else:
+            self.actionLabel.configure(text = 'Choose Exit Direction (up, down, left, right)')
+            return ['up','down','left','right']
+
+    def onExitSelect(self):
+        return 0
+    def onDirectionSelect(self):
+        return 0
         
     def movePlayer(self, distance, player):
         # Bad Code Reqplication but it's almost 10 PM and I can't figure out how to rework it off the top of my head
         direction = ''
         lastSquare = 0 # None
-        if player.location < 17:
-            if player.location in [3,7,11,15]:
+        if player.location < 25:
+            if player.location in [4,10,16,22]:
                 self.actionLabel.configure(text = 'Choose Direction (cw, ccw, inner)')
                 direction = input('Choose Direction (cw, ccw, inner): ')
                 if (direction not in ['cw','ccw','inner']):
@@ -557,7 +590,7 @@ class GameUI:
                 direction = input('Choose Direction (cw, ccw): ')
                 if (direction not in ['cw','ccw']):
                     direction = 'cw'
-        elif player.location < 21:
+        elif player.location < 33:
             self.actionLabel.configure(text = 'Choose Direction (inner, outer)')
             direction = input('Choose Direction (inner, outer): ')
             if (direction not in ['inner','outer']):
@@ -566,15 +599,15 @@ class GameUI:
             self.actionLabel.configure(text = 'Choose Exit Direction (up, down, left, right)')
             direction = input('Choose Exit direction (up, down, left, right): ')
             if direction == 'up':
-                player.location = 17
+                player.location = 26
             elif direction == 'down':
-                player.location = 19
+                player.location = 27
             elif direction == 'left':
-                player.location = 20
+                player.location = 30
             elif direction == 'right':
-                player.location = 18
+                player.location = 31
             else:
-                player.location = 17
+                player.location = 26
             distance -= 1 # This logic auto moves you by one square
             direction = 'outer'
         for i in range (0, distance):
@@ -582,32 +615,31 @@ class GameUI:
             print(player.location)
             currsquare = self.board[player.location]
             if (currsquare.isFinal):
-                while (player.location == 21):
+                while (player.location == 33):
                     dire = ''
                     self.actionLabel.configure(text = 'Choose Exit Direction (up, down, left, right)')
                     dire = input('Choose Exit direction (up, down, left, right): ')
                     if dire == 'up':
-                        if lastSquare != 17:
-                            player.location = 17
+                        if lastSquare != 26:
+                            player.location = 26
                         else:
                             self.actionLabel.configure(text = 'Cannot go backwards')
                             print('Cannot go backwards')
                     elif dire == 'down':
-                        player.location = 19
-                        if (lastSquare != 19):
-                            player.location = 19
+                        if (lastSquare != 27):
+                            player.location = 27
                         else:
                             self.actionLabel.configure(text = 'Cannot go backwards')
                             print('Cannot go backwards')
                     elif dire == 'left':
-                        if (lastSquare != 20):
-                            player.location = 20
+                        if (lastSquare != 30):
+                            player.location = 30
                         else:
                             self.actionLabel.configure(text = 'Cannot go backwards')
                             print('Cannot go backwards')
                     elif dire == 'right':
-                        if (lastSquare != 18):
-                            player.location = 18
+                        if (lastSquare != 31):
+                            player.location = 31
                         else:
                             self.actionLabel.configure(text = 'Cannot go backwards')
                             print('Cannot go backwards')
@@ -624,7 +656,7 @@ class GameUI:
                         direction = 'inner'
                     else:
                         player.location = currsquare.nextSquare[direction]
-                elif (player.location < 17 and i != 0): # Just came out
+                elif (player.location < 25 and i != 0): # Just came out
                     self.actionLabel.configure(text = 'Choose Direction (cw, ccw)')
                     direction = input('Choose Direction (cw, ccw)')
                     if (direction not in ['cw','ccw']):
@@ -637,7 +669,7 @@ class GameUI:
             lastSquare = self.board.index(currsquare) # Record the last sqaure
 
         # move player piece on game board
-        self.placePiece(player.id, player.location)
+        # self.placePiece(player.id, player.location)
 
     def questionWindow(self, name, question):
 
@@ -672,25 +704,42 @@ class GameUI:
         # Bad hard coded board init
         cats = ['Events','Places','Independence Day', 'People']
         self.board.append(BoardSquare('NONE', -1, -1, -1))
-        self.board.append(BoardSquare(cats[1%4], 2, 16))
-        for i in range (2,16):
+        self.board.append(BoardSquare(cats[1%4], 2, 24))
+        for i in range (2,24):
             self.board.append(BoardSquare(cats[i%4], i+1, i-1))
-        self.board.append(BoardSquare(cats[16%4], 1, 15))
+        self.board.append(BoardSquare(cats[24%4], 1, 23))
         # Now add the central squares and set up the paths
-        # cw becomes towards center, ccw is outward
-        self.board.append(BoardSquare(cats[17%4], -1, -1, 21, 3))
-        self.board.append(BoardSquare(cats[18%4], -1, -1, 21, 7))
-        self.board.append(BoardSquare(cats[19%4], -1, -1, 21, 11))
-        self.board.append(BoardSquare(cats[20%4], -1, -1, 21, 15))
-        self.board[3].nextSquare['inner'] = 17
-        self.board[7].nextSquare['inner'] = 18
-        self.board[11].nextSquare['inner'] = 19
-        self.board[15].nextSquare['inner'] = 20
+        self.board.append(BoardSquare(cats[25%4], -1, -1, 26, 4))
+        self.board.append(BoardSquare(cats[26%4], -1, -1, 33, 25))
+        self.board.append(BoardSquare(cats[27%4], -1, -1, 33, 28))
+        self.board.append(BoardSquare(cats[28%4], -1, -1, 27, 11))
+        self.board.append(BoardSquare(cats[29%4], -1, -1, 30, 22))
+        self.board.append(BoardSquare(cats[30%4], -1, -1, 33, 29))
+        self.board.append(BoardSquare(cats[31%4], -1, -1, 33, 32))
+        self.board.append(BoardSquare(cats[32%4], -1, -1, 31, 10))
+        
+        self.board[4].nextSquare['inner'] = 25
+        self.board[10].nextSquare['inner'] = 32
+        self.board[16].nextSquare['inner'] = 28
+        self.board[22].nextSquare['inner'] = 29
         # Add the final square
-        finalsquare = BoardSquare('Free', 21, 21, 21)
+        finalsquare = BoardSquare('Free', 33, 33, 33)
         finalsquare.isFinal = True
         self.board.append(finalsquare)
-
+        # Now adjust for the roll again squares/categories, etc
+        # Roll again on 3, 5, 8, 11, 14, 17, 21, 23
+        self.board[3].category = 'Roll'
+        self.board[5].category = 'Roll'
+        self.board[8].category = 'Roll'
+        self.board[11].category = 'Roll'
+        self.board[14].category = 'Roll'
+        self.board[17].category = 'Roll'
+        self.board[21].category = 'Roll'
+        self.board[23].category = 'Roll'
+        
+        # 10 Becomes category 3, 16 becomes Cat 1 
+        self.board[10].category = cats[3]
+        self.board[16].category = cats[1]
     def showUI(self):
         # Text based State UI for now
         for player in self.players:
