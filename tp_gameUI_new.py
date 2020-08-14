@@ -353,7 +353,7 @@ class GameUI:
 
     def placePiece(self, name, location):
 
-        print('Moving player: ', name)
+        # print('Moving player: ', name)
 
         # place piece at row/column
         self.pieces[name] = (self.grid_loc[location][0], self.grid_loc[location][1])
@@ -428,7 +428,7 @@ class GameUI:
         
         return
 
-    def askQuestion():
+    def askQuestion(self):
         # Question Answering and Chip Logic
         questionGenerator = tp_question.QuestionGenerator()
         question = {}
@@ -563,6 +563,7 @@ class GameUI:
         # time.sleep(1)
 
     def setValidDirections(self, currlocation, exiting=False):
+        # enable buttons
         self.clockwise.configure(state = 'normal')
         self.counter_clockwise.configure(state = 'normal')
         self.outer.configure(state = 'normal')
@@ -636,6 +637,7 @@ class GameUI:
         return 0
         
     def movePlayer(self, distance, direction, player):
+        print('Are we going into this function?')
         # Moves the Player  certain distance
         for i in range (0, distance):
             # Increment Player Location
@@ -654,30 +656,9 @@ class GameUI:
             self.lastSquare = self.board.index(currsquare) # Record the last sqaure
             self.distance -= 1
         print('Final Player Location ' + str(player.location))
+
         # move player piece on game board
         self.placePiece(player.id, player.location)
-
-    def questionWindow(self, name, question):
-
-        self.questionWindow = tk.Tk()
-        self.questionWindow.title('TP Question')
-        self.frame = tk.Frame(self.questionWindow)
-
-        # options for player to choose direction
-        self.playerLabel = Label(self.questionWindow, text = 'Current Player:', font = self.arial_bold)
-        self.playerLabel.grid(row = 0, column = 0)
-        self.playerName = Label(self.questionWindow, text = name, font = self.arial)
-        self.playerName.grid(row = 1, column = 0)
-        self.questionLabel = Label(self.questionWindow, text = 'Question', font = self.arial_bold)
-        self.questionLabel.grid(row = 2, column = 0)
-        self.question = Label(self.questionWindow, text = question, wraplength = 400, font = self.arial)
-        self.question.grid(row = 3, column = 0)
-        self.answerLabel = Label(self.questionWindow, text = 'Enter Answer:', font = self.arial_bold)
-        self.answerLabel.grid(row = 4, column = 0)
-        self.answerEntry = Entry(self.questionWindow)
-        self.answerEntry.grid(row = 5, column = 0, columnspan = 8)
-        self.submitAnswer = tk.Button(self.questionWindow, text = 'Submit Answer', command = lambda: self.submit(self.answerEntry.get()), font = self.arial)
-        self.submitAnswer.grid(row = 6, column = 0, columnspan = 2)
 
     def submit(self, answer):
 
