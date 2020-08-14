@@ -372,10 +372,10 @@ class GameUI:
             self.canvas.coords(name, self.grid_loc[location][0] + 40, self.grid_loc[location][1] + 40)
 
     def addPiece(self, name, image, location):
+
         # add player piece to board
         print('Adding Player {} to Board'.format(name))
         self.canvas.create_image(20, 20, image = image, tags = (name, 'piece'), anchor = 'c')
-        # self.placePiece(name, row, column)
         self.placePiece(name, location)
 
     def submitCategory(self, category):
@@ -418,15 +418,17 @@ class GameUI:
         print('DOING A TURN')
         currentPlayer = self.players[self.currentPlayerIdx]
         self.current_player.configure(text = currentPlayer.id)
-        # print('Player ' + str(currentPlayer.id) + "'s turn")
+        print('Player ' + str(currentPlayer.id) + "'s turn")
         # Roll the Dice
         self.distance = DiceRoll.rollDice()
-        self.rolldieResult.configure(text = str(self.distance))      
+        self.rolldieResult.configure(text = str(self.distance))
+
         # Set the direction Buttons up for The beginning of the move
         self.setValidDirections(currentPlayer.location)
+        
         return
 
-    #def askQuestion():
+    def askQuestion():
         # Question Answering and Chip Logic
         questionGenerator = tp_question.QuestionGenerator()
         question = {}
@@ -509,7 +511,6 @@ class GameUI:
         #Update the UI State
         if self.player_num[currentPlayer.id] == 1:
             # update player 1 in UI
-            # print('Update player 1: {} chip image'.format(self.player_num[currentPlayer.id]))
             for file in os.listdir('./res'):
                 if file.endswith(".jpg") or file.endswith(".png"):
                     filename, file_extension = os.path.splitext(file)
@@ -521,7 +522,6 @@ class GameUI:
                         self.chip1_img = Label(self.gameBoardWindow, image = self.photo1)
                         self.chip1_img.grid(row = 13, column = 1)
         elif self.player_num[currentPlayer.id] == 2:
-            # print('Update player 2: {} chip image'.format(self.player_num[currentPlayer.id]))
             # update player 2 in UI
             for file in os.listdir('./res'):
                 if file.endswith(".jpg") or file.endswith(".png"):
@@ -534,7 +534,6 @@ class GameUI:
                         self.chip2_img = Label(self.gameBoardWindow, image = self.photo2)
                         self.chip2_img.grid(row = 13, column = 2)
         elif self.player_num[currentPlayer.id] == 3:
-            # print('Update player 3: {} chip image'.format(self.player_num[currentPlayer.id]))
             # update player 3 in UI
             for file in os.listdir('./res'):
                 if file.endswith(".jpg") or file.endswith(".png"):
@@ -547,7 +546,6 @@ class GameUI:
                         self.chip3_img = Label(self.gameBoardWindow, image = self.photo3)
                         self.chip3_img.grid(row = 13, column = 3)
         elif self.player_num[currentPlayer.id] == 4:
-            # print('Update player 4: {} chip image'.format(self.player_num[currentPlayer.id]))
             # update player 4 in UI
             for file in os.listdir('./res'):
                 if file.endswith(".jpg") or file.endswith(".png"):
@@ -565,20 +563,69 @@ class GameUI:
         # time.sleep(1)
 
     def setValidDirections(self, currlocation, exiting=False):
+        self.clockwise.configure(state = 'normal')
+        self.counter_clockwise.configure(state = 'normal')
+        self.outer.configure(state = 'normal')
+        self.inner.configure(state = 'normal')
+        self.up.configure(state = 'normal')
+        self.down.configure(state = 'normal')
+        self.left.configure(state = 'normal')
+        self.right.configure(state = 'normal')
+        self.event.configure(state = 'normal')
+        self.people.configure(state = 'normal')
+        self.places.configure(state = 'normal')
+        self.ind_day.configure(state = 'normal')
         # Return the valid directions given a location
         # Disable invalid buttons in the UI
         if currlocation < 25:
             if currlocation in [4,10,16,22]:
                 self.actionLabel.configure(text = 'Choose Direction (cw, ccw, inner)')
+                self.outer.configure(state = 'disabled')
+                self.up.configure(state = 'disabled')
+                self.down.configure(state = 'disabled')
+                self.left.configure(state = 'disabled')
+                self.right.configure(state = 'disabled')
+                self.event.configure(state = 'disabled')
+                self.people.configure(state = 'disabled')
+                self.places.configure(state = 'disabled')
+                self.ind_day.configure(state = 'disabled')
                 return ['cw','ccw','inner']
             else:
                 self.actionLabel.configure(text = 'Choose Direction (cw, ccw)')
+                self.inner.configure(state = 'disabled')
+                self.outer.configure(state = 'disabled')
+                self.up.configure(state = 'disabled')
+                self.down.configure(state = 'disabled')
+                self.left.configure(state = 'disabled')
+                self.right.configure(state = 'disabled')
+                self.event.configure(state = 'disabled')
+                self.people.configure(state = 'disabled')
+                self.places.configure(state = 'disabled')
+                self.ind_day.configure(state = 'disabled')
                 return ['cw','ccw']
         elif currlocation < 33:
             self.actionLabel.configure(text = 'Choose Direction (inner, outer)')
+            self.clockwise.configure(state = 'disabled')
+            self.counter_clockwise.configure(state = 'disabled')
+            self.up.configure(state = 'disabled')
+            self.down.configure(state = 'disabled')
+            self.left.configure(state = 'disabled')
+            self.right.configure(state = 'disabled')
+            self.event.configure(state = 'disabled')
+            self.people.configure(state = 'disabled')
+            self.places.configure(state = 'disabled')
+            self.ind_day.configure(state = 'disabled')
             return ['inner','outer']
         else:
             self.actionLabel.configure(text = 'Choose Exit Direction (up, down, left, right)')
+            self.clockwise.configure(state = 'disabled')
+            self.counter_clockwise.configure(state = 'disabled')
+            self.inner.configure(state = 'disabled')
+            self.outer.configure(state = 'disabled')
+            self.event.configure(state = 'disabled')
+            self.people.configure(state = 'disabled')
+            self.places.configure(state = 'disabled')
+            self.ind_day.configure(state = 'disabled')
             return ['up','down','left','right']
 
     def onExitSelect(self):
