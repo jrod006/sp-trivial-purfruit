@@ -360,13 +360,13 @@ class GameUI:
 
         if self.player_num[name] == 1:
             # print('Place in quadrant 1 of square')
-            self.canvas.coords(name, self.grid_loc[location][0] + 15, self.grid_loc[location][1] + 15)
+            self.canvas.coords(name, self.grid_loc[location][0] + 20, self.grid_loc[location][1] + 15)
         elif self.player_num[name] == 2:
             # print('Place in quadrant 2 of square')
             self.canvas.coords(name, self.grid_loc[location][0] + 40, self.grid_loc[location][1] + 15)
         elif self.player_num[name] == 3:
             # print('Place in quadrant 3 of square')
-            self.canvas.coords(name, self.grid_loc[location][0] + 15, self.grid_loc[location][1] + 40)
+            self.canvas.coords(name, self.grid_loc[location][0] + 20, self.grid_loc[location][1] + 40)
         elif self.player_num[name] == 4:
             # print('Place in quadrant 4 of square')
             self.canvas.coords(name, self.grid_loc[location][0] + 40, self.grid_loc[location][1] + 40)
@@ -608,7 +608,7 @@ class GameUI:
             self.distance -= 1
         print('Final Player Location ' + str(player.location))
         # move player piece on game board
-        # self.placePiece(player.id, player.location)
+        self.placePiece(player.id, player.location)
 
     def questionWindow(self, name, question):
 
