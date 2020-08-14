@@ -1,7 +1,9 @@
 from PIL import ImageTk, Image
 from tkinter import Label, Entry, StringVar, font
+from tp_diceroll import DiceRoll
 import json
 import os
+import time
 import tkinter as tk
 import tp_gameUI_new
 import tp_rules_UI
@@ -27,54 +29,79 @@ class GameSettings:
         self.gameSettingsWindow.title('TP Game Settings')
         self.frame = tk.Frame(self.gameSettingsWindow)
 
+        self.instructions = 'Enter Settings for New Game:\n1) Enter names of players\n2) Click Roll Die button \nto roll die for players \nto determine player order\n3) Click Begin New Game\nto start new game'
         # trivial pursuit welcome label
-        self.settingsLabel = Label(self.gameSettingsWindow, text = 'Enter Settings for New Game', font = arial_bold)
-        self.settingsLabel.grid(sticky = 'EW', row = 0)
+        self.settingsLabel = Label(self.gameSettingsWindow, text = self.instructions, font = arial_bold)
+        self.settingsLabel.grid(sticky = 'EW', row = 0, column = 0)
 
         # enter player names
         self.playerNamesLabel = Label(self.gameSettingsWindow, text = 'Enter Player Names:', font = arial_bold)
-        self.playerNamesLabel.grid(row = 2)
+        self.playerNamesLabel.grid(row = 1, columnspan = 3)
         # entry for player one
         self.playeroneLabel = Label(self.gameSettingsWindow, text = 'Player 1:', font = arial_bold)
-        self.playeroneLabel.grid(row = 3, column = 0)
+        self.playeroneLabel.grid(row = 2, column = 0)
         self.p1_entry = Entry(self.gameSettingsWindow)
-        self.p1_entry.grid(row = 3, column = 1, columnspan = 5)
+        self.p1_entry.grid(row = 2, column = 1, columnspan = 3)
         # entry for player two
         self.playertwoLabel = Label(self.gameSettingsWindow, text = 'Player 2:', font = arial_bold)
-        self.playertwoLabel.grid(row = 5, column = 0)
+        self.playertwoLabel.grid(row = 3, column = 0)
         self.p2_entry = Entry(self.gameSettingsWindow)
-        self.p2_entry.grid(row = 5, column = 1, columnspan = 5)
+        self.p2_entry.grid(row = 3, column = 1, columnspan = 3)
         # entry for player three
         self.playerthreeLabel = Label(self.gameSettingsWindow, text = 'Player 3:', font = arial_bold)
-        self.playerthreeLabel.grid(row = 7, column = 0)
+        self.playerthreeLabel.grid(row = 4, column = 0)
         self.p3_entry = Entry(self.gameSettingsWindow)
-        self.p3_entry.grid(row = 7, column = 1, columnspan = 5)
+        self.p3_entry.grid(row = 4, column = 1, columnspan = 3)
         # entry for player four
         self.playerfourLabel = Label(self.gameSettingsWindow, text = 'Player 4:', font = arial_bold)
-        self.playerfourLabel.grid(row = 9, column = 0)
+        self.playerfourLabel.grid(row = 5, column = 0)
         self.p4_entry = Entry(self.gameSettingsWindow)
-        self.p4_entry.grid(row = 9, column = 1, columnspan = 5)
+        self.p4_entry.grid(row = 5, column = 1, columnspan = 3)
 
         # select answer time limit
-        self.timeLimit = Label(self.gameSettingsWindow, text = 'Select Timer for Answers (in seconds):', font = arial_bold)
-        self.timeLimit.grid(row = 13, column = 0)
+        self.timeLimit = Label(self.gameSettingsWindow, text = 'Select Timer for \nAnswers (in seconds):', font = arial_bold)
+        self.timeLimit.grid(row = 6, column = 0)
         # 5 second time limit
         self.fiveSec = tk.Button(self.gameSettingsWindow, text = '5', command = lambda: self.time_limit(5), font = arial, height = 2, width = 6)
-        self.fiveSec.grid(row = 13, column = 1)
+        self.fiveSec.grid(row = 6, column = 1)
         # 10 second time limit
         self.tenSec = tk.Button(self.gameSettingsWindow, text = '10', command = lambda: self.time_limit(10), font = arial, height = 2, width = 6)
-        self.tenSec.grid(row = 13, column = 2)
+        self.tenSec.grid(row = 6, column = 2)
         # 15 second time limit
         self.fifteenSec = tk.Button(self.gameSettingsWindow, text = '15', command = lambda: self.time_limit(15), font = arial, height = 2, width = 6)
-        self.fifteenSec.grid(row = 13, column = 3)
+        self.fifteenSec.grid(row = 6, column = 3)
 
-        # add button to view game rules
-        self.exitGameSettings = tk.Button(self.gameSettingsWindow, text = 'View Game Rules', command = self.viewRulesUI, font = arial_bold)
-        self.exitGameSettings.grid(stick = 'EW')
+        # dice rolls for player order
+        self.dicerollLabel = Label(self.gameSettingsWindow, text = 'Die Roll Results \nfor Player Order:', font = arial_bold)
+        self.dicerollLabel.grid(row = 1, column = 4)
+        # die results for player order
+        self.p1rollLabel = Label(self.gameSettingsWindow, text = '', font = arial)
+        self.p1rollLabel.grid(row = 2, column = 4)
+        # die results for player order
+        self.p2rollLabel = Label(self.gameSettingsWindow, text = '', font = arial)
+        self.p2rollLabel.grid(row = 3, column = 4)
+        # die results for player order
+        self.p3rollLabel = Label(self.gameSettingsWindow, text = '', font = arial)
+        self.p3rollLabel.grid(row = 4, column = 4)
+        # die results for player order
+        self.p4rollLabel = Label(self.gameSettingsWindow, text = '', font = arial)
+        self.p4rollLabel.grid(row = 5, column = 4)
+
+        # add button to exit program
+        self.exitGameSettings = tk.Button(self.gameSettingsWindow, text = 'Roll Die', command = self.rollDie, font = arial_bold)
+        self.exitGameSettings.grid(row = 6, column = 4)
 
         # add button to exit program
         self.exitGameSettings = tk.Button(self.gameSettingsWindow, text = 'Begin New Game', command = self.beginNewGame, font = arial_bold)
-        self.exitGameSettings.grid(stick = 'EW')
+        self.exitGameSettings.grid(sticky = 'EW')
+
+        # add button to view game rules
+        self.exitGameSettings = tk.Button(self.gameSettingsWindow, text = 'View Game Rules', command = self.viewRulesUI, font = arial_bold)
+        self.exitGameSettings.grid(sticky = 'EW')
+
+        # add button to exit program
+        self.exitGameSettings = tk.Button(self.gameSettingsWindow, text = 'Return to Main Menu', command = self.mainMenu, font = arial_bold)
+        self.exitGameSettings.grid(sticky = 'EW')
 
     def time_limit(self, ques_time):
         print('Setting question time limit to: {}'.format(ques_time))
@@ -83,8 +110,44 @@ class GameSettings:
     def viewRulesUI(self):
         rules_window = tp_rules_UI.RulesUI()
 
+    def mainMenu(self):
+        print('Close new game settings and return to Main Menu')
+        self.gameSettingsWindow.destroy()
+
+    def rollDie(self):
+
+        get_names = []
+        if len(self.p1_entry.get()) != 0:
+            get_names.append(self.p1_entry.get())
+        if len(self.p2_entry.get()) != 0:
+            get_names.append(self.p2_entry.get())
+        if len(self.p3_entry.get()) != 0:
+            get_names.append(self.p3_entry.get())
+        if len(self.p4_entry.get()) != 0:
+            get_names.append(self.p4_entry.get())
+        print(get_names)
+
+        if len(get_names) == 2:
+            self.rollResults = [DiceRoll.rollDice() for i in range(0, 2)]
+            self.p1rollLabel.configure(text = self.rollResults[0])
+            self.p2rollLabel.configure(text = self.rollResults[1])
+        elif len(get_names) == 3:
+            self.rollResults = [DiceRoll.rollDice() for i in range(0, 3)]
+            self.p1rollLabel.configure(text = self.rollResults[0])
+            self.p2rollLabel.configure(text = self.rollResults[1])
+            self.p3rollLabel.configure(text = self.rollResults[2])
+        elif len(get_names) == 4:
+            self.rollResults = [DiceRoll.rollDice() for i in range(0, 4)]
+            self.p1rollLabel.configure(text = self.rollResults[0])
+            self.p2rollLabel.configure(text = self.rollResults[1])
+            self.p3rollLabel.configure(text = self.rollResults[2])
+            self.p4rollLabel.configure(text = self.rollResults[3])
+
     def beginNewGame(self):
 
+        self.player_order = []
+
+        print('Begin New Game Now')
         if len(self.p1_entry.get()) != 0:
             self.names.append(self.p1_entry.get())
         if len(self.p2_entry.get()) != 0:
@@ -93,6 +156,15 @@ class GameSettings:
             self.names.append(self.p3_entry.get())
         if len(self.p4_entry.get()) != 0:
             self.names.append(self.p4_entry.get())
+
+        # order players based on roll results
+        for name, num in zip(self.names, self.rollResults):
+            self.player_order.append((name, num))
+
+        # reorder names based on roll die results in game settings
+        self.player_order.sort(key=lambda x:x[1])
+        self.player_order = self.player_order[::-1]
+        self.names = [x[0] for x in self.player_order]
 
         if len(self.names) == 0:
             print('No players entered')
