@@ -41,6 +41,16 @@ class GameUI:
         self.answer = ''
         # Distance remaning in current turn
         self.turnDistanceRemaining = 0
+        # category colors
+        self.cat_colors = {
+                            'Events': 'white',
+                            'People': 'red',
+                            'Places': 'blue',
+                            'Independence Day': 'green',
+                            'Roll': 'grey',
+                            'Free': 'orange',
+                            'NONE': 'black'
+                            }
 
         # create player objects and store to list
         i = 1
@@ -69,34 +79,17 @@ class GameUI:
         self.board = []
         self.initBoard()
         i = 0
-        for square in self.board:
-            print(i)
-            print(square)
-            i+=1
+        # for square in self.board:
+        #     print(i)
+        #     print(square)
+        #     i+=1
         self.currentPlayerIdx = 0
         #########################################
 
         # create gameboard image
-        self.rows = 5
-        self.columns = 5
-        self.size = 60
-        # hard coded colors for game board
-        self.colors = {
-                        1: 'blue', 2: 'green', 3: 'red', 4: 'white', 5: 'blue',
-                        6: 'green', 7: 'black', 8: 'white', 9: 'black', 10: 'green',
-                        11: 'red', 12: 'white', 13: 'orange', 14: 'green', 15: 'red',
-                        16: 'white', 17: 'black', 18: 'green', 19: 'black', 20: 'white',
-                        21: 'blue', 22: 'white', 23: 'red', 24: 'green', 25: 'blue'
-        }
-        # hard coded colors to get category based on Square color
-        # the labels above need to match these
-        self.color_names = {
-                        1: 'Red', 2: 'Blue', 3: 'White', 4: 'Green', 5: 'Grey',
-                        6: 'White', 7: 'Black', 8: 'Red', 9: 'Black', 10: 'White',
-                        11: 'Blue', 12: 'Grey', 13: 'Orange', 14: 'Blue', 15: 'Green',
-                        16: 'White', 17: 'Black', 18: 'Green', 19: 'Black', 20: 'Red',
-                        21: 'Grey', 22: 'Green', 23: 'Red', 24: 'Grey', 25: 'Blue'
-                    }
+        self.rows = 7
+        self.columns = 7
+        self.size = 50
 
         self.canvas_width = self.columns*self.size
         self.canvas_height = self.rows*self.size
@@ -112,39 +105,48 @@ class GameUI:
         self.canvas.bind('<Configure>', self.refresh)
 
         self.temp_grid_loc = self.saveGridLoc()
-        print(self.temp_grid_loc)
         # store canvas locations of squares
         self.grid_loc = {
-                        1: self.temp_grid_loc[1], 2: self.temp_grid_loc[2], 3: self.temp_grid_loc[3], 4: self.temp_grid_loc[4], 5: self.temp_grid_loc[5],
-                        16: self.temp_grid_loc[6], 101: self.temp_grid_loc[7], 17: self.temp_grid_loc[8], 102: self.temp_grid_loc[9], 6: self.temp_grid_loc[10],
-                        15: self.temp_grid_loc[11], 20: self.temp_grid_loc[12], 21: self.temp_grid_loc[13], 18: self.temp_grid_loc[14], 7: self.temp_grid_loc[15],
-                        14: self.temp_grid_loc[16], 103: self.temp_grid_loc[17], 19: self.temp_grid_loc[18], 104: self.temp_grid_loc[19], 8: self.temp_grid_loc[20],
-                        13: self.temp_grid_loc[21], 12: self.temp_grid_loc[22], 11: self.temp_grid_loc[23], 10: self.temp_grid_loc[24], 9: self.temp_grid_loc[25],
+                        1: self.temp_grid_loc[1], 2: self.temp_grid_loc[2], 3: self.temp_grid_loc[3], 4: self.temp_grid_loc[4], 5: self.temp_grid_loc[5], 6: self.temp_grid_loc[6], 7: self.temp_grid_loc[7],
+                        24: self.temp_grid_loc[8], 100: self.temp_grid_loc[9], 101: self.temp_grid_loc[10], 25: self.temp_grid_loc[11], 101: self.temp_grid_loc[12], 102: self.temp_grid_loc[13], 9: self.temp_grid_loc[14],
+                        23: self.temp_grid_loc[15], 104: self.temp_grid_loc[16], 105: self.temp_grid_loc[17], 26: self.temp_grid_loc[18], 106: self.temp_grid_loc[19], 107: self.temp_grid_loc[20], 9: self.temp_grid_loc[21],
+                        22: self.temp_grid_loc[22], 29: self.temp_grid_loc[23], 30: self.temp_grid_loc[24], 33: self.temp_grid_loc[25], 31: self.temp_grid_loc[26], 32: self.temp_grid_loc[27], 10: self.temp_grid_loc[28],
+                        21: self.temp_grid_loc[29], 108: self.temp_grid_loc[30], 109: self.temp_grid_loc[31], 27: self.temp_grid_loc[32], 110: self.temp_grid_loc[33], 111: self.temp_grid_loc[34], 11: self.temp_grid_loc[35],
+                        20: self.temp_grid_loc[36], 1112: self.temp_grid_loc[37], 113: self.temp_grid_loc[38], 28: self.temp_grid_loc[39], 114: self.temp_grid_loc[40], 115: self.temp_grid_loc[41], 12: self.temp_grid_loc[42],
+                        19: self.temp_grid_loc[43], 18: self.temp_grid_loc[44], 17: self.temp_grid_loc[45], 16: self.temp_grid_loc[46], 15: self.temp_grid_loc[47], 14: self.temp_grid_loc[48], 13: self.temp_grid_loc[49]
                     }
         self.grid_conv_table = {
-                        1: '1', 2: '2', 3: '3', 4: '4', 5: '5',
-                        6: '16', 7: '101', 8: '17', 9: '102', 10: '6',
-                        11: '15', 12: '20', 13: '21', 14: '18', 15: '7',
-                        16: '14', 17: '103', 18: '19', 19: '104', 20: '8',
-                        21: '13', 22: '12', 23: '11', 24: '10', 25: '9'    
+                        1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7,
+                        8: 24, 9: 100, 10: 101, 11: 25, 12: 102, 13: 103, 14: 8,
+                        15: 23, 16: 104, 17: 105, 18: 26, 19: 106, 20: 107, 21: 9,
+                        22: 22, 23: 29, 24: 30, 25: 33, 26: 31, 27: 32, 28: 10,
+                        29: 21, 30: 108, 31: 109, 32: 27, 33: 110, 34: 111, 35: 11,
+                        36: 20, 37: 112, 38: 113, 39: 28, 40: 114, 41: 115, 42: 12,
+                        43: 19, 44: 18, 45: 17, 46: 16, 47: 15, 48: 14, 49: 13    
                     }
 
+        self.square_colors = {}
+        for i in range(1, 50):
+            if self.grid_conv_table[i] < 34:
+                self.square_colors[i] = self.cat_colors[self.board[self.grid_conv_table[i]].category]
+            else:
+                self.square_colors[i] = 'black'
+
         # create player pieces and add to board
-        print()
         count = 1
         for player in self.pieces.keys():
             if count == 1:
                 self.player1_img = tk.PhotoImage(file = './res/player1_piece.png')
-                self.addPiece(player, self.player1_img)
+                self.addPiece(player, self.player1_img, self.players[count-1].location)
             elif count == 2:
                 self.player2_img = tk.PhotoImage(file = './res/player2_piece.png')
-                self.addPiece(player, self.player2_img)
+                self.addPiece(player, self.player2_img, self.players[count-1].location)
             elif count == 3:
                 self.player3_img = tk.PhotoImage(file = './res/player3_piece.png')
-                self.addPiece(player, self.player3_img)
+                self.addPiece(player, self.player3_img, self.players[count-1].location)
             elif count == 4:
                 self.player4_img = tk.PhotoImage(file = './res/player4_piece.png')
-                self.addPiece(player, self.player4_img)
+                self.addPiece(player, self.player4_img, self.players[count-1].location)
             count += 1
 
         # place player names in UI
@@ -256,11 +258,6 @@ class GameUI:
         self.right = tk.Button(self.gameBoardWindow, text = 'Right', command = lambda: self.setExitDirection('right'), font = self.arial)
         self.right.grid(row = 10, column = 0, sticky = 'EW')
 
-        # button to submit move
-        # self.submitMove = tk.Button(self.gameBoardWindow, text = 'Submit Move', command = self.func, font = self.arial)
-        # self.submitMove.grid(row = 11, column = 0, sticky = 'EW')
-        # self.submitMove.bind(<Return>, self.func)
-
         # options for player to choose question category
         self.catLabel = Label(self.gameBoardWindow, text = 'Choose Question Category:', font = self.arial_bold)
         self.catLabel.grid(row = 12, column = 0)
@@ -332,8 +329,8 @@ class GameUI:
                 y1 = (row * self.size)
                 x2 = x1 + self.size
                 y2 = y1 + self.size
-                self.canvas.create_text(x1+30, y1+30, text = self.grid_conv_table[i])
-                self.canvas.create_rectangle(x1, y1, x2, y2, outline = 'black', fill = self.colors[i], tags = 'square')
+                self.canvas.create_text(x1+30, y1+30, text = str(self.grid_conv_table[i]))
+                self.canvas.create_rectangle(x1, y1, x2, y2, outline = 'black', fill = self.square_colors[i], tags = 'square')
                 i += 1
         self.canvas.tag_raise('piece')
         self.canvas.tag_lower('square')
@@ -363,23 +360,23 @@ class GameUI:
 
         if self.player_num[name] == 1:
             # print('Place in quadrant 1 of square')
-            self.canvas.coords(name, self.grid_loc[location][0] + 20, self.grid_loc[location][1] + 20)
+            self.canvas.coords(name, self.grid_loc[location][0] + 15, self.grid_loc[location][1] + 15)
         elif self.player_num[name] == 2:
             # print('Place in quadrant 2 of square')
-            self.canvas.coords(name, self.grid_loc[location][0] + 50, self.grid_loc[location][1] + 20)
+            self.canvas.coords(name, self.grid_loc[location][0] + 40, self.grid_loc[location][1] + 15)
         elif self.player_num[name] == 3:
             # print('Place in quadrant 3 of square')
-            self.canvas.coords(name, self.grid_loc[location][0] + 20, self.grid_loc[location][1] + 50)
+            self.canvas.coords(name, self.grid_loc[location][0] + 15, self.grid_loc[location][1] + 40)
         elif self.player_num[name] == 4:
             # print('Place in quadrant 4 of square')
-            self.canvas.coords(name, self.grid_loc[location][0] + 50, self.grid_loc[location][1] + 50)
+            self.canvas.coords(name, self.grid_loc[location][0] + 40, self.grid_loc[location][1] + 40)
 
-    def addPiece(self, name, image):
+    def addPiece(self, name, image, location):
         # add player piece to board
         print('Adding Player {} to Board'.format(name))
         self.canvas.create_image(20, 20, image = image, tags = (name, 'piece'), anchor = 'c')
         # self.placePiece(name, row, column)
-        self.placePiece(name, 21)
+        self.placePiece(name, location)
 
     def submitCategory(self, category):
 
@@ -399,11 +396,7 @@ class GameUI:
         currentPlayer.location = self.board[currentPlayer.location].nextSquare[direction]
         self.distance -= 1
         self.movePlayer(self.distance, direction, currentPlayer)
-
         
-    def func(self):
-        print("You've hit return!")
-
     def setExitDirection(self, exit_direction):
         self.exit_direction = exit_direction
         # Next
