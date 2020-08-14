@@ -108,7 +108,7 @@ class GameUI:
         # store canvas locations of squares
         self.grid_loc = {
                         1: self.temp_grid_loc[1], 2: self.temp_grid_loc[2], 3: self.temp_grid_loc[3], 4: self.temp_grid_loc[4], 5: self.temp_grid_loc[5], 6: self.temp_grid_loc[6], 7: self.temp_grid_loc[7],
-                        24: self.temp_grid_loc[8], 100: self.temp_grid_loc[9], 101: self.temp_grid_loc[10], 25: self.temp_grid_loc[11], 101: self.temp_grid_loc[12], 102: self.temp_grid_loc[13], 9: self.temp_grid_loc[14],
+                        24: self.temp_grid_loc[8], 100: self.temp_grid_loc[9], 101: self.temp_grid_loc[10], 25: self.temp_grid_loc[11], 101: self.temp_grid_loc[12], 102: self.temp_grid_loc[13], 8: self.temp_grid_loc[14],
                         23: self.temp_grid_loc[15], 104: self.temp_grid_loc[16], 105: self.temp_grid_loc[17], 26: self.temp_grid_loc[18], 106: self.temp_grid_loc[19], 107: self.temp_grid_loc[20], 9: self.temp_grid_loc[21],
                         22: self.temp_grid_loc[22], 29: self.temp_grid_loc[23], 30: self.temp_grid_loc[24], 33: self.temp_grid_loc[25], 31: self.temp_grid_loc[26], 32: self.temp_grid_loc[27], 10: self.temp_grid_loc[28],
                         21: self.temp_grid_loc[29], 108: self.temp_grid_loc[30], 109: self.temp_grid_loc[31], 27: self.temp_grid_loc[32], 110: self.temp_grid_loc[33], 111: self.temp_grid_loc[34], 11: self.temp_grid_loc[35],
@@ -637,7 +637,7 @@ class GameUI:
         return 0
         
     def movePlayer(self, distance, direction, player):
-        print('Are we going into this function?')
+
         # Moves the Player  certain distance
         for i in range (0, distance):
             # Increment Player Location
