@@ -391,18 +391,34 @@ class GameUI:
         print('Check answer')
 
     def setDirection(self, direction):
-
+        
         self.move_direction = direction
         print(self.move_direction)
-        press('enter')
+        # Move the Player off the decision tile 
+        currentPlayer = self.players[self.currentPlayerIdx]
+        currentPlayer.location = self.board[currentPlayer.location].nextSquare[direction]
+        self.distance -= 1
+        self.movePlayer(self.distance, direction, currentPlayer)
 
+        
     def func(self):
         print("You've hit return!")
 
     def setExitDirection(self, exit_direction):
-
         self.exit_direction = exit_direction
-        print(self.exit_direction)
+        # Next
+        currentPlayer = self.players[self.currentPlayerIdx]
+        # Move the appropriate square
+        if exit_direction == 'up':
+            currentPlayer.location = 26
+        elif exit_direction == 'down':
+            currentPlayer.location = 27
+        elif exit_direction == 'left':
+            currentPlayer.location = 30
+        elif exit_direction == 'right':
+            currentPlayer.location = 31
+        self.distance -= 1
+        self.movePlayer(self.distance, 'outer', currentPlayer)
 
     def startTurn(self):
 
@@ -411,11 +427,13 @@ class GameUI:
         self.current_player.configure(text = currentPlayer.id)
         # print('Player ' + str(currentPlayer.id) + "'s turn")
         # Roll the Dice
-        distance = DiceRoll.rollDice()
-        self.rolldieResult.configure(text = str(distance))      
-        # Move the player that far
-        self.movePlayer(distance, currentPlayer)
+        self.distance = DiceRoll.rollDice()
+        self.rolldieResult.configure(text = str(self.distance))      
+        # Set the direction Buttons up for The beginning of the move
+        self.setValidDirections(currentPlayer.location)
+        return
 
+    #def askQuestion():
         # Question Answering and Chip Logic
         questionGenerator = tp_question.QuestionGenerator()
         question = {}
@@ -553,17 +571,17 @@ class GameUI:
         self.actionLabel.configure(text = 'Next Player Rolls')
         # time.sleep(1)
 
-    def getValidDirections(self, currlocation):
+    def setValidDirections(self, currlocation, exiting=False):
         # Return the valid directions given a location
         # Disable invalid buttons in the UI
         if currlocation < 25:
-            if player.location in [4,10,16,22]:
+            if currlocation in [4,10,16,22]:
                 self.actionLabel.configure(text = 'Choose Direction (cw, ccw, inner)')
                 return ['cw','ccw','inner']
             else:
                 self.actionLabel.configure(text = 'Choose Direction (cw, ccw)')
                 return ['cw','ccw']
-        elif player.location < 33:
+        elif currlocation < 33:
             self.actionLabel.configure(text = 'Choose Direction (inner, outer)')
             return ['inner','outer']
         else:
@@ -571,103 +589,31 @@ class GameUI:
             return ['up','down','left','right']
 
     def onExitSelect(self):
+        currentPlayer = self.players[self.currentPlayerIdx]
         return 0
-    def onDirectionSelect(self):
+    
+    def onDirectionSelect(self, distance, direction, player):
         return 0
         
-    def movePlayer(self, distance, player):
-        # Bad Code Reqplication but it's almost 10 PM and I can't figure out how to rework it off the top of my head
-        direction = ''
-        lastSquare = 0 # None
-        if player.location < 25:
-            if player.location in [4,10,16,22]:
-                self.actionLabel.configure(text = 'Choose Direction (cw, ccw, inner)')
-                direction = input('Choose Direction (cw, ccw, inner): ')
-                if (direction not in ['cw','ccw','inner']):
-                    direction = 'cw'
-            else:
-                self.actionLabel.configure(text = 'Choose Direction (cw, ccw)')
-                direction = input('Choose Direction (cw, ccw): ')
-                if (direction not in ['cw','ccw']):
-                    direction = 'cw'
-        elif player.location < 33:
-            self.actionLabel.configure(text = 'Choose Direction (inner, outer)')
-            direction = input('Choose Direction (inner, outer): ')
-            if (direction not in ['inner','outer']):
-                direction = 'outer'
-        else:
-            self.actionLabel.configure(text = 'Choose Exit Direction (up, down, left, right)')
-            direction = input('Choose Exit direction (up, down, left, right): ')
-            if direction == 'up':
-                player.location = 26
-            elif direction == 'down':
-                player.location = 27
-            elif direction == 'left':
-                player.location = 30
-            elif direction == 'right':
-                player.location = 31
-            else:
-                player.location = 26
-            distance -= 1 # This logic auto moves you by one square
-            direction = 'outer'
+    def movePlayer(self, distance, direction, player):
+        # Moves the Player  certain distance
         for i in range (0, distance):
             # Increment Player Location
-            print(player.location)
+            print('At' + str(player.location))
+            print('To Move: ' + str(distance - i))
             currsquare = self.board[player.location]
-            if (currsquare.isFinal):
-                while (player.location == 33):
-                    dire = ''
-                    self.actionLabel.configure(text = 'Choose Exit Direction (up, down, left, right)')
-                    dire = input('Choose Exit direction (up, down, left, right): ')
-                    if dire == 'up':
-                        if lastSquare != 26:
-                            player.location = 26
-                        else:
-                            self.actionLabel.configure(text = 'Cannot go backwards')
-                            print('Cannot go backwards')
-                    elif dire == 'down':
-                        if (lastSquare != 27):
-                            player.location = 27
-                        else:
-                            self.actionLabel.configure(text = 'Cannot go backwards')
-                            print('Cannot go backwards')
-                    elif dire == 'left':
-                        if (lastSquare != 30):
-                            player.location = 30
-                        else:
-                            self.actionLabel.configure(text = 'Cannot go backwards')
-                            print('Cannot go backwards')
-                    elif dire == 'right':
-                        if (lastSquare != 31):
-                            player.location = 31
-                        else:
-                            self.actionLabel.configure(text = 'Cannot go backwards')
-                            print('Cannot go backwards')
-                    else:
-                        self.actionLabel.configure(text = 'Invalid Input')
-                        print('Invalid Input')
-                direction = 'outer'
-            elif (currsquare.nextSquare['inner'] != -1): 
-                if (direction in ['cw','ccw'] and i != 0): # A square that leads inwards moving aroudn board
-                    self.actionLabel.configure(text = 'Head towards the center?')
-                    center = input('Head towards the center (y/n)?')
-                    if center == 'y':
-                        player.location = currsquare.nextSquare['inner']
-                        direction = 'inner'
-                    else:
-                        player.location = currsquare.nextSquare[direction]
-                elif (player.location < 25 and i != 0): # Just came out
-                    self.actionLabel.configure(text = 'Choose Direction (cw, ccw)')
-                    direction = input('Choose Direction (cw, ccw)')
-                    if (direction not in ['cw','ccw']):
-                        direction = 'cw'
-                    player.location = currsquare.nextSquare[direction]
-                else: # Moving along inner path
-                    player.location = currsquare.nextSquare[direction]
+            if (player.location in [4,10,16,22,33]):
+                if direction == 'outer':
+                    self.setValidDirections(player.location, True)
+                    return
+                else:
+                    self.setValidDirections(player.location)
+                    return
             else:
                 player.location = currsquare.nextSquare[direction]
-            lastSquare = self.board.index(currsquare) # Record the last sqaure
-
+            self.lastSquare = self.board.index(currsquare) # Record the last sqaure
+            self.distance -= 1
+        print('Final Player Location ' + str(player.location))
         # move player piece on game board
         # self.placePiece(player.id, player.location)
 
