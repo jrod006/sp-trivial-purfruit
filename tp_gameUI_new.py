@@ -428,7 +428,7 @@ class GameUI:
         
         return
 
-    def askQuestion(self):
+    # def askQuestion(self):
         # Question Answering and Chip Logic
         questionGenerator = tp_question.QuestionGenerator()
         question = {}
@@ -586,10 +586,10 @@ class GameUI:
                 self.down.configure(state = 'disabled')
                 self.left.configure(state = 'disabled')
                 self.right.configure(state = 'disabled')
-                self.event.configure(state = 'disabled')
-                self.people.configure(state = 'disabled')
-                self.places.configure(state = 'disabled')
-                self.ind_day.configure(state = 'disabled')
+                # self.event.configure(state = 'disabled')
+                # self.people.configure(state = 'disabled')
+                # self.places.configure(state = 'disabled')
+                # self.ind_day.configure(state = 'disabled')
                 return ['cw','ccw','inner']
             else:
                 self.actionLabel.configure(text = 'Choose Direction (cw, ccw)')
@@ -599,10 +599,10 @@ class GameUI:
                 self.down.configure(state = 'disabled')
                 self.left.configure(state = 'disabled')
                 self.right.configure(state = 'disabled')
-                self.event.configure(state = 'disabled')
-                self.people.configure(state = 'disabled')
-                self.places.configure(state = 'disabled')
-                self.ind_day.configure(state = 'disabled')
+                # self.event.configure(state = 'disabled')
+                # self.people.configure(state = 'disabled')
+                # self.places.configure(state = 'disabled')
+                # self.ind_day.configure(state = 'disabled')
                 return ['cw','ccw']
         elif currlocation < 33:
             self.actionLabel.configure(text = 'Choose Direction (inner, outer)')
@@ -612,10 +612,10 @@ class GameUI:
             self.down.configure(state = 'disabled')
             self.left.configure(state = 'disabled')
             self.right.configure(state = 'disabled')
-            self.event.configure(state = 'disabled')
-            self.people.configure(state = 'disabled')
-            self.places.configure(state = 'disabled')
-            self.ind_day.configure(state = 'disabled')
+            # self.event.configure(state = 'disabled')
+            # self.people.configure(state = 'disabled')
+            # self.places.configure(state = 'disabled')
+            # self.ind_day.configure(state = 'disabled')
             return ['inner','outer']
         else:
             self.actionLabel.configure(text = 'Choose Exit Direction (up, down, left, right)')
@@ -623,10 +623,10 @@ class GameUI:
             self.counter_clockwise.configure(state = 'disabled')
             self.inner.configure(state = 'disabled')
             self.outer.configure(state = 'disabled')
-            self.event.configure(state = 'disabled')
-            self.people.configure(state = 'disabled')
-            self.places.configure(state = 'disabled')
-            self.ind_day.configure(state = 'disabled')
+            # self.event.configure(state = 'disabled')
+            # self.people.configure(state = 'disabled')
+            # self.places.configure(state = 'disabled')
+            # self.ind_day.configure(state = 'disabled')
             return ['up','down','left','right']
 
     def onExitSelect(self):
@@ -707,6 +707,7 @@ class GameUI:
         # 10 Becomes category 3, 16 becomes Cat 1 
         self.board[10].category = cats[3]
         self.board[16].category = cats[1]
+
     def showUI(self):
         # Text based State UI for now
         for player in self.players:
