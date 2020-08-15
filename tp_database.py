@@ -84,7 +84,7 @@ class Database:
         question = random_row.iloc[0]['question']
         answer = random_row.iloc[0]['answer']
 
-        return {'question':question, 'answer':answer}
+        return {'question':question, 'answer':answer, 'category':category}
 
 if __name__ == "__main__":
 

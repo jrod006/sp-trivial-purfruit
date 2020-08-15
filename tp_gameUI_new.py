@@ -382,10 +382,12 @@ class GameUI:
 
         print('Category Chosen: ', category)
         self.category = category
-        press('enter')
+        self.askQuestion(category)
+
         
     def checkAnswer(self):
         print('Check answer')
+        self.onSubmitAnswer(self.answerEntry.get())
 
     def setDirection(self, direction):
         
@@ -424,23 +426,32 @@ class GameUI:
         self.rolldieResult.configure(text = str(self.distance))
 
         # Set the direction Buttons up for The beginning of the move
-        self.setValidDirections(currentPlayer.location)
-        
+        self.setValidDirections(currentPlayer.location) 
         return
 
-    # def askQuestion(self):
-        # Question Answering and Chip Logic
-        questionGenerator = tp_question.QuestionGenerator()
-        question = {}
+    def getCategory(self):
+        # Get category for upcoming question
+        currentPlayer = self.players[self.currentPlayerIdx]
+        
         category = ''
         if currentPlayer.location == 33:
+            # Enable the category buttons with the proper message
             # If chips < 4, choose the category, 4 or more, opponent chooses
             if (len(currentPlayer.chips) < 4):
-                category = input('Choose a Category: Events, Places, Independence Day, People: ')
+                # category = input('Choose a Category: Events, Places, Independence Day, People: ')
+                # Wait for category callback
+                return
             else:
-                category = input('(Opponent) Choose final question Category:  Events, Places, Independence Day, People: ')
+                # category = input('(Opponent) Choose final question Category:  Events, Places, Independence Day, People: ')
+                # Wait for category callback
+                return
         else:
             category = self.board[currentPlayer.location].category
+            self.askQuestion(category)
+        
+    def askQuestion(self, category):
+        questionGenerator = tp_question.QuestionGenerator()
+        question = {}
         if category == 'Roll':
             # Need to Update the UI and display roll again message here
             print('ROLL AGAIN')
@@ -450,15 +461,18 @@ class GameUI:
 
         # Display Question and Prompt for Answer
         # needs to be replaced by with UI loop integration
+        self.currentquestion = question
         self.questionText.configure(text = question['question'])
         print(question['question'])
-    #def onSubmitAnswer():
-        ans = input('Input Answer:')
-        correct = (ans == question['answer'])
+        
+    def onSubmitAnswer(self, ans):
+        currentPlayer = self.players[self.currentPlayerIdx]
+        correct = (ans == self.currentquestion['answer'])
 
         #  Below is so one can mash enter to test, uncomment for testing:
         # correct = True
-        if (correct): 
+        if (correct):
+            
             print('Correct')
             # Check if this was the player's final question
             if (currentPlayer.location == 33 and len(currentPlayer.chips) == 4):
@@ -497,12 +511,13 @@ class GameUI:
                     self.canvas.delete(currentPlayer.id)
             #Otherwise add chip
             else:
-                currentPlayer.addChip(category)
+                currentPlayer.addChip(self.currentquestion['category'])
         else:
             print('Incorrect')
             # Move the player off the center square if this was a final attempt
             if (currentPlayer.location == 33 and len(currentPlayer.chips) == 4):
-                self.movePlayer(1, currentPlayer)
+                self.distance = 1
+                self.setValidDirections(33)
             # Move to the next player before starting the next turn if we got the wrong answer
             if (self.currentPlayerIdx >= len(self.players) - 1):
                     self.currentPlayerIdx = 0
@@ -659,6 +674,9 @@ class GameUI:
 
         # move player piece on game board
         self.placePiece(player.id, player.location)
+
+        # Continue the turn logic
+        self.getCategory()
 
     def submit(self, answer):
 
