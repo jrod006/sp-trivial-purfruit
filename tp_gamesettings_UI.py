@@ -8,6 +8,7 @@ import tkinter as tk
 import tp_gameUI_new
 import tp_rules_UI
 import tp_settings
+import random
 
 class GameSettings:
 
@@ -29,7 +30,7 @@ class GameSettings:
         self.gameSettingsWindow.title('TP Game Settings')
         self.frame = tk.Frame(self.gameSettingsWindow)
 
-        self.instructions = 'Enter Settings for New Game:\n1) Enter names of players\n2) Click Roll Die button \nto roll die for players \nto determine player order\n3) Click Begin New Game\nto start new game'
+        self.instructions = 'Enter Settings for New Game:\n1) Enter names of players \nNote: Only enter names \nof players to play\n2) Select time for question answering\n3) Click Set Player Order button \nto determine player order \n4) Click Begin New Game\nto start new game'
         # trivial pursuit welcome label
         self.settingsLabel = Label(self.gameSettingsWindow, text = self.instructions, font = arial_bold)
         self.settingsLabel.grid(sticky = 'EW', row = 0, column = 0)
@@ -72,7 +73,7 @@ class GameSettings:
         self.fifteenSec.grid(row = 6, column = 3)
 
         # dice rolls for player order
-        self.dicerollLabel = Label(self.gameSettingsWindow, text = 'Die Roll Results \nfor Player Order:', font = arial_bold)
+        self.dicerollLabel = Label(self.gameSettingsWindow, text = 'Player Order Results:', font = arial_bold)
         self.dicerollLabel.grid(row = 1, column = 4)
         # die results for player order
         self.p1rollLabel = Label(self.gameSettingsWindow, text = '', font = arial)
@@ -88,7 +89,7 @@ class GameSettings:
         self.p4rollLabel.grid(row = 5, column = 4)
 
         # add button to exit program
-        self.exitGameSettings = tk.Button(self.gameSettingsWindow, text = 'Roll Die', command = self.rollDie, font = arial_bold)
+        self.exitGameSettings = tk.Button(self.gameSettingsWindow, text = 'Set Player Order', command = self.rollDie, font = arial_bold)
         self.exitGameSettings.grid(row = 6, column = 4)
 
         # add button to exit program
@@ -128,16 +129,19 @@ class GameSettings:
         print(get_names)
 
         if len(get_names) == 2:
-            self.rollResults = [DiceRoll.rollDice() for i in range(0, 2)]
+            self.rollResults = random.sample(range(1, 3), 2)
+            print('Order Results: ', self.rollResults)
             self.p1rollLabel.configure(text = self.rollResults[0])
             self.p2rollLabel.configure(text = self.rollResults[1])
         elif len(get_names) == 3:
-            self.rollResults = [DiceRoll.rollDice() for i in range(0, 3)]
+            self.rollResults = random.sample(range(1, 4), 3)
+            print('Order Results: ', self.rollResults)
             self.p1rollLabel.configure(text = self.rollResults[0])
             self.p2rollLabel.configure(text = self.rollResults[1])
             self.p3rollLabel.configure(text = self.rollResults[2])
         elif len(get_names) == 4:
-            self.rollResults = [DiceRoll.rollDice() for i in range(0, 4)]
+            self.rollResults = random.sample(range(1, 5), 4)
+            print('Order Results: ', self.rollResults)
             self.p1rollLabel.configure(text = self.rollResults[0])
             self.p2rollLabel.configure(text = self.rollResults[1])
             self.p3rollLabel.configure(text = self.rollResults[2])
@@ -160,11 +164,13 @@ class GameSettings:
         # order players based on roll results
         for name, num in zip(self.names, self.rollResults):
             self.player_order.append((name, num))
+        print('Player Order: ', self.player_order)
 
         # reorder names based on roll die results in game settings
         self.player_order.sort(key=lambda x:x[1])
-        self.player_order = self.player_order[::-1]
+        # self.player_order = self.player_order[::-1]
         self.names = [x[0] for x in self.player_order]
+        print('Names: ', self.names)
 
         if len(self.names) == 0:
             print('No players entered')
