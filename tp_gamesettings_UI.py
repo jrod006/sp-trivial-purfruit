@@ -130,18 +130,18 @@ class GameSettings:
 
         if len(get_names) == 2:
             self.rollResults = random.sample(range(1, 3), 2)
-            print('Order Results: ', self.rollResults)
+            # print('Order Results: ', self.rollResults)
             self.p1rollLabel.configure(text = self.rollResults[0])
             self.p2rollLabel.configure(text = self.rollResults[1])
         elif len(get_names) == 3:
             self.rollResults = random.sample(range(1, 4), 3)
-            print('Order Results: ', self.rollResults)
+            # print('Order Results: ', self.rollResults)
             self.p1rollLabel.configure(text = self.rollResults[0])
             self.p2rollLabel.configure(text = self.rollResults[1])
             self.p3rollLabel.configure(text = self.rollResults[2])
         elif len(get_names) == 4:
             self.rollResults = random.sample(range(1, 5), 4)
-            print('Order Results: ', self.rollResults)
+            # print('Order Results: ', self.rollResults)
             self.p1rollLabel.configure(text = self.rollResults[0])
             self.p2rollLabel.configure(text = self.rollResults[1])
             self.p3rollLabel.configure(text = self.rollResults[2])
@@ -151,7 +151,6 @@ class GameSettings:
 
         self.player_order = []
 
-        print('Begin New Game Now')
         if len(self.p1_entry.get()) != 0:
             self.names.append(self.p1_entry.get())
         if len(self.p2_entry.get()) != 0:
@@ -164,13 +163,13 @@ class GameSettings:
         # order players based on roll results
         for name, num in zip(self.names, self.rollResults):
             self.player_order.append((name, num))
-        print('Player Order: ', self.player_order)
+        # print('Player Order: ', self.player_order)
 
         # reorder names based on roll die results in game settings
         self.player_order.sort(key=lambda x:x[1])
         # self.player_order = self.player_order[::-1]
         self.names = [x[0] for x in self.player_order]
-        print('Names: ', self.names)
+        # print('Names: ', self.names)
 
         if len(self.names) == 0:
             print('No players entered')
