@@ -126,9 +126,11 @@ class GameSettings:
             get_names.append(self.p3_entry.get())
         if len(self.p4_entry.get()) != 0:
             get_names.append(self.p4_entry.get())
-        print(get_names)
+        # print(get_names)
 
-        if len(get_names) == 2:
+        if len(get_names) == 0:
+            print('No player names entered')
+        elif len(get_names) == 2:
             self.rollResults = random.sample(range(1, 3), 2)
             # print('Order Results: ', self.rollResults)
             self.p1rollLabel.configure(text = self.rollResults[0])
