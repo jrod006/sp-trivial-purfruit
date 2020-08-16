@@ -75,7 +75,7 @@ class GameUI:
         self.gameBoardWindow.title('Trivial Purfruit')
         self.frame = tk.Frame(self.gameBoardWindow)
 
-        # MICHAEL'S CODE        
+        # MICHAEL'S CODE       
         self.board = []
         self.initBoard()
         i = 0
@@ -89,19 +89,19 @@ class GameUI:
         # create gameboard image
         self.rows = 7
         self.columns = 7
-        self.size = 50
+        self.size = 40
 
         self.canvas_width = self.columns*self.size
         self.canvas_height = self.rows*self.size
         self.canvas = tk.Canvas(
                                     self.gameBoardWindow,
-                                    borderwidth = 5,
+                                    borderwidth = 3,
                                     highlightthickness = 0,
                                     width = self.canvas_width,
                                     height = self.canvas_height,
                                     background = 'black'
                                 )
-        self.canvas.grid(column = 0, padx = 2, pady = 2)
+        self.canvas.grid(column = 0, padx = 1, pady = 1)
         self.canvas.bind('<Configure>', self.refresh)
 
         self.temp_grid_loc = self.saveGridLoc()
@@ -356,20 +356,22 @@ class GameUI:
         # print('Moving player: ', name)
 
         # place piece at row/column
+        print('grid_loc[location][0]: ', self.grid_loc[location][0])
+        print('grid_loc[location][1]: ', self.grid_loc[location][1])
         self.pieces[name] = (self.grid_loc[location][0], self.grid_loc[location][1])
 
         if self.player_num[name] == 1:
             # print('Place in quadrant 1 of square')
-            self.canvas.coords(name, self.grid_loc[location][0] + 20, self.grid_loc[location][1] + 15)
+            self.canvas.coords(name, self.grid_loc[location][0] + 10, self.grid_loc[location][1] + 10)
         elif self.player_num[name] == 2:
             # print('Place in quadrant 2 of square')
-            self.canvas.coords(name, self.grid_loc[location][0] + 40, self.grid_loc[location][1] + 15)
+            self.canvas.coords(name, self.grid_loc[location][0] + 30, self.grid_loc[location][1] + 10)
         elif self.player_num[name] == 3:
             # print('Place in quadrant 3 of square')
-            self.canvas.coords(name, self.grid_loc[location][0] + 20, self.grid_loc[location][1] + 40)
+            self.canvas.coords(name, self.grid_loc[location][0] + 10, self.grid_loc[location][1] + 30)
         elif self.player_num[name] == 4:
             # print('Place in quadrant 4 of square')
-            self.canvas.coords(name, self.grid_loc[location][0] + 40, self.grid_loc[location][1] + 40)
+            self.canvas.coords(name, self.grid_loc[location][0] + 30, self.grid_loc[location][1] + 30)
 
     def addPiece(self, name, image, location):
 
@@ -384,7 +386,6 @@ class GameUI:
         self.category = category
         self.askQuestion(category)
 
-        
     def checkAnswer(self):
         print('Check answer')
         self.onSubmitAnswer(self.answerEntry.get())
@@ -414,6 +415,7 @@ class GameUI:
             currentPlayer.location = 31
         self.distance -= 1
         self.movePlayer(self.distance, 'outer', currentPlayer)
+        self.actionLabel.configure(text = '')
 
     def startTurn(self):
 
@@ -426,8 +428,11 @@ class GameUI:
         self.rolldieResult.configure(text = str(self.distance))
 
         # Set the direction Buttons up for The beginning of the move
-        self.setValidDirections(currentPlayer.location) 
+        self.setValidDirections(currentPlayer.location)
         return
+
+    # add text for instructions to only enter number of players
+    # set random order 1-4 of players instead of rolling die
 
     def getCategory(self):
         # Get category for upcoming question
@@ -448,24 +453,65 @@ class GameUI:
         else:
             category = self.board[currentPlayer.location].category
             self.askQuestion(category)
-        
+
+    def disableCatButtons(self):
+
+        self.event.configure(state = 'disabled')
+        self.people.configure(state = 'disabled')
+        self.places.configure(state = 'disabled')
+        self.ind_day.configure(state = 'disabled')
+
+    def disableAllButtons(self):
+
+        self.clockwise.configure(state = 'disabled')
+        self.counter_clockwise.configure(state = 'disabled')
+        self.outer.configure(state = 'disabled')
+        self.inner.configure(state = 'disabled')
+        self.up.configure(state = 'disabled')
+        self.down.configure(state = 'disabled')
+        self.left.configure(state = 'disabled')
+        self.right.configure(state = 'disabled')
+        self.event.configure(state = 'disabled')
+        self.people.configure(state = 'disabled')
+        self.places.configure(state = 'disabled')
+        self.ind_day.configure(state = 'disabled')
+
+    def enableAllButtons(self):
+
+        self.clockwise.configure(state = 'normal')
+        self.counter_clockwise.configure(state = 'normal')
+        self.outer.configure(state = 'normal')
+        self.inner.configure(state = 'normal')
+        self.up.configure(state = 'normal')
+        self.down.configure(state = 'normal')
+        self.left.configure(state = 'normal')
+        self.right.configure(state = 'normal')
+        self.event.configure(state = 'normal')
+        self.people.configure(state = 'normal')
+        self.places.configure(state = 'normal')
+        self.ind_day.configure(state = 'normal')
+    
     def askQuestion(self, category):
         questionGenerator = tp_question.QuestionGenerator()
         question = {}
         if category == 'Roll':
             # Need to Update the UI and display roll again message here
             print('ROLL AGAIN')
+            self.actionLabel.configure(text = 'Roll Again')
             return
         else:
             question = questionGenerator.getRandomQuestion(category)
 
         # Display Question and Prompt for Answer
         # needs to be replaced by with UI loop integration
+        self.actionLabel.configure(text = 'Answer Question')
+        self.disableAllButtons()
         self.currentquestion = question
         self.questionText.configure(text = question['question'])
         print(question['question'])
         
     def onSubmitAnswer(self, ans):
+
         currentPlayer = self.players[self.currentPlayerIdx]
         correct = (ans == self.currentquestion['answer'])
 
@@ -474,6 +520,9 @@ class GameUI:
         if (correct):
             
             print('Correct')
+            self.actionLabel.configure(text = 'Answer Correct, Roll Again')
+            self.questionText.configure(text = '')
+            self.answerEntry.delete(0, 'end')
             # Check if this was the player's final question
             if (currentPlayer.location == 33 and len(currentPlayer.chips) == 4):
             # Below for testing, removes the last square condition to speed to victory logic
@@ -514,6 +563,9 @@ class GameUI:
                 currentPlayer.addChip(self.currentquestion['category'])
         else:
             print('Incorrect')
+            self.actionLabel.configure(text = 'Answer Incorrect, Next Player Rolls')
+            self.questionText.configure(text = '')
+            self.answerEntry.delete(0, 'end')
             # Move the player off the center square if this was a final attempt
             if (currentPlayer.location == 33 and len(currentPlayer.chips) == 4):
                 self.distance = 1
@@ -574,23 +626,12 @@ class GameUI:
                         self.chip4_img.grid(row = 13, column = 4)
 
         self.rolldieResult.configure(text = '')
-        self.actionLabel.configure(text = 'Next Player Rolls')
         # time.sleep(1)
 
     def setValidDirections(self, currlocation, exiting=False):
+
         # enable buttons
-        self.clockwise.configure(state = 'normal')
-        self.counter_clockwise.configure(state = 'normal')
-        self.outer.configure(state = 'normal')
-        self.inner.configure(state = 'normal')
-        self.up.configure(state = 'normal')
-        self.down.configure(state = 'normal')
-        self.left.configure(state = 'normal')
-        self.right.configure(state = 'normal')
-        self.event.configure(state = 'normal')
-        self.people.configure(state = 'normal')
-        self.places.configure(state = 'normal')
-        self.ind_day.configure(state = 'normal')
+        self.enableAllButtons()
         # Return the valid directions given a location
         # Disable invalid buttons in the UI
         if currlocation < 25:
@@ -601,10 +642,6 @@ class GameUI:
                 self.down.configure(state = 'disabled')
                 self.left.configure(state = 'disabled')
                 self.right.configure(state = 'disabled')
-                # self.event.configure(state = 'disabled')
-                # self.people.configure(state = 'disabled')
-                # self.places.configure(state = 'disabled')
-                # self.ind_day.configure(state = 'disabled')
                 return ['cw','ccw','inner']
             else:
                 self.actionLabel.configure(text = 'Choose Direction (cw, ccw)')
@@ -614,10 +651,6 @@ class GameUI:
                 self.down.configure(state = 'disabled')
                 self.left.configure(state = 'disabled')
                 self.right.configure(state = 'disabled')
-                # self.event.configure(state = 'disabled')
-                # self.people.configure(state = 'disabled')
-                # self.places.configure(state = 'disabled')
-                # self.ind_day.configure(state = 'disabled')
                 return ['cw','ccw']
         elif currlocation < 33:
             self.actionLabel.configure(text = 'Choose Direction (inner, outer)')
@@ -627,10 +660,6 @@ class GameUI:
             self.down.configure(state = 'disabled')
             self.left.configure(state = 'disabled')
             self.right.configure(state = 'disabled')
-            # self.event.configure(state = 'disabled')
-            # self.people.configure(state = 'disabled')
-            # self.places.configure(state = 'disabled')
-            # self.ind_day.configure(state = 'disabled')
             return ['inner','outer']
         else:
             self.actionLabel.configure(text = 'Choose Exit Direction (up, down, left, right)')
@@ -638,10 +667,6 @@ class GameUI:
             self.counter_clockwise.configure(state = 'disabled')
             self.inner.configure(state = 'disabled')
             self.outer.configure(state = 'disabled')
-            # self.event.configure(state = 'disabled')
-            # self.people.configure(state = 'disabled')
-            # self.places.configure(state = 'disabled')
-            # self.ind_day.configure(state = 'disabled')
             return ['up','down','left','right']
 
     def onExitSelect(self):
