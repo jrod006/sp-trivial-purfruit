@@ -430,10 +430,7 @@ class GameUI:
         # Set the direction Buttons up for The beginning of the move
         self.setValidDirections(currentPlayer.location)
         return
-
-    # add text for instructions to only enter number of players
-    # set random order 1-4 of players instead of rolling die
-
+    
     def getCategory(self):
         # Get category for upcoming question
         currentPlayer = self.players[self.currentPlayerIdx]
