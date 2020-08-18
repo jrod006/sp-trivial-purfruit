@@ -6,6 +6,7 @@ class Player:
         self.chips = []
         self.id = ID
         self.location = 33
+        self.active = True
 
     def addChip(self, category):
         if (category not in self.chips):

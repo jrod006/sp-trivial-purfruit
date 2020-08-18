@@ -52,7 +52,8 @@ class GameUI:
                             'Free': 'orange',
                             'NONE': 'black'
                             }
-
+        # Flag to determine if it's the last round or not
+        self.lastRound = False
         # create player objects and store to list
         i = 1
         for name in list(self.settings['players'].values()):
@@ -432,6 +433,18 @@ class GameUI:
 
         print('DOING A TURN')
         currentPlayer = self.players[self.currentPlayerIdx]
+        hackercount = 0
+        # Check if current player is active otherwise increment the index
+        while (not currentPlayer.active):
+            if (self.currentPlayerIdx >= len(self.players) - 1):
+                self.currentPlayerIdx = 0
+            else:
+                self.currentPlayerIdx += 1
+            currentPlayer = self.players[self.currentPlayerIdx]
+            hackercount += 1
+            #Infiniate loops are bad
+            if (hackercount > 10):
+                return
         self.current_player.configure(text = currentPlayer.id)
         print('Player ' + str(currentPlayer.id) + "'s turn")
         # Roll the Dice
@@ -525,9 +538,8 @@ class GameUI:
 
         currentPlayer = self.players[self.currentPlayerIdx]
         correct = (ans == self.currentquestion['answer'])
-
         #  Below is so one can mash enter to test, uncomment for testing:
-        # correct = True
+        #  correct = True
         if (correct):
             
             print('Correct')
@@ -537,10 +549,13 @@ class GameUI:
             # Check if this was the player's final question
             if (currentPlayer.location == 33 and len(currentPlayer.chips) == 4):
             # Below for testing, removes the last square condition to speed to victory logic
-            #if (len(currentPlayer.chips) == 4):
-                # Add player to the placement array, remove them from the players array, immediately end the turn
-                self.placement.append(self.players.pop(self.currentPlayerIdx))
+            #if (len(currentPlayer.chips) == 1):
+                # Add player to the placement array, set them inactive
+                self.placement.append(self.players[self.currentPlayerIdx])
+                self.players[self.currentPlayerIdx].active = False
                 self.current_player.configure(text = '')
+                # Set the last turn round
+                self.lastRound = True
                 if self.player_num[currentPlayer.id] == 1:
                     # remove player 1 from UI
                     self.player1_name.destroy()
@@ -577,11 +592,22 @@ class GameUI:
             if (currentPlayer.location == 33 and len(currentPlayer.chips) == 4):
                 self.distance = 1
                 self.setValidDirections(33)
+            # If this is the last round and the player got it wrong, then they are done
+            if (self.lastRound):
+                self.players[self.currentPlayerIdx].active = False
             # Move to the next player before starting the next turn if we got the wrong answer
             if (self.currentPlayerIdx >= len(self.players) - 1):
-                    self.currentPlayerIdx = 0
+                self.currentPlayerIdx = 0
             else:
                 self.currentPlayerIdx += 1
+        # Check if there are no more active players to end the game
+        endCheck = False
+        for player in self.players:
+            if player.active:
+                endCheck = True
+        if (not endCheck):
+            self.showVictoryScreen()
+            return
         #Update the UI State
         if self.player_num[currentPlayer.id] == 1:
             # update player 1 in UI
