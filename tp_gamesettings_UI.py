@@ -60,17 +60,17 @@ class GameSettings:
         self.p4_entry.grid(row = 5, column = 1, columnspan = 3)
 
         # select answer time limit
-        self.timeLimit = Label(self.gameSettingsWindow, text = 'Select Timer for \nAnswers (in seconds):', font = arial_bold)
-        self.timeLimit.grid(row = 6, column = 0)
-        # 5 second time limit
-        self.fiveSec = tk.Button(self.gameSettingsWindow, text = '5', command = lambda: self.time_limit(5), font = arial, height = 2, width = 6)
-        self.fiveSec.grid(row = 6, column = 1)
-        # 10 second time limit
-        self.tenSec = tk.Button(self.gameSettingsWindow, text = '10', command = lambda: self.time_limit(10), font = arial, height = 2, width = 6)
-        self.tenSec.grid(row = 6, column = 2)
-        # 15 second time limit
-        self.fifteenSec = tk.Button(self.gameSettingsWindow, text = '15', command = lambda: self.time_limit(15), font = arial, height = 2, width = 6)
-        self.fifteenSec.grid(row = 6, column = 3)
+        # self.timeLimit = Label(self.gameSettingsWindow, text = 'Select Timer for \nAnswers (in seconds):', font = arial_bold)
+        # self.timeLimit.grid(row = 6, column = 0)
+        # # 5 second time limit
+        # self.fiveSec = tk.Button(self.gameSettingsWindow, text = '5', command = lambda: self.time_limit(5), font = arial, height = 2, width = 6)
+        # self.fiveSec.grid(row = 6, column = 1)
+        # # 10 second time limit
+        # self.tenSec = tk.Button(self.gameSettingsWindow, text = '10', command = lambda: self.time_limit(10), font = arial, height = 2, width = 6)
+        # self.tenSec.grid(row = 6, column = 2)
+        # # 15 second time limit
+        # self.fifteenSec = tk.Button(self.gameSettingsWindow, text = '15', command = lambda: self.time_limit(15), font = arial, height = 2, width = 6)
+        # self.fifteenSec.grid(row = 6, column = 3)
 
         # dice rolls for player order
         self.dicerollLabel = Label(self.gameSettingsWindow, text = 'Player Order Results:', font = arial_bold)
