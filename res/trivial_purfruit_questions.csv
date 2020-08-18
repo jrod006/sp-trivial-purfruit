@@ -1,49 +1,81 @@
 color,category,question,answer
-White,Events,In what year was the Declaration of Independence signed?,1776
-White,Events,In what year did the First Continental Congress convene?,1774
+White,Events,In what year was the Declaration of Independence signed? (Answer Format: YYYY),1776
+White,Events,In what year did the First Continental Congress convene?  (Answer Format: YYYY),1774
 White,Events,What protest took place to oppose the taxes imposed on American colonists?,Boston Tea Party
 White,Events,"This event, which caused taxes on all forms of paper goods that, was one of the events that led to the Declaration of Independence.",Stamp Act
-White,Events,Which war was taking place between the American colonies and Great Britian when the Declaration of Independence was written and signed?,The American Revolution
+White,Events,The war that was taking place between the American colonies and Great Britain when the Declaration of Independence was written and signed was known as the American _______?,Revolution
 White,Events,The idea of a congress of the American colonies was proposed at the start of this war.,French and Indian War
-White,Events,"What year did the first version of the Continental Congress of American colonies, also known as Albany Congress, take place?",1754
-White,Events,Where was the last meeting place of the Continental Congress?,Fraunces Tavern
-White,Events,What year did the first session of the 1st United States Congress takes place?,1789
-White,Events,"On March 1st, 1781 what document was signed by the Second Continental Congress?",Articles of Confederation
+White,Events,"What year did the first version of the Continental Congress of American colonies, also known as Albany Congress, take place?  (Answer Format: YYYY)",1754
+White,Events,Where was the last meeting place of the Continental Congress? ,Fraunces Tavern
+White,Events,What year did the first session of the 1st United States Congress takes place?  (Answer Format: YYYY),1789
+White,Events,"On March 1st, 1781 the document that was signed by the Second Continental Congress was known as the Articles of _______?",Confederation
+White,Events,The massacre of an a crowd of colonists who were pestering British soldiers took place in what city? (Answer Format: Cityname),Boston
+White,Events,What year was the Stamp Act Repealed? (Answer Format: YYYY),1766
+White,Events,The Coercive acts that closed Boston's port were also commonly referred to as the ________ Acts.,Intolerable
+White,Events,What year did Britain declare that the colonies were in rebellion?,1775
+White,Events,On what holiday did George Washington cross the Potomac?,Christmas
+White,Events,The ____ heard round the world is popularly known as the first battle event during the American Revolution.,Shot
+White,Events,What year did the Battle of Lexington occur?,1775
+White,Events,"Patrick Henry gave a famous speech during which he said ""Give me Liberty or give me ___"".",Death
+White,Events,During which month was the Declaration of Independence actually signed? (Answer Format: Full month name),August
+White,Events,What number day in July did the Continental congress actually declare independence.,2
 Blue,Places,Where was the Declaration of Independence signed?,Independence Hall
 Blue,Places,Where is Thomas Jefferson's original draft of the Declaration of Independence preserved?,Library of Congress
 Blue,Places,From which country did the Declaration of Independence declare independence from?,Great Britain
 Blue,Places,In what city was the Declaration of Independence signed?,Philadelphia
 Blue,Places,In which colony was the Declaration of Independence signed?,Pennsylvania
-Blue,Places,Which colony did not approve the Declaration of Independence?,None of the Above
+Blue,Places,Delegates from which colony did not initially sign the Declaration of Independence?,New York
 Blue,Places,"The first version of a Continental Congress of American colonies, also known as Albany Congress, met in this city.",Albany
 Blue,Places,The First Continental Congress met briefly in this meeting place in 1774.,Carpenter's Hall
 Blue,Places,This colony was the only colony that did not meet with the other 12 colonies in the First Continental Congress.,Georgia
 Blue,Places,What other city did meetings of the Second Continental Congress take place?,Baltimore
-Green,Independence Day,On what date was the first Independence Day celebrate?,"July 8, 1776"
-Green,Independence Day,The first Independence Day after the Declaration of Independence was signed took place in this city.,Philadelphia
-Green,Independence Day,The White House celebrated Independence Day for the first time in this year.,1801
-Green,Independence Day,Independence Day was declared a federal holiday in this year.,1870
-Green,Independence Day,The oldest continuously celebrated Independence Day celebration festivities in the U.S. was held in this location.,"Bristol, Rhode Island"
-Green,Independence Day,This President died on Independence Day.,James Monroe
-Green,Independence Day,"This President was born on July 4th, 1872.",1872
+Blue,Places,The treaty that ended American Revolution was signed in the city of ____ in France and was also named after that city.,Paris
+Blue,Places,Which colony abstained from voting on the resolution of independence? (Answer Format: Statename),New York
+Blue,Places,What colony was the first to officially become a State?,Delaware
+Blue,Places,What is the name of the first permanent English settlement in North America?,Jamestown
+Blue,Places,How many English Colonies were there during the American Revolution.,13
+Blue,Places,What country was the primary ally of the American colonies?,France
+Blue,Places,The Battle of Bunker Hill took place in which state?,Massachusetts
+Blue,Places,George Washington Crossed the ____ River to engage in battle with British forces.,Potomac
+Blue,Places,What was the smallest of the original American colonies?,Rhode Island
+Blue,Places,New York was original named New ______.,Amsterdam
+Green,Independence Day,On what date was the first Independence Day celebrate?  (Answer Format: DD MMM YYYY),08 Jul 1776
+Green,Independence Day,The first Independence Day after the Declaration of Independence was signed took place in this city. (Answer Format: City Name),Philadelphia
+Green,Independence Day,The White House celebrated Independence Day for the first time in this year.  (Answer Format: YYYY),1801
+Green,Independence Day,Independence Day was declared a federal holiday in this year.  (Answer Format: YYYY),1870
+Green,Independence Day,"The oldest continuously celebrated Independence Day celebration festivities in the U.S. was held in this location. (Answer Format: City Name, State Name)","Bristol, Rhode Island"
+Green,Independence Day,This President died on Independence Day.  (Answer Format: Firstname Lastname),James Monroe
+Green,Independence Day,"This President was born on July 4th, 1872.  (Answer Format: YYYY)",1872
 Green,Independence Day,"Every July 4th, this bell is rung 13 times in honor of the original 13 American colonies.",Liberty Bell
-Green,Independence Day,"On July 4th, approximately this number of hot dogs are eaten by Americans.",150 million
-Green,Independence Day,This state was the first state to recognize as an official holiday.,Massachusetts
-Red,People,Who drafted the original draft of the Declaration of independence?,Thomas Jefferson
-Red,People,The Declaration of Independence justified independence of the United States against which king?,King George III
-Red,People,Who was the first person to sign the Declaration of Independence,John Hancock
-Red,People,What was the name of the group who penned the Declaration of Independence?,Committee of Five
-Red,People,"This representative from Connecticut, was part of the Committee of Five who helped draft the Declaration of Independence and is the only person to have signed the four U.S. state papers: the Declaration, the Continental Association, Articles of Confederation, and the Constitution.",Roger Sherman
-Red,People,"The line, 'We hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable rights, that among these are life, liberty, and the pursuit of Happiness."" was written by this person",John Locke
-Red,People,This person was among the delegates in the first continental congress to propose that the colonies join together in a confederation.,Bejamin Franklin
-Red,People,This first Commander-in-Chief was among the 56 delegates who attended the First Continental Congress.,George Washington
-Red,People,This person was a harsh critic of the Continental Congress.,James Madison
-Red,People,"This representative from New York, who later negotiated the Louisiane Purchase as a Minister to France, was part of the Committee of Five and helped in drafting the Declaration of Independence.",Robert Livingston
-Blue,Places,What day is today?,Monday
-Green,Independence Day,What day is tomorrow?,Wednesday
-White,Events,What is my name?,Jacob
-White,Events,What city am I in?,San Diego
-Blue,Places,What is your favorite movie?,Avengers
-White,Events,What time is it?,7
-Green,Independence Day,When is earth day?,4/20
-Red,People,werqwerqwerqwe,cvbxcvbcxvbxcvb
+Green,Independence Day,"On July 4th, approximately this many millions of hot dogs are eaten by Americans.  (Answer Format: Number)",150
+Green,Independence Day,"On Independence day in 1997, NASA's Pathfinder probe touched down on the surface of what planet?",Mars
+Green,Independence Day,On Independence day in 2009 the crown of the Statue of _____ was reopened to the public for the first time since 9/11.,Liberty
+Green,Independence Day,On Independence day in 2015 Chile defeated Argentina to win their first international title in what sport?,Soccer
+Green,Independence Day,"On Independence day in 1939, this baseball player, recently diagnosed with ALS - a disorder which commonly carries his name, announced this retirement from baseball. (Answer Format: Firstname Lastname)",Lou Gehrig
+Green,Independence Day,This wide variety of explosive items are commonly set off in celebration of Independence Day.,Fireworks
+Green,Independence Day,This state was the first state to recognize as an official holiday.  (Answer Format: Statename),Massachusetts
+Green,Independence Day,"This professional eater, nicknamed ""Jaws"", won all 5 of the Nathan's Hotdog eating contests help on Independence day between 2016 and 2020. (Answer Format: Firstname Lastname)",Joey Chestnut
+Green,Independence Day,"This actor played Capt. Steven Hiller, a marine fighter pilot, in the move ""Independence Day"". Answer Format: Firstname Lastname)",Will Smith
+Green,Independence Day,"This device can either be used with gas or charcoal, and is frequently used during Independence day celebrations to cook hamburgers, hotdogs and more!",Grill
+Green,Independence Day,"This Independence Day activity includes floats, marching bands, and sometimes candy.",Parade
+Green,Independence Day,Many incorrect depictions of the American flag are displayed during Independence day.  How many stars does the American Flag have? ,50
+Red,People,Who drafted the original draft of the Declaration of independence? (Answer Format: Firstname Lastname),Thomas Jefferson
+Red,People,The Declaration of Independence justified independence of the United States against which king?  (Answer Format: Firstname RomanNumeral),George III
+Red,People,Who was the first person to sign the Declaration of Independence (Answer Format: Firstname Lastname),John Hancock
+Red,People,The name of the group who penned the Declaration of Independence was known as the Committee of _____? (Answer Format: Spell out number),Five
+Red,People,"This representative from Connecticut, was part of the Committee of Five who helped draft the Declaration of Independence and is the only person to have signed the four U.S. state papers: the Declaration, the Continental Association, Articles of Confederation, and the Constitution. (Answer Format: Firstname Lastname)",Roger Sherman
+Red,People,"The line, 'We hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable rights, that among these are life, liberty, and the pursuit of Happiness."" was written by this person. (Answer Format: Firstname Lastname)",John Locke
+Red,People,This person was among the delegates in the first continental congress to propose that the colonies join together in a confederation. (Answer Format: Firstname Lastname),Benjamin Franklin
+Red,People,This first Commander-in-Chief was among the 56 delegates who attended the First Continental Congress.  (Answer Format: Firstname Lastname),George Washington
+Red,People,This person was a harsh critic of the Continental Congress. (Answer Format: Firstname Lastname),James Madison
+Red,People,"This representative from New York, who later negotiated the Louisiana Purchase as a Minister to France, was part of the Committee of Five and helped in drafting the Declaration of Independence. (Answer Format: Firstname Lastname)",Robert Livingston
+Red,People,This person drafted the resolution of independence prior to the Declaration of independence. ,Richard Henry Lee
+Red,People,"Fill in this line regarding rights of the people: ""We hold these truths to be self-evident, that all men are created equal, that they are endowed by their Creator with certain unalienable Rights, that among these are Life, Liberty and the pursuit of __________.",Happiness
+Red,People,Thomas Jefferson and John Adam proposed this bird as the national bird.,Bald Eagle
+Red,People,Benjamin Franklin proposed this bird as the national bird.,Turkey
+Red,People,This founding father is known for being a brewer and even has a Boston-based brewery named after him. (Answer Format: Firstname Lastname),Samuel Adams
+Red,People,"This author of ""Common Sense"" was instrumental in the push for revolution and the Declaration of Independence. Answer Format: Firstname Lastname)",Thomas Paine
+Red,People,George Washington was posthumously promoted to the rank of General of the Armies which is the equivalent of  ___ star general - Washington was the only Military Officer awarded this rank. (Answer Format: Number),6
+Red,People,Who was Thomas Jefferson's vice president? ,Aaron Burr
+Red,People,What founding father did Thomas Jefferson's Vice President duel with and kill? (Answer Format: Firstname Lastname),Alexander Hamilton
+Red,People,One of the most influential women during the revolution: What was the first name of George Washington's wife.,Martha
