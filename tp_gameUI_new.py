@@ -63,11 +63,6 @@ class GameUI:
             i += 1
             self.pieces[name] = (0, 0)
 
-        print('List of player order:')
-        print(self.player_num)
-        print('List of player starting locations:')
-        print(self.pieces)
-
         # set font type and size in root window
         self.arial = font.Font(family = 'Arial', size = 14)
         self.arial_bold = font.Font(family = 'Arial', size = 14, weight = 'bold')
@@ -284,6 +279,7 @@ class GameUI:
         self.action = StringVar()
         self.actionLabel = Label(self.gameBoardWindow, text = self.action, font = self.arial)
         self.actionLabel.grid(column = 2, row = 2, columnspan = 3)
+        self.actionLabel.configure(text = 'Player 1 Roll Die')
 
         # roll die
         self.rolldieText = tk.Label(self.gameBoardWindow, text = 'Dice Roll:', font = self.arial_bold)
@@ -293,12 +289,13 @@ class GameUI:
         self.rolldieResult.grid(column = 2, row = 3, columnspan = 3)
         self.rollButton = tk.Button(self.gameBoardWindow, text = 'Roll Die', command = self.startTurn, font = self.arial_bold)
         self.rollButton.grid(column = 2, row = 4, sticky = 'EW')
+        self.rolldieResult.configure(text = '')
 
         # player question
         self.playerLabel = tk.Label(self.gameBoardWindow, text = 'Question:', font = self.arial_bold)
         self.playerLabel.grid(column = 1, row = 5, columnspan = 4)
         self.question = 'No Question Available'
-        self.questionText = Label(self.gameBoardWindow, text = '', wraplength = 400, font = self.arial)
+        self.questionText = Label(self.gameBoardWindow, text = '', wraplength = 500, font = self.arial)
         self.questionText.grid(column = 1, row = 6, columnspan = 4)
         # player answer
         self.answerLabel = tk.Label(self.gameBoardWindow, text = 'Answer:', font = self.arial_bold)
@@ -322,76 +319,6 @@ class GameUI:
         self.victoryButton = tk.Button(self.gameBoardWindow, command = self.victory, text = 'Open Victory UI', font = self.arial_bold)
         self.victoryButton.grid(row = 17, column = 2)
 
-    def victory(self):
-
-        print('Close game board and proceed to Victory UI')
-        # self.gameBoardWindow.destroy()
-        # vic = tp_victoryUI.Victory(winners)
-
-    def refresh(self, event):
-
-        xsize = int((event.width-1)/self.columns)
-        ysize = int((event.height-1)/self.rows)
-        self.size = min(xsize, ysize)
-        self.canvas.delete('square')
-        i = 1
-        for row in range(self.rows):
-            for col in range(self.columns):
-                x1 = (col * self.size)
-                y1 = (row * self.size)
-                x2 = x1 + self.size
-                y2 = y1 + self.size
-                self.canvas.create_text(x1+30, y1+30, text = str(self.grid_conv_table[i]))
-                self.canvas.create_rectangle(x1, y1, x2, y2, outline = 'black', fill = self.square_colors[i], tags = 'square')
-                i += 1
-        self.canvas.tag_raise('piece')
-        self.canvas.tag_lower('square')
-        self.saveGridLoc()
-
-    def saveGridLoc(self):
-
-        grid_loc = {}
-        i = 1
-        for row in range(self.rows):
-            for col in range(self.columns):
-                x1 = (col * self.size)
-                y1 = (row * self.size)
-                x2 = x1 + self.size
-                y2 = y1 + self.size
-                grid_loc[i] = (x1, y1)
-                i += 1
-
-        return grid_loc
-
-    def placePiece(self, name, location):
-
-        # print('Moving player: ', name)
-        if location == -1:
-            location = 27
-
-        # place piece at row/column
-        self.pieces[name] = (self.grid_loc[location][0], self.grid_loc[location][1])
-
-        if self.player_num[name] == 1:
-            # print('Place in quadrant 1 of square')
-            self.canvas.coords(name, self.grid_loc[location][0] + 10, self.grid_loc[location][1] + 10)
-        elif self.player_num[name] == 2:
-            # print('Place in quadrant 2 of square')
-            self.canvas.coords(name, self.grid_loc[location][0] + 30, self.grid_loc[location][1] + 10)
-        elif self.player_num[name] == 3:
-            # print('Place in quadrant 3 of square')
-            self.canvas.coords(name, self.grid_loc[location][0] + 10, self.grid_loc[location][1] + 30)
-        elif self.player_num[name] == 4:
-            # print('Place in quadrant 4 of square')
-            self.canvas.coords(name, self.grid_loc[location][0] + 30, self.grid_loc[location][1] + 30)
-
-    def addPiece(self, name, image, location):
-
-        # add player piece to board
-        print('Adding Player {} to Board'.format(name))
-        self.canvas.create_image(20, 20, image = image, tags = (name, 'piece'), anchor = 'c')
-        self.placePiece(name, location)
-
     def submitCategory(self, category):
 
         print('Category Chosen: ', category)
@@ -400,7 +327,7 @@ class GameUI:
 
     def checkAnswer(self):
         print('Check answer')
-        self.onSubmitAnswer(self.answerEntry.get())
+        self.onSubmitAnswer(str(self.answerEntry.get()))
 
     def setDirection(self, direction):
         
@@ -427,7 +354,6 @@ class GameUI:
             currentPlayer.location = 31
         self.distance -= 1
         self.movePlayer(self.distance, 'outer', currentPlayer)
-        self.actionLabel.configure(text = '')
 
     def startTurn(self):
 
@@ -466,69 +392,38 @@ class GameUI:
             if (len(currentPlayer.chips) < 4):
                 # category = input('Choose a Category: Events, Places, Independence Day, People: ')
                 # Wait for category callback
+                self.actionLabel.configure(text = 'Choose a Category: Events, Places, Independence Day, People')
+                self.disableDirectionButtons()
                 return
             else:
                 # category = input('(Opponent) Choose final question Category:  Events, Places, Independence Day, People: ')
                 # Wait for category callback
+                self.actionLabel.configure(text = 'Choose a Category: Events, Places, Independence Day, People')
+                self.disableDirectionButtons()
                 return
         else:
             category = self.board[currentPlayer.location].category
+            print('Category Chosen: ', category)
             self.askQuestion(category)
-
-    def disableCatButtons(self):
-
-        self.event.configure(state = 'disabled')
-        self.people.configure(state = 'disabled')
-        self.places.configure(state = 'disabled')
-        self.ind_day.configure(state = 'disabled')
-
-    def disableAllButtons(self):
-
-        self.rollButton.configure(state = 'disabled')
-        self.clockwise.configure(state = 'disabled')
-        self.counter_clockwise.configure(state = 'disabled')
-        self.outer.configure(state = 'disabled')
-        self.inner.configure(state = 'disabled')
-        self.up.configure(state = 'disabled')
-        self.down.configure(state = 'disabled')
-        self.left.configure(state = 'disabled')
-        self.right.configure(state = 'disabled')
-        self.event.configure(state = 'disabled')
-        self.people.configure(state = 'disabled')
-        self.places.configure(state = 'disabled')
-        self.ind_day.configure(state = 'disabled')
-
-    def enableAllButtons(self):
-
-        self.rollButton.configure(state = 'normal')
-        self.clockwise.configure(state = 'normal')
-        self.counter_clockwise.configure(state = 'normal')
-        self.outer.configure(state = 'normal')
-        self.inner.configure(state = 'normal')
-        self.up.configure(state = 'normal')
-        self.down.configure(state = 'normal')
-        self.left.configure(state = 'normal')
-        self.right.configure(state = 'normal')
-        self.event.configure(state = 'normal')
-        self.people.configure(state = 'normal')
-        self.places.configure(state = 'normal')
-        self.ind_day.configure(state = 'normal')
     
     def askQuestion(self, category):
 
-        self.actionLabel.configure(text = 'Answer Question')
         questionGenerator = tp_question.QuestionGenerator()
         question = {}
         if category == 'Roll':
             # Need to Update the UI and display roll again message here
             print('ROLL AGAIN')
             self.actionLabel.configure(text = 'Roll Again')
+            self.action.set('Roll Again')
+            self.disableDirectionButtons()
             return
         else:
+            self.actionLabel.configure(text = 'Answer Question')
             question = questionGenerator.getRandomQuestion(category)
 
         # Display Question and Prompt for Answer
         # needs to be replaced by with UI loop integration
+        self.actionLabel.configure(text = 'Answer Question')
         self.disableAllButtons()
         self.currentquestion = question
         self.questionText.configure(text = question['question'])
@@ -553,7 +448,8 @@ class GameUI:
                 # Add player to the placement array, set them inactive
                 self.placement.append(self.players[self.currentPlayerIdx])
                 self.players[self.currentPlayerIdx].active = False
-                self.current_player.configure(text = '')
+                text = currentPlayer.id + ' obtained all chips. Next player roll die.'
+                self.actionLabel.configure(text = text)
                 # Set the last turn round
                 self.lastRound = True
                 if self.player_num[currentPlayer.id] == 1:
@@ -585,8 +481,31 @@ class GameUI:
                 currentPlayer.addChip(self.currentquestion['category'])
         else:
             print('Incorrect')
-            self.actionLabel.configure(text = 'Answer Incorrect, Next Player Rolls')
+            if len(self.players) == 2:
+                if self.player_num[currentPlayer.id] == 1:
+                    next_player = self.players[1].id
+                elif self.player_num[currentPlayer.id] == 2:
+                    next_player = self.players[0].id
+            elif len(self.players) == 3:
+                if self.player_num[currentPlayer.id] == 1:
+                    next_player = self.players[1].id
+                elif self.player_num[currentPlayer.id] == 2:
+                    next_player = self.players[2].id
+                elif self.player_num[currentPlayer.id] == 3:
+                    next_player = self.players[0].id
+            elif len(self.players) == 4:
+                if self.player_num[currentPlayer.id] == 1:
+                    next_player = self.players[1].id
+                elif self.player_num[currentPlayer.id] == 2:
+                    next_player = self.players[2].id
+                elif self.player_num[currentPlayer.id] == 3:
+                    next_player = self.players[3].id
+                elif self.player_num[currentPlayer.id] == 4:
+                    next_player = self.players[0].id
+            text = "Answer Incorrect, " + next_player + " Roll Die"
+            self.actionLabel.configure(text = text)
             self.questionText.configure(text = '')
+            self.current_player.configure(text = '')
             self.answerEntry.delete(0, 'end')
             # Move the player off the center square if this was a final attempt
             if (currentPlayer.location == 33 and len(currentPlayer.chips) == 4):
@@ -606,6 +525,9 @@ class GameUI:
             if player.active:
                 endCheck = True
         if (not endCheck):
+            self.actionLabel.configure(text = 'GAME OVER, VICTORY UI OPENS')
+            self.rolldieResult.configure(text = '')
+            self.disableAllButtons()
             self.showVictoryScreen()
             return
         #Update the UI State
@@ -737,13 +659,6 @@ class GameUI:
         # Continue the turn logic
         self.getCategory()
 
-    def submit(self, answer):
-
-        print('Submit answer and close question window')
-        print('Answer created from window:', answer)
-        self.answer = answer
-        self.questionWindow.destroy()
-
     def initBoard(self):
         # Bad hard coded board init
         cats = ['Events','Places','Independence Day', 'People']
@@ -789,6 +704,112 @@ class GameUI:
         # Text based State UI for now
         for player in self.players:
             print(player)
+
+    def refresh(self, event):
+
+        xsize = int((event.width-1)/self.columns)
+        ysize = int((event.height-1)/self.rows)
+        self.size = min(xsize, ysize)
+        self.canvas.delete('square')
+        i = 1
+        for row in range(self.rows):
+            for col in range(self.columns):
+                x1 = (col * self.size)
+                y1 = (row * self.size)
+                x2 = x1 + self.size
+                y2 = y1 + self.size
+                self.canvas.create_text(x1+30, y1+30, text = str(self.grid_conv_table[i]))
+                self.canvas.create_rectangle(x1, y1, x2, y2, outline = 'black', fill = self.square_colors[i], tags = 'square')
+                i += 1
+        self.canvas.tag_raise('piece')
+        self.canvas.tag_lower('square')
+        self.saveGridLoc()
+
+    def saveGridLoc(self):
+
+        grid_loc = {}
+        i = 1
+        for row in range(self.rows):
+            for col in range(self.columns):
+                x1 = (col * self.size)
+                y1 = (row * self.size)
+                x2 = x1 + self.size
+                y2 = y1 + self.size
+                grid_loc[i] = (x1, y1)
+                i += 1
+
+        return grid_loc
+
+    def placePiece(self, name, location):
+
+        # place piece at row/column
+        self.pieces[name] = (self.grid_loc[location][0], self.grid_loc[location][1])
+
+        if self.player_num[name] == 1:
+            self.canvas.coords(name, self.grid_loc[location][0] + 10, self.grid_loc[location][1] + 10)
+        elif self.player_num[name] == 2:
+            self.canvas.coords(name, self.grid_loc[location][0] + 30, self.grid_loc[location][1] + 10)
+        elif self.player_num[name] == 3:
+            self.canvas.coords(name, self.grid_loc[location][0] + 10, self.grid_loc[location][1] + 30)
+        elif self.player_num[name] == 4:
+            self.canvas.coords(name, self.grid_loc[location][0] + 30, self.grid_loc[location][1] + 30)
+
+    def addPiece(self, name, image, location):
+
+        # add player piece to board
+        print('Adding Player {} to Board'.format(name))
+        self.canvas.create_image(20, 20, image = image, tags = (name, 'piece'), anchor = 'c')
+        self.placePiece(name, location)
+
+    def disableCatButtons(self):
+
+        self.event.configure(state = 'disabled')
+        self.people.configure(state = 'disabled')
+        self.places.configure(state = 'disabled')
+        self.ind_day.configure(state = 'disabled')
+
+    def disableDirectionButtons(self):
+
+        self.clockwise.configure(state = 'disabled')
+        self.counter_clockwise.configure(state = 'disabled')
+        self.outer.configure(state = 'disabled')
+        self.inner.configure(state = 'disabled')
+        self.up.configure(state = 'disabled')
+        self.down.configure(state = 'disabled')
+        self.left.configure(state = 'disabled')
+        self.right.configure(state = 'disabled')
+
+    def disableAllButtons(self):
+
+        self.rollButton.configure(state = 'disabled')
+        self.clockwise.configure(state = 'disabled')
+        self.counter_clockwise.configure(state = 'disabled')
+        self.outer.configure(state = 'disabled')
+        self.inner.configure(state = 'disabled')
+        self.up.configure(state = 'disabled')
+        self.down.configure(state = 'disabled')
+        self.left.configure(state = 'disabled')
+        self.right.configure(state = 'disabled')
+        self.event.configure(state = 'disabled')
+        self.people.configure(state = 'disabled')
+        self.places.configure(state = 'disabled')
+        self.ind_day.configure(state = 'disabled')
+
+    def enableAllButtons(self):
+
+        self.rollButton.configure(state = 'normal')
+        self.clockwise.configure(state = 'normal')
+        self.counter_clockwise.configure(state = 'normal')
+        self.outer.configure(state = 'normal')
+        self.inner.configure(state = 'normal')
+        self.up.configure(state = 'normal')
+        self.down.configure(state = 'normal')
+        self.left.configure(state = 'normal')
+        self.right.configure(state = 'normal')
+        self.event.configure(state = 'normal')
+        self.people.configure(state = 'normal')
+        self.places.configure(state = 'normal')
+        self.ind_day.configure(state = 'normal')
             
     def showVictoryScreen(self):
         # Text based State UI for now, add real screen later
@@ -799,6 +820,12 @@ class GameUI:
             print('No ' + str(i) +': Player ' + str(player.id))
             i += 1
 
+    def victory(self):
+
+        print('Close game board and proceed to Victory UI')
+        # self.gameBoardWindow.destroy()
+        # vic = tp_victoryUI.Victory(winners)
+
     def viewRules(self):
         rules_window = tp_rules_UI.RulesUI()
 
@@ -807,3 +834,4 @@ class GameUI:
         self.gameBoardWindow.destroy()
         for player in self.players:
             del player
+
