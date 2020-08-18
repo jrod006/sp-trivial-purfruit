@@ -6,6 +6,7 @@ from PIL import ImageTk, Image
 import tp_player as pl
 import tkinter as tk
 import tp_rules_UI
+import tp_victoryUI
 import threading
 import tp_settings
 import tp_player
@@ -316,6 +317,16 @@ class GameUI:
         self.gameExitButton = tk.Button(self.gameBoardWindow, command = self.close, text = 'Exit Game Board', font = self.arial_bold)
         self.gameExitButton.grid(row = 16, column = 2)
 
+        # temporary button to view victory UI
+        self.victoryButton = tk.Button(self.gameBoardWindow, command = self.victory, text = 'Open Victory UI', font = self.arial_bold)
+        self.victoryButton.grid(row = 17, column = 2)
+
+    def victory(self):
+
+        print('Close game board and proceed to Victory UI')
+        # self.gameBoardWindow.destroy()
+        # vic = tp_victoryUI.Victory(winners)
+
     def refresh(self, event):
 
         xsize = int((event.width-1)/self.columns)
@@ -354,10 +365,10 @@ class GameUI:
     def placePiece(self, name, location):
 
         # print('Moving player: ', name)
+        if location == -1:
+            location = 27
 
         # place piece at row/column
-        print('grid_loc[location][0]: ', self.grid_loc[location][0])
-        print('grid_loc[location][1]: ', self.grid_loc[location][1])
         self.pieces[name] = (self.grid_loc[location][0], self.grid_loc[location][1])
 
         if self.player_num[name] == 1:
@@ -460,6 +471,7 @@ class GameUI:
 
     def disableAllButtons(self):
 
+        self.rollButton.configure(state = 'disabled')
         self.clockwise.configure(state = 'disabled')
         self.counter_clockwise.configure(state = 'disabled')
         self.outer.configure(state = 'disabled')
@@ -475,6 +487,7 @@ class GameUI:
 
     def enableAllButtons(self):
 
+        self.rollButton.configure(state = 'normal')
         self.clockwise.configure(state = 'normal')
         self.counter_clockwise.configure(state = 'normal')
         self.outer.configure(state = 'normal')
@@ -489,6 +502,8 @@ class GameUI:
         self.ind_day.configure(state = 'normal')
     
     def askQuestion(self, category):
+
+        self.actionLabel.configure(text = 'Answer Question')
         questionGenerator = tp_question.QuestionGenerator()
         question = {}
         if category == 'Roll':
@@ -501,7 +516,6 @@ class GameUI:
 
         # Display Question and Prompt for Answer
         # needs to be replaced by with UI loop integration
-        self.actionLabel.configure(text = 'Answer Question')
         self.disableAllButtons()
         self.currentquestion = question
         self.questionText.configure(text = question['question'])
@@ -530,28 +544,24 @@ class GameUI:
                 if self.player_num[currentPlayer.id] == 1:
                     # remove player 1 from UI
                     self.player1_name.destroy()
-                    self.player1Num.destroy()
                     self.player1_chips_label.destroy()
                     self.chip1_img.destroy()
                     self.canvas.delete(currentPlayer.id)
                 elif self.player_num[currentPlayer.id] == 2:
                     # remove player 2 from UI
                     self.player2_name.destroy()
-                    self.player2Num.destroy()
                     self.player2_chips_label.destroy()
                     self.chip2_img.destroy()
                     self.canvas.delete(currentPlayer.id)
                 elif self.player_num[currentPlayer.id] == 3:
                     # remove player 3 from UI
                     self.player3_name.destroy()
-                    self.player3Num.destroy()
                     self.player3_chips_label.destroy()
                     self.chip3_img.destroy()
                     self.canvas.delete(currentPlayer.id)
                 elif self.player_num[currentPlayer.id] == 4:
                     # remove player 4 from UI
                     self.player4_name.destroy()
-                    self.player4Num.destroy()
                     self.player4_chips_label.destroy()
                     self.chip4_img.destroy()
                     self.canvas.delete(currentPlayer.id)
@@ -623,6 +633,7 @@ class GameUI:
                         self.chip4_img.grid(row = 13, column = 4)
 
         self.rolldieResult.configure(text = '')
+        self.rollButton.configure(state = 'normal')
         # time.sleep(1)
 
     def setValidDirections(self, currlocation, exiting=False):
