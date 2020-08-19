@@ -435,7 +435,7 @@ class GameUI:
         currentPlayer = self.players[self.currentPlayerIdx]
         correct = (ans == self.currentquestion['answer'])
         #  Below is so one can mash enter to test, uncomment for testing:
-        correct = True
+        # correct = True
         if (correct):
             
             print('Correct')
