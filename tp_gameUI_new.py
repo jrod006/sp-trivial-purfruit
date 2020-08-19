@@ -319,6 +319,7 @@ class GameUI:
         self.victoryButton = tk.Button(self.gameBoardWindow, command = self.victory, text = 'Open Victory UI', font = self.arial_bold)
         self.victoryButton.grid(row = 17, column = 2)
 
+
     def submitCategory(self, category):
 
         print('Category Chosen: ', category)
@@ -434,7 +435,7 @@ class GameUI:
         currentPlayer = self.players[self.currentPlayerIdx]
         correct = (ans == self.currentquestion['answer'])
         #  Below is so one can mash enter to test, uncomment for testing:
-        #  correct = True
+        correct = True
         if (correct):
             
             print('Correct')
@@ -815,16 +816,18 @@ class GameUI:
         # Text based State UI for now, add real screen later
         print('Game Over')
         print('Rankings')
-        i = 1
+        i = 0
         for player in self.placement:
             print('No ' + str(i) +': Player ' + str(player.id))
             i += 1
+        self.victory()
+
 
     def victory(self):
 
         print('Close game board and proceed to Victory UI')
-        # self.gameBoardWindow.destroy()
-        # vic = tp_victoryUI.Victory(winners)
+        self.gameBoardWindow.destroy()
+        vic = tp_victoryUI.Victory(self.placement)
 
     def viewRules(self):
         rules_window = tp_rules_UI.RulesUI()
