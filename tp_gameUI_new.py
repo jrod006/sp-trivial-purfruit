@@ -98,7 +98,7 @@ class GameUI:
                                     height = self.canvas_height,
                                     background = 'black'
                                 )
-        self.canvas.grid(column = 0, padx = 1, pady = 1)
+        self.canvas.grid(column = 0, row = 4, rowspan = 10, padx = 1, pady = 1)
         self.canvas.bind('<Configure>', self.refresh)
 
         self.temp_grid_loc = self.saveGridLoc()
@@ -152,172 +152,172 @@ class GameUI:
             self.column = 0
             # add label for player one name
             self.player1_name = Label(self.gameBoardWindow, text = 'Player 1: ' + self.players[0].id, font = self.arial)
-            self.player1_name.grid(row = 10, column = 1)
+            self.player1_name.grid(row = 10, column = 2)
             # add label for player one chips
             self.player1_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
-            self.player1_chips_label.grid(row = 12, column = 1)
+            self.player1_chips_label.grid(row = 12, column = 2)
 
         elif len(self.players) == 2:
             
             self.column_num = 0
             # add label for player one name
             self.player1_name = Label(self.gameBoardWindow, text = 'Player 1: ' + self.players[0].id, font = self.arial)
-            self.player1_name.grid(row = 10, column = 1)
+            self.player1_name.grid(row = 10, column = 2)
             # add label for player one chips
             self.player1_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
-            self.player1_chips_label.grid(row = 12, column = 1)
+            self.player1_chips_label.grid(row = 12, column = 2)
 
             # create player two object
             self.p2 = pl.Player(self.settings['players']['player2'])
             # add label for player two name
             self.player2_name = Label(self.gameBoardWindow, text = 'Player 2: ' + self.players[1].id, font = self.arial)
-            self.player2_name.grid(row = 10, column = 2)
+            self.player2_name.grid(row = 10, column = 3)
             # add label for player two chips
             self.player2_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
-            self.player2_chips_label.grid(row = 12, column = 2)
+            self.player2_chips_label.grid(row = 12, column = 3)
 
         elif len(self.players) == 3:
             
             self.column_num = 1
             # add label for player one name
             self.player1_name = Label(self.gameBoardWindow, text = 'Player 1: ' + self.players[0].id, font = self.arial)
-            self.player1_name.grid(row = 10, column = 1)
+            self.player1_name.grid(row = 10, column = 2)
             # add label for player one chips
             self.player1_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
-            self.player1_chips_label.grid(row = 12, column = 1)
+            self.player1_chips_label.grid(row = 12, column = 2)
 
             # add label for player two name
             self.player2_name = Label(self.gameBoardWindow, text = 'Player 2: ' + self.players[1].id, font = self.arial)
-            self.player2_name.grid(row = 10, column = 2)
+            self.player2_name.grid(row = 10, column = 3)
             # add label for player two chips
             self.player2_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
-            self.player2_chips_label.grid(row = 12, column = 2)
+            self.player2_chips_label.grid(row = 12, column = 3)
 
             # add label for player three name
             self.player3_name = Label(self.gameBoardWindow, text = 'Player 3: ' + self.players[2].id, font = self.arial)
-            self.player3_name.grid(row = 10, column = 3)
+            self.player3_name.grid(row = 10, column = 4)
             # add label for player three chips
             self.player3_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
-            self.player3_chips_label.grid(row = 12, column = 3)
+            self.player3_chips_label.grid(row = 12, column = 4)
 
         elif len(self.players) == 4:
             
             self.column_num = 1
             # add label for player one name
             self.player1_name = Label(self.gameBoardWindow, text = 'Player 1: ' + self.players[0].id, font = self.arial)
-            self.player1_name.grid(row = 10, column = 1)
+            self.player1_name.grid(row = 10, column = 2)
             # add label for player one chips
             self.player1_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
-            self.player1_chips_label.grid(row = 12, column = 1)
+            self.player1_chips_label.grid(row = 12, column = 2)
 
             # add label for player two name
             self.player2_name = Label(self.gameBoardWindow, text = 'Player 2: ' + self.players[1].id, font = self.arial)
-            self.player2_name.grid(row = 10, column = 2)
+            self.player2_name.grid(row = 10, column = 3)
             # add label for player two chips
             self.player2_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
-            self.player2_chips_label.grid(row = 12, column = 2)
+            self.player2_chips_label.grid(row = 12, column = 3)
 
             # add label for player three name
             self.player3_name = Label(self.gameBoardWindow, text = 'Player 3: ' + self.players[2].id, font = self.arial)
-            self.player3_name.grid(row = 10, column = 3)
+            self.player3_name.grid(row = 10, column = 4)
             # add label for player three chips
             self.player3_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
-            self.player3_chips_label.grid(row = 12, column = 3)
+            self.player3_chips_label.grid(row = 12, column = 4)
 
             # add label for player one name
             self.player4_name = Label(self.gameBoardWindow, text = 'Player 4: ' + self.players[3].id, font = self.arial)
-            self.player4_name.grid(row = 10, column = 4)
+            self.player4_name.grid(row = 10, column = 5)
             # add label for player four chips
             self.player4_chips_label = Label(self.gameBoardWindow, text = 'Chips:', font = self.arial)
-            self.player4_chips_label.grid(row = 12, column = 4)
+            self.player4_chips_label.grid(row = 12, column = 5)
 
         # options for player to choose direction
         self.directionLabel = Label(self.gameBoardWindow, text = 'Choose Direction:', font = self.arial_bold)
-        self.directionLabel.grid(row = 1, column = 0)
+        self.directionLabel.grid(row = 1, column = 1)
         self.clockwise = tk.Button(self.gameBoardWindow, text = 'Clockwise', command= lambda: self.setDirection('cw'), font = self.arial)
-        self.clockwise.grid(row = 2, column = 0, sticky = 'EW')
+        self.clockwise.grid(row = 2, column = 1, sticky = 'EW')
         self.counter_clockwise = tk.Button(self.gameBoardWindow, text = 'Counter Clockwise', command= lambda: self.setDirection('ccw'), font = self.arial)
-        self.counter_clockwise.grid(row = 3, column = 0, sticky = 'EW')
+        self.counter_clockwise.grid(row = 3, column = 1, sticky = 'EW')
         self.inner = tk.Button(self.gameBoardWindow, text = 'Inner', command= lambda: self.setDirection('inner'), font = self.arial)
-        self.inner.grid(row = 4, column = 0, sticky = 'EW')
+        self.inner.grid(row = 4, column = 1, sticky = 'EW')
         self.outer = tk.Button(self.gameBoardWindow, text = 'Outer', command= lambda: self.setDirection('outer'), font = self.arial)
-        self.outer.grid(row = 5, column = 0, sticky = 'EW')
+        self.outer.grid(row = 5, column = 1, sticky = 'EW')
 
         # options for player to choose exit direction
         self.exitDirectionLabel = Label(self.gameBoardWindow, text = 'Choose Exit Direction:', font = self.arial_bold)
-        self.exitDirectionLabel.grid(row = 6, column = 0)
+        self.exitDirectionLabel.grid(row = 6, column = 1)
         self.up = tk.Button(self.gameBoardWindow, text = 'Up', command = lambda: self.setExitDirection('up'), font = self.arial)
-        self.up.grid(row = 7, column = 0, sticky = 'EW')
+        self.up.grid(row = 7, column = 1, sticky = 'EW')
         self.down = tk.Button(self.gameBoardWindow, text = 'Down', command = lambda: self.setExitDirection('down'), font = self.arial)
-        self.down.grid(row = 8, column = 0, sticky = 'EW')
+        self.down.grid(row = 8, column = 1, sticky = 'EW')
         self.left = tk.Button(self.gameBoardWindow, text = 'Left', command = lambda: self.setExitDirection('left'), font = self.arial)
-        self.left.grid(row = 9, column = 0, sticky = 'EW')
+        self.left.grid(row = 9, column = 1, sticky = 'EW')
         self.right = tk.Button(self.gameBoardWindow, text = 'Right', command = lambda: self.setExitDirection('right'), font = self.arial)
-        self.right.grid(row = 10, column = 0, sticky = 'EW')
+        self.right.grid(row = 10, column = 1, sticky = 'EW')
 
         # options for player to choose question category
         self.catLabel = Label(self.gameBoardWindow, text = 'Choose Question Category:', font = self.arial_bold)
-        self.catLabel.grid(row = 12, column = 0)
+        self.catLabel.grid(row = 12, column = 1)
         self.event = tk.Button(self.gameBoardWindow, text = 'Events', command = lambda: self.submitCategory('Events'), font = self.arial)
-        self.event.grid(row = 13, column = 0, sticky = 'EW')
+        self.event.grid(row = 13, column = 1, sticky = 'EW')
         self.people = tk.Button(self.gameBoardWindow, text = 'People', command = lambda: self.submitCategory('People'), font = self.arial)
-        self.people.grid(row = 14, column = 0, sticky = 'EW')
+        self.people.grid(row = 14, column = 1, sticky = 'EW')
         self.places = tk.Button(self.gameBoardWindow, text = 'Places', command = lambda: self.submitCategory('Places'), font = self.arial)
-        self.places.grid(row = 15, column = 0, sticky = 'EW')
+        self.places.grid(row = 15, column = 1, sticky = 'EW')
         self.ind_day = tk.Button(self.gameBoardWindow, text = 'Independence Day', command = lambda: self.submitCategory('Independence Day'), font = self.arial)
-        self.ind_day.grid(row = 16, column = 0, sticky = 'EW')
+        self.ind_day.grid(row = 16, column = 1, sticky = 'EW')
 
         # current player
         self.player_in_turn = tk.Label(self.gameBoardWindow, text = 'Current Player:', font = self.arial_bold)
-        self.player_in_turn.grid(column = 1, row = 1)
+        self.player_in_turn.grid(column = 2, row = 1)
         self.current_player = tk.Label(self.gameBoardWindow, text = self.players[self.currentPlayerIdx].id, font = self.arial)
-        self.current_player.grid(column = 2, row = 1)
+        self.current_player.grid(column = 3, row = 1)
 
         # current action
         self.currentactionLabel = tk.Label(self.gameBoardWindow, text = 'Current Action:', font = self.arial_bold)
-        self.currentactionLabel.grid(column = 1, row = 2)
+        self.currentactionLabel.grid(column = 2, row = 2)
         self.action = StringVar()
         self.actionLabel = Label(self.gameBoardWindow, text = self.action, font = self.arial)
-        self.actionLabel.grid(column = 2, row = 2, columnspan = 3)
+        self.actionLabel.grid(column = 3, row = 2, columnspan = 3)
         self.actionLabel.configure(text = 'Player 1 Roll Die')
 
         # roll die
         self.rolldieText = tk.Label(self.gameBoardWindow, text = 'Dice Roll:', font = self.arial_bold)
-        self.rolldieText.grid(column = 1, row = 3)
+        self.rolldieText.grid(column = 2, row = 3)
         self.roll = StringVar()
         self.rolldieResult = tk.Label(self.gameBoardWindow, text = self.roll, font = self.arial)
-        self.rolldieResult.grid(column = 2, row = 3, columnspan = 3)
+        self.rolldieResult.grid(column = 3, row = 3, columnspan = 3)
         self.rollButton = tk.Button(self.gameBoardWindow, text = 'Roll Die', command = self.startTurn, font = self.arial_bold)
-        self.rollButton.grid(column = 2, row = 4, sticky = 'EW')
+        self.rollButton.grid(column = 3, row = 4, sticky = 'EW')
         self.rolldieResult.configure(text = '')
 
         # player question
         self.playerLabel = tk.Label(self.gameBoardWindow, text = 'Question:', font = self.arial_bold)
-        self.playerLabel.grid(column = 1, row = 5, columnspan = 4)
+        self.playerLabel.grid(column = 2, row = 5, columnspan = 4)
         self.question = 'No Question Available'
         self.questionText = Label(self.gameBoardWindow, text = '', wraplength = 500, font = self.arial)
-        self.questionText.grid(column = 1, row = 6, columnspan = 4)
+        self.questionText.grid(column = 2, row = 6, columnspan = 4)
         # player answer
         self.answerLabel = tk.Label(self.gameBoardWindow, text = 'Answer:', font = self.arial_bold)
-        self.answerLabel.grid(column = 1, row = 7, columnspan = 4)
+        self.answerLabel.grid(column = 2, row = 7, columnspan = 4)
         self.answerEntry = Entry(self.gameBoardWindow)
-        self.answerEntry.grid(column = 1, row = 8, columnspan = 4)
+        self.answerEntry.grid(column = 2, row = 8, columnspan = 4)
 
         # submit answer
         self.submitAnswer = tk.Button(self.gameBoardWindow, command = self.checkAnswer, text = 'Submit Answer', font = self.arial_bold)
-        self.submitAnswer.grid(row = 9, column = 1, columnspan = 4)
+        self.submitAnswer.grid(row = 9, column = 2, columnspan = 4)
 
         # add button to access dice roll
         self.rulesButton = tk.Button(self.gameBoardWindow, command = self.viewRules, text = 'View Game Rules', font = self.arial_bold)
-        self.rulesButton.grid(row = 15, column = 2)
+        self.rulesButton.grid(row = 15, column = 3)
 
         # add button to access dice roll
         self.gameExitButton = tk.Button(self.gameBoardWindow, command = self.close, text = 'Exit Game Board', font = self.arial_bold)
-        self.gameExitButton.grid(row = 16, column = 2)
+        self.gameExitButton.grid(row = 16, column = 3)
 
         # temporary button to view victory UI
         self.victoryButton = tk.Button(self.gameBoardWindow, command = self.victory, text = 'Open Victory UI', font = self.arial_bold)
-        self.victoryButton.grid(row = 17, column = 2)
+        self.victoryButton.grid(row = 17, column = 3)
 
 
     def submitCategory(self, category):
