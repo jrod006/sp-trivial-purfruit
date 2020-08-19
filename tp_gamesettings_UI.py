@@ -30,7 +30,7 @@ class GameSettings:
         self.gameSettingsWindow.title('TP Game Settings')
         self.frame = tk.Frame(self.gameSettingsWindow)
 
-        self.instructions = 'Enter Settings for New Game:\n1) Enter names of players \n\tNote: Only enter names of players to play\n2) Select time for question answering\n3) Click Set Player Order button to determine player order \n4) Click Begin New Game to start new game'
+        self.instructions = 'Enter Settings for New Game:\n1) Enter names of players \n\tNote: Only enter names of players to play \n2) Click Set Player Order button to determine player order \n3) Click Begin New Game to start new game'
         # trivial pursuit welcome label
         self.settingsLabel = Label(self.gameSettingsWindow, text = self.instructions, font = arial_bold, anchor = 'w', justify = 'left')
         self.settingsLabel.grid(sticky = 'EW', row = 0, column = 0, columnspan = 4)
